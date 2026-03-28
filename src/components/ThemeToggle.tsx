@@ -32,14 +32,19 @@ function applyThemeMode(mode: ThemeMode) {
 }
 
 export default function ThemeToggle() {
-  const [mode, setMode] = useState<ThemeMode>(getInitialMode);
+  const [mode, setMode] = useState<ThemeMode>('auto');
+
+  useEffect(() => {
+    const initialMode = getInitialMode();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMode(initialMode);
+    applyThemeMode(initialMode);
+  }, []);
 
   useEffect(() => {
     if (mode !== 'auto') {
       return;
     }
-
-    applyThemeMode(mode);
 
     const media = window.matchMedia('(prefers-color-scheme: dark)');
     const onChange = () => applyThemeMode('auto');

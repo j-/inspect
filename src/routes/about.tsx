@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/about')({
   component: About,
+  notFoundComponent: () => <div>Not found</div>,
 });
 
 function About() {
