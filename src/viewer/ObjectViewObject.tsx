@@ -1,8 +1,10 @@
 import Box from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { memo, type FC, type ReactNode } from 'react';
 import { ObjectLabel } from './ObjectLabel';
 import { ObjectViewComplex } from './ObjectViewComplex';
+import { useViewerContext } from './providers';
 import { getName, orderedKeys } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
@@ -32,6 +34,8 @@ export const ObjectViewObject = memo<ObjectViewObjectProps>(({
 
   renderValue,
 }) => {
+  const { thisPath } = useViewerContext();
+
   if (keys.length === 0) {
     return (
       <Typography component="span" color="gray.300" fontFamily="monospace">
@@ -60,14 +64,16 @@ export const ObjectViewObject = memo<ObjectViewObjectProps>(({
               component="li"
               sx={{ display: 'inline', listStyle: 'none', whiteSpace: 'nowrap' }}
             >
-              <Typography
-                component="span"
-                color={typeof parent[key] === 'function' ? 'textDisabled' : 'inherit'}
-                fontFamily="monospace"
-              >
-                {key}
-                {': '}
-              </Typography>
+              <Tooltip title={[...thisPath, key].join('.')} followCursor>
+                <Typography
+                  component="span"
+                  color={typeof parent[key] === 'function' ? 'textDisabled' : 'inherit'}
+                  fontFamily="monospace"
+                >
+                  {key}
+                  {': '}
+                </Typography>
+              </Tooltip>
 
               {
                 // Is a custom view defined?
