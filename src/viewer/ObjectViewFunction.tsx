@@ -1,6 +1,5 @@
 import Typography from '@mui/material/Typography';
 import { memo } from 'react';
-import { getName } from './utils';
 
 export const ObjectViewFunction = memo<{
   // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
@@ -13,7 +12,7 @@ export const ObjectViewFunction = memo<{
       component="span"
       fontFamily="monospace"
     >
-      {getName(value, 'Function')}
+      {value.name}
     </Typography>
 
     {'()]'}
