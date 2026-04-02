@@ -2,10 +2,12 @@ import Typography from '@mui/material/Typography';
 import { memo } from 'react';
 import { ObjectSymbol } from './ObjectSymbol';
 
-export const ObjectViewFunction = memo<{
+export type ObjectViewFunctionProps = {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   value: Function;
-}>(({ value }) => (
+};
+
+export const ObjectViewFunction = memo<ObjectViewFunctionProps>(({ value }) => (
   <ObjectSymbol>
     {'[function '}
 
@@ -19,3 +21,5 @@ export const ObjectViewFunction = memo<{
     {'()]'}
   </ObjectSymbol>
 ));
+
+ObjectViewFunction.displayName = 'ObjectViewFunction';

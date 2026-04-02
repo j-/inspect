@@ -1,68 +1,54 @@
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { ClientOnly, createFileRoute } from '@tanstack/react-router';
 import type { FC } from 'react';
-import { Viewer } from '#/viewer/Viewer';
+import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
 
-const PaperWindowScreen: FC = () => (
-  <Paper sx={{ p: 2 }}>
-    <Box>
-      <Viewer object={window.screen} />
-    </Box>
-  </Paper>
+const PanelWindowScreen: FC = () => (
+  <ObjectViewerPanel initialValue={() => window.screen} />
 );
 
-const PaperWindowGetScreenDetails: FC = () => (
-  <Paper sx={{ p: 2 }}>
-    <Box>
-      <Viewer object={(window as any).getScreenDetails()} />
-    </Box>
-  </Paper>
+const PanelWindowGetScreenDetails: FC = () => (
+  <ObjectViewerPanel initialValue={() => (window as any).getScreenDetails()} />
 );
 
-const PaperSampleData: FC = () => (
-  <Paper sx={{ p: 2 }}>
-    <Box>
-      <Viewer
-        object={{
-          sample: [
-            true,
-            null,
-            42,
-            'Hello, world!',
-            undefined,
-            [1, 'nested', false, [null]],
-          ],
-          map: new Map<string, string | number>([
-            ['key1', 'value1'],
-            ['key2', 42],
-          ]),
-          set: new Set(['value1', 42]),
-          nested: {
-            a: 1,
-            b: 'string',
-            c: {
-              d: 'deeply nested',
-            },
-          },
-          async: {
-            wait1sResolve: (async () => {
-              await new Promise((resolve) => setTimeout(resolve, 1000));
-              return 'resolved after 1 second';
-            })(),
-            wait2sReject: (async () => {
-              await new Promise((_, reject) => setTimeout(reject, 2000, new Error('rejected after 2 seconds')));
-            })(),
-            wait3sResolve: (async () => {
-              await new Promise((resolve) => setTimeout(resolve, 3000));
-              return 'resolved after 3 seconds';
-            })(),
-          },
-        }}
-      />
-    </Box>
-  </Paper>
+const PanelSampleData: FC = () => (
+  <ObjectViewerPanel
+    initialValue={() => ({
+      sample: [
+        true,
+        null,
+        42,
+        'Hello, world!',
+        undefined,
+        [1, 'nested', false, [null]],
+      ],
+      map: new Map<string, string | number>([
+        ['key1', 'value1'],
+        ['key2', 42],
+      ]),
+      set: new Set(['value1', 42]),
+      nested: {
+        a: 1,
+        b: 'string',
+        c: {
+          d: 'deeply nested',
+        },
+      },
+      async: {
+        wait1sResolve: (async () => {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          return 'resolved after 1 second';
+        })(),
+        wait2sReject: (async () => {
+          await new Promise((_, reject) => setTimeout(reject, 2000, new Error('rejected after 2 seconds')));
+        })(),
+        wait3sResolve: (async () => {
+          await new Promise((resolve) => setTimeout(resolve, 3000));
+          return 'resolved after 3 seconds';
+        })(),
+      },
+    })}
+  />
 );
 
 const App: FC = () => {
@@ -70,15 +56,15 @@ const App: FC = () => {
     <main className="page-wrap px-4 pb-8 pt-14">
       <Stack gap={4}>
         <ClientOnly>
-          <PaperWindowScreen />
+          <PanelWindowScreen />
         </ClientOnly>
 
         <ClientOnly>
-          <PaperWindowGetScreenDetails />
+          <PanelWindowGetScreenDetails />
         </ClientOnly>
 
         <ClientOnly>
-          <PaperSampleData />
+          <PanelSampleData />
         </ClientOnly>
       </Stack>
     </main>

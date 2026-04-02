@@ -1,10 +1,12 @@
 import { useEffect, useState, type FC, type ReactNode } from 'react';
 import { ObjectLabel } from './ObjectLabel';
 
-export const ObjectViewPromise: FC<{
+export type ObjectViewPromiseProps = {
   value: Promise<unknown>,
   renderValue: (value: unknown) => ReactNode;
-}> = ({
+};
+
+export const ObjectViewPromise: FC<ObjectViewPromiseProps> = ({
   value,
   renderValue,
 }) => {
@@ -41,3 +43,5 @@ export const ObjectViewPromise: FC<{
     </>
   );
 };
+
+ObjectViewPromise.displayName = 'ObjectViewPromise';

@@ -1,11 +1,12 @@
-import { memo, type ReactNode } from 'react';
+import { memo } from 'react';
 import { ObjectLabel } from './ObjectLabel';
 import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewArray } from './ObjectViewArray';
+import type { RenderValueFunction } from './types';
 
 export type ObjectViewSetProps = {
   value: Set<any>;
-  renderValue: (value: unknown, nextKey: string | symbol) => ReactNode;
+  renderValue: RenderValueFunction;
 };
 
 export const ObjectViewSet = memo<ObjectViewSetProps>(({
@@ -23,7 +24,7 @@ export const ObjectViewSet = memo<ObjectViewSetProps>(({
       </ObjectSymbol>
 
       <ObjectViewArray value={Array.from(parent.values())} renderValue={(value, i) => (
-        renderValue(value, `${i}`)
+        renderValue(value, i)
       )} />
 
       <ObjectSymbol>
@@ -32,3 +33,5 @@ export const ObjectViewSet = memo<ObjectViewSetProps>(({
     </>
   );
 });
+
+ObjectViewSet.displayName = 'ObjectViewSet';

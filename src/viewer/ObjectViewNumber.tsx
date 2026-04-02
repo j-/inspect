@@ -10,3 +10,5 @@ export const ObjectViewNumber = memo<{ value: number }>(({ value }) => (
     {JSON.stringify(value)}
   </Typography>
 ));
+
+ObjectViewNumber.displayName = 'ObjectViewNumber';

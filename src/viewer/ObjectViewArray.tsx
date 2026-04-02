@@ -1,13 +1,16 @@
 import Box from '@mui/material/Box';
-import { memo, type ReactNode } from 'react';
+import { type FC } from 'react';
 import { ObjectLabel } from './ObjectLabel';
 import { ObjectSymbol } from './ObjectSymbol';
+import type { RenderValueFunction } from './types';
 import { getArrayName } from './utils';
 
-export const ObjectViewArray = memo<{
+export type ObjectViewArrayProps = {
   value: unknown[];
-  renderValue: (value: unknown, index: number) => ReactNode;
-}>(({ value, renderValue }) => {
+  renderValue: RenderValueFunction;
+};
+
+export const ObjectViewArray: FC<ObjectViewArrayProps> = ({ value, renderValue }) => {
   if (value.length === 0) {
     return (
       <>
@@ -61,4 +64,6 @@ export const ObjectViewArray = memo<{
       </ObjectSymbol>
     </>
   );
-});
+};
+
+ObjectViewArray.displayName = 'ObjectViewArray';

@@ -6,3 +6,5 @@ export const ObjectViewUnknown = memo(() => (
     unknown
   </Typography>
 ));
+
+ObjectViewUnknown.displayName = 'ObjectViewUnknown';

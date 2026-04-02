@@ -3,7 +3,11 @@ import { memo } from 'react';
 import { ObjectSymbol } from './ObjectSymbol';
 import { getName } from './utils';
 
-export const ObjectViewComplex = memo<{ value: unknown }>(({ value }) => (
+export type ObjectViewComplexProps = {
+  value: unknown;
+};
+
+export const ObjectViewComplex = memo<ObjectViewComplexProps>(({ value }) => (
   <ObjectSymbol>
     {'[object '}
 
@@ -18,3 +22,5 @@ export const ObjectViewComplex = memo<{ value: unknown }>(({ value }) => (
     {']'}
   </ObjectSymbol>
 ));
+
+ObjectViewComplex.displayName = 'ObjectViewComplex';

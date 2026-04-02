@@ -1,7 +1,11 @@
 import Typography from '@mui/material/Typography';
 import { memo } from 'react';
 
-export const ObjectViewString = memo<{ value: string }>(({ value }) => (
+export type ObjectViewStringProps = {
+  value: string;
+};
+
+export const ObjectViewString = memo<ObjectViewStringProps>(({ value }) => (
   <Typography
     component="span"
     fontFamily="monospace"
@@ -11,3 +15,5 @@ export const ObjectViewString = memo<{ value: string }>(({ value }) => (
     {JSON.stringify(value)}
   </Typography>
 ));
+
+ObjectViewString.displayName = 'ObjectViewString';

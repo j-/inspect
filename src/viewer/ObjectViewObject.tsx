@@ -1,11 +1,12 @@
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { memo, type FC, type ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 import { ObjectLabel } from './ObjectLabel';
 import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewComplex } from './ObjectViewComplex';
 import { useViewerContext } from './providers';
+import type { RenderValueFunction } from './types';
 import { getName, orderedKeys } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
@@ -22,10 +23,10 @@ type ObjectViewObjectProps = {
   keys?: string[];
   comments?: Map<string, (value: unknown) => ReactNode>;
 
-  renderValue: (value: unknown, nextKey: string | symbol) => ReactNode;
+  renderValue: RenderValueFunction;
 };
 
-export const ObjectViewObject = memo<ObjectViewObjectProps>(({
+export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
   value: parent,
   name = getName(parent),
   complexTypes = [],
@@ -123,4 +124,6 @@ export const ObjectViewObject = memo<ObjectViewObjectProps>(({
       </ObjectSymbol>
     </>
   );
-});
+};
+
+ObjectViewObject.displayName = 'ObjectViewObject';

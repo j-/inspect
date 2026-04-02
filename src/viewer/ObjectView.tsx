@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { type FC } from 'react';
 import { ObjectViewArray } from './ObjectViewArray';
 import { ObjectViewBoolean } from './ObjectViewBoolean';
 import { ObjectViewFunction } from './ObjectViewFunction';
@@ -26,7 +26,11 @@ import {
   isUndefined,
 } from './utils';
 
-export const ObjectView = memo<{ value: unknown }>(({ value }) => {
+export type ObjectViewProps = {
+  value: unknown;
+};
+
+export const ObjectView: FC<ObjectViewProps> = ({ value }) => {
   if (isNull(value)) {
     return <ObjectViewNull />;
   }
@@ -115,4 +119,6 @@ export const ObjectView = memo<{ value: unknown }>(({ value }) => {
   }
 
   return <ObjectViewUnknown />;
-});
+};
+
+ObjectView.displayName = 'ObjectView';

@@ -6,3 +6,5 @@ export const ObjectViewUndefined = memo(() => (
     undefined
   </Typography>
 ));
+
+ObjectViewUndefined.displayName = 'ObjectViewUndefined';

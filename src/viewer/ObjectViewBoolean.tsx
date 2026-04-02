@@ -10,3 +10,5 @@ export const ObjectViewBoolean = memo<{ value: boolean }>(({ value }) => (
     {JSON.stringify(value)}
   </Typography>
 ));
+
+ObjectViewBoolean.displayName = 'ObjectViewBoolean';

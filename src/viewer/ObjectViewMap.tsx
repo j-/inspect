@@ -55,3 +55,5 @@ export const ObjectViewMap = memo<ObjectViewMapProps>(({
     </>
   );
 });
+
+ObjectViewMap.displayName = 'ObjectViewMap';

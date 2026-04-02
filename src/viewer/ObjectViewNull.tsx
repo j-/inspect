@@ -6,3 +6,5 @@ export const ObjectViewNull = memo(() => (
     null
   </Typography>
 ));
+
+ObjectViewNull.displayName = 'ObjectViewNull';
