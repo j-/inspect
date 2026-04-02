@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { memo, type ReactNode } from 'react';
 import { ObjectLabel } from './ObjectLabel';
+import { ObjectSymbol } from './ObjectSymbol';
 import { getArrayName } from './utils';
 
 export const ObjectViewArray = memo<{
@@ -17,9 +17,9 @@ export const ObjectViewArray = memo<{
 
         {' '}
 
-        <Typography component="span" color="gray.300" fontFamily="monospace">
+        <ObjectSymbol>
           {'[]'}
-        </Typography>
+        </ObjectSymbol>
       </>
     );
   }
@@ -32,9 +32,9 @@ export const ObjectViewArray = memo<{
 
       {' '}
 
-      <Typography component="span" color="gray.300" fontFamily="monospace">
+      <ObjectSymbol>
         {'['}
-      </Typography>
+      </ObjectSymbol>
 
       <Box component="ul" p={0} m={0} ml="2ch">
         {value.map((item, i, arr) => [
@@ -49,21 +49,16 @@ export const ObjectViewArray = memo<{
           </Box>,
 
           i < arr.length - 1 ? (
-            <Typography
-              key={i + ','}
-              component="span"
-              color="gray.300"
-              fontFamily="monospace"
-            >
+            <ObjectSymbol key={i + ','}>
               {', '}
-            </Typography>
+            </ObjectSymbol>
           ) : null,
         ])}
       </Box>
 
-      <Typography component="span" color="gray.300" fontFamily="monospace">
+      <ObjectSymbol>
         {']'}
-      </Typography>
+      </ObjectSymbol>
     </>
   );
 });

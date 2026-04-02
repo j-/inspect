@@ -3,6 +3,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { memo, type FC, type ReactNode } from 'react';
 import { ObjectLabel } from './ObjectLabel';
+import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewComplex } from './ObjectViewComplex';
 import { useViewerContext } from './providers';
 import { getName, orderedKeys } from './utils';
@@ -38,9 +39,9 @@ export const ObjectViewObject = memo<ObjectViewObjectProps>(({
 
   if (keys.length === 0) {
     return (
-      <Typography component="span" color="gray.300" fontFamily="monospace">
+      <ObjectSymbol>
         {'{}'}
-      </Typography>
+      </ObjectSymbol>
     );
   }
 
@@ -50,9 +51,9 @@ export const ObjectViewObject = memo<ObjectViewObjectProps>(({
         {'length' in parent ? `${name}(${parent.length})` : name}{' '}
       </ObjectLabel>
 
-      <Typography component="span" color="gray.300" fontFamily="monospace">
+      <ObjectSymbol>
         {'{'}
-      </Typography>
+      </ObjectSymbol>
 
       <Box component="ul" p={0} m={0} ml="2ch">
         {keys.map((key, i, arr) => {
@@ -86,14 +87,9 @@ export const ObjectViewObject = memo<ObjectViewObjectProps>(({
             </Box>,
 
             i < arr.length - 1 ? (
-              <Typography
-                key={i + ','}
-                component="span"
-                color="gray.300"
-                fontFamily="monospace"
-              >
+              <ObjectSymbol key={i + ','}>
                 {','}
-              </Typography>
+              </ObjectSymbol>
             ) : null,
 
             (() => {
@@ -122,9 +118,9 @@ export const ObjectViewObject = memo<ObjectViewObjectProps>(({
         })}
       </Box>
 
-      <Typography component="span" color="gray.300" fontFamily="monospace">
+      <ObjectSymbol>
         {'}'}
-      </Typography>
+      </ObjectSymbol>
     </>
   );
 });
