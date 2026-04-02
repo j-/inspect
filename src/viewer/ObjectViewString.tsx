@@ -6,6 +6,7 @@ export const ObjectViewString = memo<{ value: string }>(({ value }) => (
     component="span"
     fontFamily="monospace"
     color="primary"
+    sx={{ whiteSpace: 'pre-wrap' }}
   >
     {JSON.stringify(value)}
   </Typography>
