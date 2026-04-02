@@ -43,6 +43,12 @@ export const getArrayName = (value: unknown[]) =>
 
 export const getErrorName = (err: unknown) => getName(err, 'Error');
 
+export const isMap = (value: unknown): value is Map<unknown, unknown> =>
+  value instanceof Map;
+
+export const isSet = (value: unknown): value is Set<unknown> =>
+  value instanceof Set;
+
 export const isObject = (value: unknown): value is object =>
   typeof value === 'object' && value !== null;
 

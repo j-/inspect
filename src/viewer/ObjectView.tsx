@@ -2,10 +2,12 @@ import { memo } from 'react';
 import { ObjectViewArray } from './ObjectViewArray';
 import { ObjectViewBoolean } from './ObjectViewBoolean';
 import { ObjectViewFunction } from './ObjectViewFunction';
+import { ObjectViewMap } from './ObjectViewMap';
 import { ObjectViewNull } from './ObjectViewNull';
 import { ObjectViewNumber } from './ObjectViewNumber';
 import { ObjectViewObject } from './ObjectViewObject';
 import { ObjectViewPromise } from './ObjectViewPromise';
+import { ObjectViewSet } from './ObjectViewSet';
 import { ObjectViewString } from './ObjectViewString';
 import { ObjectViewUndefined } from './ObjectViewUndefined';
 import { ObjectViewUnknown } from './ObjectViewUnknown';
@@ -14,10 +16,12 @@ import {
   isArray,
   isBoolean,
   isFunction,
+  isMap,
   isNull,
   isNumber,
   isObject,
   isPromise,
+  isSet,
   isString,
   isUndefined,
 } from './utils';
@@ -64,6 +68,32 @@ export const ObjectView = memo<{ value: unknown }>(({ value }) => {
         value={value}
         renderValue={(childValue, index) => (
           <PartViewerProvider thisKey={index}>
+            <ObjectView value={childValue} />
+          </PartViewerProvider>
+        )}
+      />
+    );
+  }
+
+  if (isMap(value)) {
+    return (
+      <ObjectViewMap
+        value={value}
+        renderValue={(childValue, key) => (
+          <PartViewerProvider thisKey={key}>
+            <ObjectView value={childValue} />
+          </PartViewerProvider>
+        )}
+      />
+    );
+  }
+
+  if (isSet(value)) {
+    return (
+      <ObjectViewSet
+        value={value}
+        renderValue={(childValue, key) => (
+          <PartViewerProvider thisKey={key}>
             <ObjectView value={childValue} />
           </PartViewerProvider>
         )}

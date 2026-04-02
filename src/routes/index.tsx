@@ -34,6 +34,11 @@ const PaperSampleData: FC = () => (
             undefined,
             [1, 'nested', false, [null]],
           ],
+          map: new Map<string, string | number>([
+            ['key1', 'value1'],
+            ['key2', 42],
+          ]),
+          set: new Set(['value1', 42]),
           nested: {
             a: 1,
             b: 'string',
