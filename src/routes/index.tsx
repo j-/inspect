@@ -1,5 +1,5 @@
 import Stack from '@mui/material/Stack';
-import { ClientOnly, createFileRoute } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
 
@@ -51,21 +51,20 @@ const PanelSampleData: FC = () => (
   />
 );
 
+const PanelImmediatelyThrows: FC = () => (
+  <ObjectViewerPanel initialValue={() => {
+    throw new Error('This example error is thrown immediately when the component renders');
+  }} />
+);
+
 const App: FC = () => {
   return (
     <main className="page-wrap px-4 pb-8 pt-14">
       <Stack gap={4}>
-        <ClientOnly>
-          <PanelWindowScreen />
-        </ClientOnly>
-
-        <ClientOnly>
-          <PanelWindowGetScreenDetails />
-        </ClientOnly>
-
-        <ClientOnly>
-          <PanelSampleData />
-        </ClientOnly>
+        <PanelWindowScreen />
+        <PanelWindowGetScreenDetails />
+        <PanelSampleData />
+        <PanelImmediatelyThrows />
       </Stack>
     </main>
   );
