@@ -8,6 +8,7 @@ export const Route = createFileRoute('/window.getScreenDetails()')({
 function RouteComponent() {
   return (
     <ObjectViewerPanel
+      heading="window.getScreenDetails()"
       initialValue={() => (window as any).getScreenDetails()}
     />
   );

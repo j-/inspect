@@ -8,6 +8,7 @@ export const Route = createFileRoute('/Math.random()')({
 function RouteComponent() {
   return (
     <ObjectViewerPanel
+      heading="Math.random()"
       initialValue={() => Math.random()}
     />
   );

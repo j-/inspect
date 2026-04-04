@@ -6,5 +6,10 @@ export const Route = createFileRoute('/window.screen')({
 });
 
 function RouteComponent() {
-  return <ObjectViewerPanel initialValue={() => window.screen} />;
+  return (
+    <ObjectViewerPanel
+      heading="window.screen"
+      initialValue={() => window.screen}
+    />
+  );
 }

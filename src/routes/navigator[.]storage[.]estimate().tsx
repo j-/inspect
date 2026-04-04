@@ -8,6 +8,7 @@ export const Route = createFileRoute('/navigator.storage.estimate()')({
 function RouteComponent() {
   return (
     <ObjectViewerPanel
+      heading="navigator.storage.estimate()"
       initialValue={() => navigator.storage.estimate()}
     />
   );

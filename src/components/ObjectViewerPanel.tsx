@@ -2,12 +2,14 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import { ClientOnly } from '@tanstack/react-router';
-import { useState, type FC } from 'react';
+import { useState, type FC, type ReactNode } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Viewer } from '#/viewer/Viewer';
 
 export type ObjectViewerPanelProps = {
+  heading?: ReactNode;
   initialValue: () => any;
 };
 
@@ -44,21 +46,30 @@ export const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
 };
 
 export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
+  heading,
   initialValue,
 }) => {
   return (
     <Paper sx={{ p: 2 }}>
-      <ErrorBoundary
-        fallbackRender={({ error }) => (
-          <Box color="error.main">
-            <strong>Error:</strong> {(error as Error).message}
-          </Box>
+      <Stack gap={1}>
+        {heading && (
+          <Typography variant="h6">
+            {heading}
+          </Typography>
         )}
-      >
-        <ClientOnly>
-          <ObjectViewerPanelInner initialValue={initialValue} />
-        </ClientOnly>
-      </ErrorBoundary>
+
+        <ErrorBoundary
+          fallbackRender={({ error }) => (
+            <Box color="error.main">
+              <strong>Error:</strong> {(error as Error).message}
+            </Box>
+          )}
+        >
+          <ClientOnly>
+            <ObjectViewerPanelInner initialValue={initialValue} />
+          </ClientOnly>
+        </ErrorBoundary>
+      </Stack>
     </Paper>
   );
 };

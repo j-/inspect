@@ -31,11 +31,13 @@ function RouteComponent() {
   return (
     <Stack gap={4}>
       <ObjectViewerPanel
+        heading="navigator.keyboard.getLayoutMap()"
         initialValue={() => promise}
       />
 
       {entries && (
         <ObjectViewerPanel
+          heading="Layout Map Entries"
           initialValue={() => entries}
         />
       )}

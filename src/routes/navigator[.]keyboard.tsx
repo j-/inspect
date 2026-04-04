@@ -8,6 +8,7 @@ export const Route = createFileRoute('/navigator.keyboard')({
 function RouteComponent() {
   return (
     <ObjectViewerPanel
+      heading="navigator.keyboard"
       initialValue={() => navigator.keyboard}
     />
   );

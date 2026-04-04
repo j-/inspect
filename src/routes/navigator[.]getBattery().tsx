@@ -8,6 +8,7 @@ export const Route = createFileRoute('/navigator.getBattery()')({
 function RouteComponent() {
   return (
     <ObjectViewerPanel
+      heading="navigator.getBattery()"
       initialValue={() => (navigator as any).getBattery()}
     />
   );

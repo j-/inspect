@@ -13,6 +13,7 @@ const App: FC = () => {
       </Paper>
 
       <ObjectViewerPanel
+        heading="Kitchen sink"
         initialValue={() => ({
           sample: [
             true,
@@ -50,17 +51,23 @@ const App: FC = () => {
         })}
       />
 
-      <ObjectViewerPanel initialValue={() => {
-        const a: Record<string, any> = {};
-        const b: Record<string, any> = { a };
-        a.b = b; // Create a circular reference
+      <ObjectViewerPanel
+        heading="Circular reference example"
+        initialValue={() => {
+          const a: Record<string, any> = {};
+          const b: Record<string, any> = { a };
+          a.b = b; // Create a circular reference
 
-        return b;
-      }} />
+          return b;
+        }}
+      />
 
-      <ObjectViewerPanel initialValue={() => {
-        throw new Error('This example error is thrown immediately when the component renders');
-      }} />
+      <ObjectViewerPanel
+        heading="Error example"
+        initialValue={() => {
+          throw new Error('This example error is thrown immediately when the component renders');
+        }}
+      />
     </Stack>
   );
 };
