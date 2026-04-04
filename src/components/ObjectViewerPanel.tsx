@@ -21,12 +21,20 @@ export const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   return (
     <Stack gap={2}>
       <Stack direction="row" gap={1}>
-        <Button variant="outlined" onClick={() => console.log(object)}>
-          <pre>Log result to console</pre>
+        <Button
+          size="small"
+          variant="outlined"
+          onClick={() => setObject(initialValue)}
+        >
+          Re-evaluate
         </Button>
 
-        <Button variant="outlined" onClick={() => setObject(initialValue)}>
-          <pre>Re-evaluate</pre>
+        <Button
+          size="small"
+          variant="outlined"
+          onClick={() => console.log(object)}
+        >
+          Log result to console
         </Button>
       </Stack>
 
@@ -59,10 +67,23 @@ export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
         )}
 
         <ErrorBoundary
-          fallbackRender={({ error }) => (
-            <Box color="error.main">
-              <strong>Error:</strong> {(error as Error).message}
-            </Box>
+          fallbackRender={({ error, resetErrorBoundary }) => (
+            <Stack gap={2}>
+              <Stack direction="row" gap={1}>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  color="error"
+                  onClick={resetErrorBoundary}
+                >
+                  Re-evaluate
+                </Button>
+              </Stack>
+
+              <Box color="error.main">
+                <strong>Error:</strong> {(error as Error).message}
+              </Box>
+            </Stack>
           )}
         >
           <ClientOnly>
