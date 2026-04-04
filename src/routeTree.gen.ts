@@ -20,6 +20,7 @@ import { Route as NavigatorDotmediaDevicesRouteImport } from './routes/navigator
 import { Route as NavigatorDotkeyboardDotgetLayoutMapRouteImport } from './routes/navigator[.]keyboard[.]getLayoutMap()'
 import { Route as NavigatorDotkeyboardRouteImport } from './routes/navigator[.]keyboard'
 import { Route as NavigatorDotgetBatteryRouteImport } from './routes/navigator[.]getBattery()'
+import { Route as NavigatorDotgeolocationDotgetCurrentPositionRouteImport } from './routes/navigator[.]geolocation[.]getCurrentPosition()'
 import { Route as NavigatorDotconnectionRouteImport } from './routes/navigator[.]connection'
 import { Route as DocumentDotfeaturePolicyDotfeaturesRouteImport } from './routes/document[.]featurePolicy[.]features()'
 import { Route as DocumentDotfeaturePolicyDotallowedFeaturesRouteImport } from './routes/document[.]featurePolicy[.]allowedFeatures()'
@@ -88,6 +89,12 @@ const NavigatorDotgetBatteryRoute = NavigatorDotgetBatteryRouteImport.update({
   path: '/navigator.getBattery()',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NavigatorDotgeolocationDotgetCurrentPositionRoute =
+  NavigatorDotgeolocationDotgetCurrentPositionRouteImport.update({
+    id: '/navigator.geolocation.getCurrentPosition()',
+    path: '/navigator.geolocation.getCurrentPosition()',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const NavigatorDotconnectionRoute = NavigatorDotconnectionRouteImport.update({
   id: '/navigator.connection',
   path: '/navigator.connection',
@@ -129,6 +136,7 @@ export interface FileRoutesByFullPath {
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
   '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
   '/navigator.connection': typeof NavigatorDotconnectionRoute
+  '/navigator.geolocation.getCurrentPosition()': typeof NavigatorDotgeolocationDotgetCurrentPositionRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
@@ -148,6 +156,7 @@ export interface FileRoutesByTo {
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
   '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
   '/navigator.connection': typeof NavigatorDotconnectionRoute
+  '/navigator.geolocation.getCurrentPosition()': typeof NavigatorDotgeolocationDotgetCurrentPositionRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
@@ -168,6 +177,7 @@ export interface FileRoutesById {
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
   '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
   '/navigator.connection': typeof NavigatorDotconnectionRoute
+  '/navigator.geolocation.getCurrentPosition()': typeof NavigatorDotgeolocationDotgetCurrentPositionRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
@@ -189,6 +199,7 @@ export interface FileRouteTypes {
     | '/document.featurePolicy.allowedFeatures()'
     | '/document.featurePolicy.features()'
     | '/navigator.connection'
+    | '/navigator.geolocation.getCurrentPosition()'
     | '/navigator.getBattery()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
@@ -208,6 +219,7 @@ export interface FileRouteTypes {
     | '/document.featurePolicy.allowedFeatures()'
     | '/document.featurePolicy.features()'
     | '/navigator.connection'
+    | '/navigator.geolocation.getCurrentPosition()'
     | '/navigator.getBattery()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
@@ -227,6 +239,7 @@ export interface FileRouteTypes {
     | '/document.featurePolicy.allowedFeatures()'
     | '/document.featurePolicy.features()'
     | '/navigator.connection'
+    | '/navigator.geolocation.getCurrentPosition()'
     | '/navigator.getBattery()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
@@ -247,6 +260,7 @@ export interface RootRouteChildren {
   DocumentDotfeaturePolicyDotallowedFeaturesRoute: typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
   DocumentDotfeaturePolicyDotfeaturesRoute: typeof DocumentDotfeaturePolicyDotfeaturesRoute
   NavigatorDotconnectionRoute: typeof NavigatorDotconnectionRoute
+  NavigatorDotgeolocationDotgetCurrentPositionRoute: typeof NavigatorDotgeolocationDotgetCurrentPositionRoute
   NavigatorDotgetBatteryRoute: typeof NavigatorDotgetBatteryRoute
   NavigatorDotkeyboardRoute: typeof NavigatorDotkeyboardRoute
   NavigatorDotkeyboardDotgetLayoutMapRoute: typeof NavigatorDotkeyboardDotgetLayoutMapRoute
@@ -339,6 +353,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NavigatorDotgetBatteryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/navigator.geolocation.getCurrentPosition()': {
+      id: '/navigator.geolocation.getCurrentPosition()'
+      path: '/navigator.geolocation.getCurrentPosition()'
+      fullPath: '/navigator.geolocation.getCurrentPosition()'
+      preLoaderRoute: typeof NavigatorDotgeolocationDotgetCurrentPositionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/navigator.connection': {
       id: '/navigator.connection'
       path: '/navigator.connection'
@@ -393,6 +414,8 @@ const rootRouteChildren: RootRouteChildren = {
   DocumentDotfeaturePolicyDotfeaturesRoute:
     DocumentDotfeaturePolicyDotfeaturesRoute,
   NavigatorDotconnectionRoute: NavigatorDotconnectionRoute,
+  NavigatorDotgeolocationDotgetCurrentPositionRoute:
+    NavigatorDotgeolocationDotgetCurrentPositionRoute,
   NavigatorDotgetBatteryRoute: NavigatorDotgetBatteryRoute,
   NavigatorDotkeyboardRoute: NavigatorDotkeyboardRoute,
   NavigatorDotkeyboardDotgetLayoutMapRoute:
