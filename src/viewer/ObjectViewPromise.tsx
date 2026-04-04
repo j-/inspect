@@ -1,5 +1,6 @@
 import { useEffect, useState, type FC, type ReactNode } from 'react';
 import { ObjectLabel } from './ObjectLabel';
+import { ObjectSymbol } from './ObjectSymbol';
 
 export type ObjectViewPromiseProps = {
   value: Promise<unknown>,
@@ -35,7 +36,9 @@ export const ObjectViewPromise: FC<ObjectViewPromiseProps> = ({
         {`Promise(${promiseState}): `}
       </ObjectLabel>
 
-      {promiseValue ? (
+      {promiseState === 'pending' ? (
+        <ObjectSymbol>&hellip;</ObjectSymbol>
+      ) : promiseState === 'fulfilled' ? (
         renderValue(promiseValue)
       ) : (
         renderValue(promiseError)
