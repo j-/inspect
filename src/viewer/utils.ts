@@ -111,3 +111,10 @@ export const orderedKeys = <T extends object>(obj: T): (keyof T)[] => {
 
   return [...restSorted, ...fnSorted];
 };
+
+// Matches ECMAScript IdentifierName, so keys like "default" are allowed unquoted.
+const JS_IDENTIFIER_NAME_RE = /^[$_\p{ID_Start}][$_\u200C\u200D\p{ID_Continue}]*$/u;
+
+export const canRenderUnquotedPropertyKey = (key: string): boolean => (
+  JS_IDENTIFIER_NAME_RE.test(key)
+);

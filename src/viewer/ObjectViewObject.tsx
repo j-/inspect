@@ -5,9 +5,10 @@ import { type FC, type ReactNode } from 'react';
 import { ObjectLabel } from './ObjectLabel';
 import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewComplex } from './ObjectViewComplex';
+import { ObjectViewString } from './ObjectViewString';
 import { useViewerContext } from './providers';
 import type { RenderValueFunction } from './types';
-import { getName, orderedKeys } from './utils';
+import { canRenderUnquotedPropertyKey, getName, orderedKeys } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 const isComplex = (value: unknown, types: Function[]) => (
@@ -67,14 +68,23 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
               sx={{ display: 'inline', listStyle: 'none', whiteSpace: 'nowrap' }}
             >
               <Tooltip title={[...thisPath, key].join('.')} followCursor>
-                <Typography
-                  component="span"
-                  color={typeof parent[key] === 'function' ? 'textDisabled' : 'inherit'}
-                  fontFamily="monospace"
-                >
-                  {key}
-                  {': '}
-                </Typography>
+                <Box component="span">
+                  {canRenderUnquotedPropertyKey(key) ? (
+                    <Typography
+                      component="span"
+                      color={typeof parent[key] === 'function' ? 'textDisabled' : 'inherit'}
+                      fontFamily="monospace"
+                    >
+                      {key}
+                    </Typography>
+                  ) : (
+                    <ObjectViewString value={key} />
+                  )}
+
+                  <ObjectSymbol>
+                    {': '}
+                  </ObjectSymbol>
+                </Box>
               </Tooltip>
 
               {
