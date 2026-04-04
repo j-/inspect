@@ -14,15 +14,20 @@ export type ObjectViewerPanelProps = {
 export const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   initialValue,
 }) => {
-  const [object] = useState(initialValue);
+  const [object, setObject] = useState(initialValue);
 
   return (
     <Stack gap={2}>
       <Stack direction="row" gap={1}>
         <Button variant="outlined" onClick={() => console.log(object)}>
-          <pre>console.log()</pre>
+          <pre>Log result to console</pre>
+        </Button>
+
+        <Button variant="outlined" onClick={() => setObject(initialValue)}>
+          <pre>Re-evaluate</pre>
         </Button>
       </Stack>
+
       <Box>
         <ErrorBoundary
           fallbackRender={({ error }) => (

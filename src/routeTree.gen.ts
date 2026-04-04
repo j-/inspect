@@ -9,12 +9,57 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AboutRouteImport } from './routes/about'
+import { Route as WindowDotscreenRouteImport } from './routes/window[.]screen'
+import { Route as WindowDotgetScreenDetailsRouteImport } from './routes/window[.]getScreenDetails()'
+import { Route as NavigatorDotstorageDotestimateRouteImport } from './routes/navigator[.]storage[.]estimate()'
+import { Route as NavigatorDotstorageRouteImport } from './routes/navigator[.]storage'
+import { Route as NavigatorDotkeyboardDotgetLayoutMapRouteImport } from './routes/navigator[.]keyboard[.]getLayoutMap()'
+import { Route as NavigatorDotkeyboardRouteImport } from './routes/navigator[.]keyboard'
+import { Route as NavigatorDotgetBatteryRouteImport } from './routes/navigator[.]getBattery()'
+import { Route as MathDotrandomRouteImport } from './routes/Math[.]random()'
 import { Route as IndexRouteImport } from './routes/index'
 
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
+const WindowDotscreenRoute = WindowDotscreenRouteImport.update({
+  id: '/window.screen',
+  path: '/window.screen',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WindowDotgetScreenDetailsRoute =
+  WindowDotgetScreenDetailsRouteImport.update({
+    id: '/window.getScreenDetails()',
+    path: '/window.getScreenDetails()',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const NavigatorDotstorageDotestimateRoute =
+  NavigatorDotstorageDotestimateRouteImport.update({
+    id: '/navigator.storage.estimate()',
+    path: '/navigator.storage.estimate()',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const NavigatorDotstorageRoute = NavigatorDotstorageRouteImport.update({
+  id: '/navigator.storage',
+  path: '/navigator.storage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NavigatorDotkeyboardDotgetLayoutMapRoute =
+  NavigatorDotkeyboardDotgetLayoutMapRouteImport.update({
+    id: '/navigator.keyboard.getLayoutMap()',
+    path: '/navigator.keyboard.getLayoutMap()',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const NavigatorDotkeyboardRoute = NavigatorDotkeyboardRouteImport.update({
+  id: '/navigator.keyboard',
+  path: '/navigator.keyboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NavigatorDotgetBatteryRoute = NavigatorDotgetBatteryRouteImport.update({
+  id: '/navigator.getBattery()',
+  path: '/navigator.getBattery()',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MathDotrandomRoute = MathDotrandomRouteImport.update({
+  id: '/Math.random()',
+  path: '/Math.random()',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -25,37 +70,142 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/Math.random()': typeof MathDotrandomRoute
+  '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
+  '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
+  '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
+  '/navigator.storage': typeof NavigatorDotstorageRoute
+  '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
+  '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
+  '/window.screen': typeof WindowDotscreenRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/Math.random()': typeof MathDotrandomRoute
+  '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
+  '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
+  '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
+  '/navigator.storage': typeof NavigatorDotstorageRoute
+  '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
+  '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
+  '/window.screen': typeof WindowDotscreenRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/Math.random()': typeof MathDotrandomRoute
+  '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
+  '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
+  '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
+  '/navigator.storage': typeof NavigatorDotstorageRoute
+  '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
+  '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
+  '/window.screen': typeof WindowDotscreenRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths:
+    | '/'
+    | '/Math.random()'
+    | '/navigator.getBattery()'
+    | '/navigator.keyboard'
+    | '/navigator.keyboard.getLayoutMap()'
+    | '/navigator.storage'
+    | '/navigator.storage.estimate()'
+    | '/window.getScreenDetails()'
+    | '/window.screen'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to:
+    | '/'
+    | '/Math.random()'
+    | '/navigator.getBattery()'
+    | '/navigator.keyboard'
+    | '/navigator.keyboard.getLayoutMap()'
+    | '/navigator.storage'
+    | '/navigator.storage.estimate()'
+    | '/window.getScreenDetails()'
+    | '/window.screen'
+  id:
+    | '__root__'
+    | '/'
+    | '/Math.random()'
+    | '/navigator.getBattery()'
+    | '/navigator.keyboard'
+    | '/navigator.keyboard.getLayoutMap()'
+    | '/navigator.storage'
+    | '/navigator.storage.estimate()'
+    | '/window.getScreenDetails()'
+    | '/window.screen'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
+  MathDotrandomRoute: typeof MathDotrandomRoute
+  NavigatorDotgetBatteryRoute: typeof NavigatorDotgetBatteryRoute
+  NavigatorDotkeyboardRoute: typeof NavigatorDotkeyboardRoute
+  NavigatorDotkeyboardDotgetLayoutMapRoute: typeof NavigatorDotkeyboardDotgetLayoutMapRoute
+  NavigatorDotstorageRoute: typeof NavigatorDotstorageRoute
+  NavigatorDotstorageDotestimateRoute: typeof NavigatorDotstorageDotestimateRoute
+  WindowDotgetScreenDetailsRoute: typeof WindowDotgetScreenDetailsRoute
+  WindowDotscreenRoute: typeof WindowDotscreenRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
+    '/window.screen': {
+      id: '/window.screen'
+      path: '/window.screen'
+      fullPath: '/window.screen'
+      preLoaderRoute: typeof WindowDotscreenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/window.getScreenDetails()': {
+      id: '/window.getScreenDetails()'
+      path: '/window.getScreenDetails()'
+      fullPath: '/window.getScreenDetails()'
+      preLoaderRoute: typeof WindowDotgetScreenDetailsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/navigator.storage.estimate()': {
+      id: '/navigator.storage.estimate()'
+      path: '/navigator.storage.estimate()'
+      fullPath: '/navigator.storage.estimate()'
+      preLoaderRoute: typeof NavigatorDotstorageDotestimateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/navigator.storage': {
+      id: '/navigator.storage'
+      path: '/navigator.storage'
+      fullPath: '/navigator.storage'
+      preLoaderRoute: typeof NavigatorDotstorageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/navigator.keyboard.getLayoutMap()': {
+      id: '/navigator.keyboard.getLayoutMap()'
+      path: '/navigator.keyboard.getLayoutMap()'
+      fullPath: '/navigator.keyboard.getLayoutMap()'
+      preLoaderRoute: typeof NavigatorDotkeyboardDotgetLayoutMapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/navigator.keyboard': {
+      id: '/navigator.keyboard'
+      path: '/navigator.keyboard'
+      fullPath: '/navigator.keyboard'
+      preLoaderRoute: typeof NavigatorDotkeyboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/navigator.getBattery()': {
+      id: '/navigator.getBattery()'
+      path: '/navigator.getBattery()'
+      fullPath: '/navigator.getBattery()'
+      preLoaderRoute: typeof NavigatorDotgetBatteryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Math.random()': {
+      id: '/Math.random()'
+      path: '/Math.random()'
+      fullPath: '/Math.random()'
+      preLoaderRoute: typeof MathDotrandomRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -70,7 +220,15 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
+  MathDotrandomRoute: MathDotrandomRoute,
+  NavigatorDotgetBatteryRoute: NavigatorDotgetBatteryRoute,
+  NavigatorDotkeyboardRoute: NavigatorDotkeyboardRoute,
+  NavigatorDotkeyboardDotgetLayoutMapRoute:
+    NavigatorDotkeyboardDotgetLayoutMapRoute,
+  NavigatorDotstorageRoute: NavigatorDotstorageRoute,
+  NavigatorDotstorageDotestimateRoute: NavigatorDotstorageDotestimateRoute,
+  WindowDotgetScreenDetailsRoute: WindowDotgetScreenDetailsRoute,
+  WindowDotscreenRoute: WindowDotscreenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

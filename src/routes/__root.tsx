@@ -1,6 +1,7 @@
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 import fontsourceVariableRobotoCss from '@fontsource-variable/roboto?url';
+import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import { TanStackDevtools } from '@tanstack/react-devtools';
@@ -56,7 +57,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <Header />
-            {children}
+            <Box component="main" sx={{
+              width: '120ch',
+              my: 4,
+              mx: 'auto',
+            }}>
+              {children}
+            </Box>
             <Footer />
             <TanStackDevtools
               config={{
