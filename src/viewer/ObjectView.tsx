@@ -12,7 +12,7 @@ import { ObjectViewSet } from './ObjectViewSet';
 import { ObjectViewString } from './ObjectViewString';
 import { ObjectViewUndefined } from './ObjectViewUndefined';
 import { ObjectViewUnknown } from './ObjectViewUnknown';
-import { PartViewerProvider, useIsRecursive } from './providers';
+import { PartViewerProvider, RootViewerProvider, useIsRecursive, useViewerContext } from './providers';
 import {
   isArray,
   isBoolean,
@@ -27,11 +27,8 @@ import {
   isUndefined,
 } from './utils';
 
-export type ObjectViewProps = {
-  value: unknown;
-};
-
-export const ObjectView: FC<ObjectViewProps> = ({ value }) => {
+export const ObjectView: FC = () => {
+  const { thisObject: value } = useViewerContext();
   const isRecursive = useIsRecursive();
 
   if (isRecursive) {
@@ -71,7 +68,9 @@ export const ObjectView: FC<ObjectViewProps> = ({ value }) => {
       <ObjectViewPromise
         value={value}
         renderValue={(promiseValue) => (
-          <ObjectView value={promiseValue} />
+          <RootViewerProvider object={promiseValue}>
+            <ObjectView />
+          </RootViewerProvider>
         )}
       />
     );
@@ -81,9 +80,9 @@ export const ObjectView: FC<ObjectViewProps> = ({ value }) => {
     return (
       <ObjectViewArray
         value={value}
-        renderValue={(childValue, index) => (
+        renderValue={(_, index) => (
           <PartViewerProvider thisKey={index}>
-            <ObjectView value={childValue} />
+            <ObjectView />
           </PartViewerProvider>
         )}
       />
@@ -94,9 +93,9 @@ export const ObjectView: FC<ObjectViewProps> = ({ value }) => {
     return (
       <ObjectViewMap
         value={value}
-        renderValue={(childValue, key) => (
+        renderValue={(_, key) => (
           <PartViewerProvider thisKey={key}>
-            <ObjectView value={childValue} />
+            <ObjectView />
           </PartViewerProvider>
         )}
       />
@@ -107,9 +106,9 @@ export const ObjectView: FC<ObjectViewProps> = ({ value }) => {
     return (
       <ObjectViewSet
         value={value}
-        renderValue={(childValue, key) => (
+        renderValue={(_, key) => (
           <PartViewerProvider thisKey={key}>
-            <ObjectView value={childValue} />
+            <ObjectView />
           </PartViewerProvider>
         )}
       />
@@ -120,9 +119,9 @@ export const ObjectView: FC<ObjectViewProps> = ({ value }) => {
     return (
       <ObjectViewObject
         value={value}
-        renderValue={(childValue, thisKey) => (
+        renderValue={(_, thisKey) => (
           <PartViewerProvider thisKey={thisKey}>
-            <ObjectView value={childValue} />
+            <ObjectView />
           </PartViewerProvider>
         )}
       />

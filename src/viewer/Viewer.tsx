@@ -9,7 +9,7 @@ export type ViewerProps = {
 export const Viewer: FC<ViewerProps> = ({ object }) => {
   return (
     <RootViewerProvider object={object}>
-      <ObjectView value={object} />
+      <ObjectView />
     </RootViewerProvider>
   );
 };
