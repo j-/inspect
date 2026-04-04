@@ -13,6 +13,9 @@ import { Route as WindowDotscreenRouteImport } from './routes/window[.]screen'
 import { Route as WindowDotgetScreenDetailsRouteImport } from './routes/window[.]getScreenDetails()'
 import { Route as NavigatorDotstorageDotestimateRouteImport } from './routes/navigator[.]storage[.]estimate()'
 import { Route as NavigatorDotstorageRouteImport } from './routes/navigator[.]storage'
+import { Route as NavigatorDotmediaDevicesDotgetSupportedConstraintsRouteImport } from './routes/navigator[.]mediaDevices[.]getSupportedConstraints()'
+import { Route as NavigatorDotmediaDevicesDotenumerateDevicesRouteImport } from './routes/navigator[.]mediaDevices[.]enumerateDevices()'
+import { Route as NavigatorDotmediaDevicesRouteImport } from './routes/navigator[.]mediaDevices'
 import { Route as NavigatorDotkeyboardDotgetLayoutMapRouteImport } from './routes/navigator[.]keyboard[.]getLayoutMap()'
 import { Route as NavigatorDotkeyboardRouteImport } from './routes/navigator[.]keyboard'
 import { Route as NavigatorDotgetBatteryRouteImport } from './routes/navigator[.]getBattery()'
@@ -41,6 +44,24 @@ const NavigatorDotstorageRoute = NavigatorDotstorageRouteImport.update({
   path: '/navigator.storage',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute =
+  NavigatorDotmediaDevicesDotgetSupportedConstraintsRouteImport.update({
+    id: '/navigator.mediaDevices.getSupportedConstraints()',
+    path: '/navigator.mediaDevices.getSupportedConstraints()',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const NavigatorDotmediaDevicesDotenumerateDevicesRoute =
+  NavigatorDotmediaDevicesDotenumerateDevicesRouteImport.update({
+    id: '/navigator.mediaDevices.enumerateDevices()',
+    path: '/navigator.mediaDevices.enumerateDevices()',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const NavigatorDotmediaDevicesRoute =
+  NavigatorDotmediaDevicesRouteImport.update({
+    id: '/navigator.mediaDevices',
+    path: '/navigator.mediaDevices',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const NavigatorDotkeyboardDotgetLayoutMapRoute =
   NavigatorDotkeyboardDotgetLayoutMapRouteImport.update({
     id: '/navigator.keyboard.getLayoutMap()',
@@ -74,6 +95,9 @@ export interface FileRoutesByFullPath {
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
+  '/navigator.mediaDevices': typeof NavigatorDotmediaDevicesRoute
+  '/navigator.mediaDevices.enumerateDevices()': typeof NavigatorDotmediaDevicesDotenumerateDevicesRoute
+  '/navigator.mediaDevices.getSupportedConstraints()': typeof NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute
   '/navigator.storage': typeof NavigatorDotstorageRoute
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
@@ -85,6 +109,9 @@ export interface FileRoutesByTo {
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
+  '/navigator.mediaDevices': typeof NavigatorDotmediaDevicesRoute
+  '/navigator.mediaDevices.enumerateDevices()': typeof NavigatorDotmediaDevicesDotenumerateDevicesRoute
+  '/navigator.mediaDevices.getSupportedConstraints()': typeof NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute
   '/navigator.storage': typeof NavigatorDotstorageRoute
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
@@ -97,6 +124,9 @@ export interface FileRoutesById {
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
+  '/navigator.mediaDevices': typeof NavigatorDotmediaDevicesRoute
+  '/navigator.mediaDevices.enumerateDevices()': typeof NavigatorDotmediaDevicesDotenumerateDevicesRoute
+  '/navigator.mediaDevices.getSupportedConstraints()': typeof NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute
   '/navigator.storage': typeof NavigatorDotstorageRoute
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
@@ -110,6 +140,9 @@ export interface FileRouteTypes {
     | '/navigator.getBattery()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
+    | '/navigator.mediaDevices'
+    | '/navigator.mediaDevices.enumerateDevices()'
+    | '/navigator.mediaDevices.getSupportedConstraints()'
     | '/navigator.storage'
     | '/navigator.storage.estimate()'
     | '/window.getScreenDetails()'
@@ -121,6 +154,9 @@ export interface FileRouteTypes {
     | '/navigator.getBattery()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
+    | '/navigator.mediaDevices'
+    | '/navigator.mediaDevices.enumerateDevices()'
+    | '/navigator.mediaDevices.getSupportedConstraints()'
     | '/navigator.storage'
     | '/navigator.storage.estimate()'
     | '/window.getScreenDetails()'
@@ -132,6 +168,9 @@ export interface FileRouteTypes {
     | '/navigator.getBattery()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
+    | '/navigator.mediaDevices'
+    | '/navigator.mediaDevices.enumerateDevices()'
+    | '/navigator.mediaDevices.getSupportedConstraints()'
     | '/navigator.storage'
     | '/navigator.storage.estimate()'
     | '/window.getScreenDetails()'
@@ -144,6 +183,9 @@ export interface RootRouteChildren {
   NavigatorDotgetBatteryRoute: typeof NavigatorDotgetBatteryRoute
   NavigatorDotkeyboardRoute: typeof NavigatorDotkeyboardRoute
   NavigatorDotkeyboardDotgetLayoutMapRoute: typeof NavigatorDotkeyboardDotgetLayoutMapRoute
+  NavigatorDotmediaDevicesRoute: typeof NavigatorDotmediaDevicesRoute
+  NavigatorDotmediaDevicesDotenumerateDevicesRoute: typeof NavigatorDotmediaDevicesDotenumerateDevicesRoute
+  NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute: typeof NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute
   NavigatorDotstorageRoute: typeof NavigatorDotstorageRoute
   NavigatorDotstorageDotestimateRoute: typeof NavigatorDotstorageDotestimateRoute
   WindowDotgetScreenDetailsRoute: typeof WindowDotgetScreenDetailsRoute
@@ -178,6 +220,27 @@ declare module '@tanstack/react-router' {
       path: '/navigator.storage'
       fullPath: '/navigator.storage'
       preLoaderRoute: typeof NavigatorDotstorageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/navigator.mediaDevices.getSupportedConstraints()': {
+      id: '/navigator.mediaDevices.getSupportedConstraints()'
+      path: '/navigator.mediaDevices.getSupportedConstraints()'
+      fullPath: '/navigator.mediaDevices.getSupportedConstraints()'
+      preLoaderRoute: typeof NavigatorDotmediaDevicesDotgetSupportedConstraintsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/navigator.mediaDevices.enumerateDevices()': {
+      id: '/navigator.mediaDevices.enumerateDevices()'
+      path: '/navigator.mediaDevices.enumerateDevices()'
+      fullPath: '/navigator.mediaDevices.enumerateDevices()'
+      preLoaderRoute: typeof NavigatorDotmediaDevicesDotenumerateDevicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/navigator.mediaDevices': {
+      id: '/navigator.mediaDevices'
+      path: '/navigator.mediaDevices'
+      fullPath: '/navigator.mediaDevices'
+      preLoaderRoute: typeof NavigatorDotmediaDevicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/navigator.keyboard.getLayoutMap()': {
@@ -225,6 +288,11 @@ const rootRouteChildren: RootRouteChildren = {
   NavigatorDotkeyboardRoute: NavigatorDotkeyboardRoute,
   NavigatorDotkeyboardDotgetLayoutMapRoute:
     NavigatorDotkeyboardDotgetLayoutMapRoute,
+  NavigatorDotmediaDevicesRoute: NavigatorDotmediaDevicesRoute,
+  NavigatorDotmediaDevicesDotenumerateDevicesRoute:
+    NavigatorDotmediaDevicesDotenumerateDevicesRoute,
+  NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute:
+    NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute,
   NavigatorDotstorageRoute: NavigatorDotstorageRoute,
   NavigatorDotstorageDotestimateRoute: NavigatorDotstorageDotestimateRoute,
   WindowDotgetScreenDetailsRoute: WindowDotgetScreenDetailsRoute,

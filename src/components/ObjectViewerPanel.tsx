@@ -21,7 +21,7 @@ const codeTheme = createTheme({
   },
 });
 
-export const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
+const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   initialValue,
 }) => {
   const [object, setObject] = useState(initialValue);
