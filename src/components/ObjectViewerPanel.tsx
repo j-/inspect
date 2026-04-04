@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { ClientOnly } from '@tanstack/react-router';
 import { useState, type FC, type ReactNode } from 'react';
@@ -12,6 +13,13 @@ export type ObjectViewerPanelProps = {
   heading?: ReactNode;
   initialValue: () => any;
 };
+
+const codeTheme = createTheme({
+  typography: {
+    htmlFontSize: 14,
+    body1: { fontSize: '0.75rem' },
+  },
+});
 
 export const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   initialValue,
@@ -38,7 +46,7 @@ export const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
         </Button>
       </Stack>
 
-      <Box>
+      <Box sx={{ lineHeight: '1.2em' }}>
         <ErrorBoundary
           fallbackRender={({ error }) => (
             <Box color="error.main">
@@ -46,7 +54,9 @@ export const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
             </Box>
           )}
         >
-          <Viewer object={object} />
+          <ThemeProvider theme={codeTheme}>
+            <Viewer object={object} />
+          </ThemeProvider>
         </ErrorBoundary>
       </Box>
     </Stack>
