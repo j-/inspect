@@ -13,6 +13,7 @@ import { Route as WindowDotscreenRouteImport } from './routes/window[.]screen'
 import { Route as WindowDotgetScreenDetailsRouteImport } from './routes/window[.]getScreenDetails()'
 import { Route as NavigatorDotstorageDotestimateRouteImport } from './routes/navigator[.]storage[.]estimate()'
 import { Route as NavigatorDotstorageRouteImport } from './routes/navigator[.]storage'
+import { Route as NavigatorDotonLineRouteImport } from './routes/navigator[.]onLine'
 import { Route as NavigatorDotmediaDevicesDotgetSupportedConstraintsRouteImport } from './routes/navigator[.]mediaDevices[.]getSupportedConstraints()'
 import { Route as NavigatorDotmediaDevicesDotenumerateDevicesRouteImport } from './routes/navigator[.]mediaDevices[.]enumerateDevices()'
 import { Route as NavigatorDotmediaDevicesRouteImport } from './routes/navigator[.]mediaDevices'
@@ -46,6 +47,11 @@ const NavigatorDotstorageDotestimateRoute =
 const NavigatorDotstorageRoute = NavigatorDotstorageRouteImport.update({
   id: '/navigator.storage',
   path: '/navigator.storage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NavigatorDotonLineRoute = NavigatorDotonLineRouteImport.update({
+  id: '/navigator.onLine',
+  path: '/navigator.onLine',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute =
@@ -129,6 +135,7 @@ export interface FileRoutesByFullPath {
   '/navigator.mediaDevices': typeof NavigatorDotmediaDevicesRoute
   '/navigator.mediaDevices.enumerateDevices()': typeof NavigatorDotmediaDevicesDotenumerateDevicesRoute
   '/navigator.mediaDevices.getSupportedConstraints()': typeof NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute
+  '/navigator.onLine': typeof NavigatorDotonLineRoute
   '/navigator.storage': typeof NavigatorDotstorageRoute
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
@@ -147,6 +154,7 @@ export interface FileRoutesByTo {
   '/navigator.mediaDevices': typeof NavigatorDotmediaDevicesRoute
   '/navigator.mediaDevices.enumerateDevices()': typeof NavigatorDotmediaDevicesDotenumerateDevicesRoute
   '/navigator.mediaDevices.getSupportedConstraints()': typeof NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute
+  '/navigator.onLine': typeof NavigatorDotonLineRoute
   '/navigator.storage': typeof NavigatorDotstorageRoute
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
@@ -166,6 +174,7 @@ export interface FileRoutesById {
   '/navigator.mediaDevices': typeof NavigatorDotmediaDevicesRoute
   '/navigator.mediaDevices.enumerateDevices()': typeof NavigatorDotmediaDevicesDotenumerateDevicesRoute
   '/navigator.mediaDevices.getSupportedConstraints()': typeof NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute
+  '/navigator.onLine': typeof NavigatorDotonLineRoute
   '/navigator.storage': typeof NavigatorDotstorageRoute
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
@@ -186,6 +195,7 @@ export interface FileRouteTypes {
     | '/navigator.mediaDevices'
     | '/navigator.mediaDevices.enumerateDevices()'
     | '/navigator.mediaDevices.getSupportedConstraints()'
+    | '/navigator.onLine'
     | '/navigator.storage'
     | '/navigator.storage.estimate()'
     | '/window.getScreenDetails()'
@@ -204,6 +214,7 @@ export interface FileRouteTypes {
     | '/navigator.mediaDevices'
     | '/navigator.mediaDevices.enumerateDevices()'
     | '/navigator.mediaDevices.getSupportedConstraints()'
+    | '/navigator.onLine'
     | '/navigator.storage'
     | '/navigator.storage.estimate()'
     | '/window.getScreenDetails()'
@@ -222,6 +233,7 @@ export interface FileRouteTypes {
     | '/navigator.mediaDevices'
     | '/navigator.mediaDevices.enumerateDevices()'
     | '/navigator.mediaDevices.getSupportedConstraints()'
+    | '/navigator.onLine'
     | '/navigator.storage'
     | '/navigator.storage.estimate()'
     | '/window.getScreenDetails()'
@@ -241,6 +253,7 @@ export interface RootRouteChildren {
   NavigatorDotmediaDevicesRoute: typeof NavigatorDotmediaDevicesRoute
   NavigatorDotmediaDevicesDotenumerateDevicesRoute: typeof NavigatorDotmediaDevicesDotenumerateDevicesRoute
   NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute: typeof NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute
+  NavigatorDotonLineRoute: typeof NavigatorDotonLineRoute
   NavigatorDotstorageRoute: typeof NavigatorDotstorageRoute
   NavigatorDotstorageDotestimateRoute: typeof NavigatorDotstorageDotestimateRoute
   WindowDotgetScreenDetailsRoute: typeof WindowDotgetScreenDetailsRoute
@@ -275,6 +288,13 @@ declare module '@tanstack/react-router' {
       path: '/navigator.storage'
       fullPath: '/navigator.storage'
       preLoaderRoute: typeof NavigatorDotstorageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/navigator.onLine': {
+      id: '/navigator.onLine'
+      path: '/navigator.onLine'
+      fullPath: '/navigator.onLine'
+      preLoaderRoute: typeof NavigatorDotonLineRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/navigator.mediaDevices.getSupportedConstraints()': {
@@ -382,6 +402,7 @@ const rootRouteChildren: RootRouteChildren = {
     NavigatorDotmediaDevicesDotenumerateDevicesRoute,
   NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute:
     NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute,
+  NavigatorDotonLineRoute: NavigatorDotonLineRoute,
   NavigatorDotstorageRoute: NavigatorDotstorageRoute,
   NavigatorDotstorageDotestimateRoute: NavigatorDotstorageDotestimateRoute,
   WindowDotgetScreenDetailsRoute: WindowDotgetScreenDetailsRoute,
