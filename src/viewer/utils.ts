@@ -52,6 +52,18 @@ export const isSet = (value: unknown): value is Set<unknown> =>
 export const isObject = (value: unknown): value is object =>
   typeof value === 'object' && value !== null;
 
+export const isComplex = (value: unknown): boolean =>
+  (value as any).__proto__.constructor.name === 'FiberNode' ||
+  [
+    CSSStyleSheet,
+    Document,
+    Element,
+    HTMLAllCollection,
+    HTMLCollection,
+    Node,
+    NodeList,
+    Window,
+  ].some((cls) => value instanceof cls);
 
 export const forInKeys = <T>(obj: T): (keyof T)[] => {
   const keys: (keyof T)[] = [];

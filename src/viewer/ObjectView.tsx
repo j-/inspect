@@ -2,6 +2,7 @@ import { type FC } from 'react';
 import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewArray } from './ObjectViewArray';
 import { ObjectViewBoolean } from './ObjectViewBoolean';
+import { ObjectViewComplex } from './ObjectViewComplex';
 import { ObjectViewFunction } from './ObjectViewFunction';
 import { ObjectViewMap } from './ObjectViewMap';
 import { ObjectViewNull } from './ObjectViewNull';
@@ -16,6 +17,7 @@ import { PartViewerProvider, RootViewerProvider, useIsRecursive, useViewerContex
 import {
   isArray,
   isBoolean,
+  isComplex,
   isFunction,
   isMap,
   isNull,
@@ -28,8 +30,30 @@ import {
 } from './utils';
 
 export const ObjectView: FC = () => {
-  const { thisObject: value } = useViewerContext();
+  const { rootObject, thisObject: value, thisPath } = useViewerContext();
   const isRecursive = useIsRecursive();
+
+  const resolvesToRecursiveValue = (promiseValue: unknown) => {
+    if (!isObject(promiseValue)) {
+      return false;
+    }
+
+    try {
+      let checkObject = rootObject;
+
+      for (const key of thisPath) {
+        if (checkObject === promiseValue) {
+          return true;
+        }
+
+        checkObject = (checkObject as any)[key];
+      }
+
+      return checkObject === promiseValue;
+    } catch {
+      return false;
+    }
+  };
 
   if (isRecursive) {
     return (
@@ -67,11 +91,21 @@ export const ObjectView: FC = () => {
     return (
       <ObjectViewPromise
         value={value}
-        renderValue={(promiseValue) => (
-          <RootViewerProvider object={promiseValue}>
-            <ObjectView />
-          </RootViewerProvider>
-        )}
+        renderValue={(promiseValue) => {
+          if (resolvesToRecursiveValue(promiseValue)) {
+            return (
+              <ObjectSymbol>
+                {'↻'}
+              </ObjectSymbol>
+            );
+          }
+
+          return (
+            <RootViewerProvider object={promiseValue}>
+              <ObjectView />
+            </RootViewerProvider>
+          );
+        }}
       />
     );
   }
@@ -112,6 +146,12 @@ export const ObjectView: FC = () => {
           </PartViewerProvider>
         )}
       />
+    );
+  }
+
+  if (isComplex(value) && thisPath.length > 0) {
+    return (
+      <ObjectViewComplex value={value} />
     );
   }
 

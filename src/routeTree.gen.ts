@@ -26,6 +26,7 @@ import { Route as NavigatorRouteImport } from './routes/navigator'
 import { Route as DocumentDotfeaturePolicyDotfeaturesRouteImport } from './routes/document[.]featurePolicy[.]features()'
 import { Route as DocumentDotfeaturePolicyDotallowedFeaturesRouteImport } from './routes/document[.]featurePolicy[.]allowedFeatures()'
 import { Route as DocumentDotfeaturePolicyRouteImport } from './routes/document[.]featurePolicy'
+import { Route as DocumentRouteImport } from './routes/document'
 import { Route as MathDotrandomRouteImport } from './routes/Math[.]random()'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -124,6 +125,11 @@ const DocumentDotfeaturePolicyRoute =
     path: '/document.featurePolicy',
     getParentRoute: () => rootRouteImport,
   } as any)
+const DocumentRoute = DocumentRouteImport.update({
+  id: '/document',
+  path: '/document',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MathDotrandomRoute = MathDotrandomRouteImport.update({
   id: '/Math.random()',
   path: '/Math.random()',
@@ -138,6 +144,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/Math.random()': typeof MathDotrandomRoute
+  '/document': typeof DocumentRoute
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
   '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
@@ -159,6 +166,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/Math.random()': typeof MathDotrandomRoute
+  '/document': typeof DocumentRoute
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
   '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
@@ -181,6 +189,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/Math.random()': typeof MathDotrandomRoute
+  '/document': typeof DocumentRoute
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
   '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
@@ -204,6 +213,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/Math.random()'
+    | '/document'
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
     | '/document.featurePolicy.features()'
@@ -225,6 +235,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/Math.random()'
+    | '/document'
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
     | '/document.featurePolicy.features()'
@@ -246,6 +257,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/Math.random()'
+    | '/document'
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
     | '/document.featurePolicy.features()'
@@ -268,6 +280,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MathDotrandomRoute: typeof MathDotrandomRoute
+  DocumentRoute: typeof DocumentRoute
   DocumentDotfeaturePolicyRoute: typeof DocumentDotfeaturePolicyRoute
   DocumentDotfeaturePolicyDotallowedFeaturesRoute: typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
   DocumentDotfeaturePolicyDotfeaturesRoute: typeof DocumentDotfeaturePolicyDotfeaturesRoute
@@ -408,6 +421,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocumentDotfeaturePolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/document': {
+      id: '/document'
+      path: '/document'
+      fullPath: '/document'
+      preLoaderRoute: typeof DocumentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/Math.random()': {
       id: '/Math.random()'
       path: '/Math.random()'
@@ -428,6 +448,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MathDotrandomRoute: MathDotrandomRoute,
+  DocumentRoute: DocumentRoute,
   DocumentDotfeaturePolicyRoute: DocumentDotfeaturePolicyRoute,
   DocumentDotfeaturePolicyDotallowedFeaturesRoute:
     DocumentDotfeaturePolicyDotallowedFeaturesRoute,
