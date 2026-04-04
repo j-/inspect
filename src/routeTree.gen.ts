@@ -22,6 +22,7 @@ import { Route as NavigatorDotkeyboardRouteImport } from './routes/navigator[.]k
 import { Route as NavigatorDotgetBatteryRouteImport } from './routes/navigator[.]getBattery()'
 import { Route as NavigatorDotgeolocationDotgetCurrentPositionRouteImport } from './routes/navigator[.]geolocation[.]getCurrentPosition()'
 import { Route as NavigatorDotconnectionRouteImport } from './routes/navigator[.]connection'
+import { Route as NavigatorRouteImport } from './routes/navigator'
 import { Route as DocumentDotfeaturePolicyDotfeaturesRouteImport } from './routes/document[.]featurePolicy[.]features()'
 import { Route as DocumentDotfeaturePolicyDotallowedFeaturesRouteImport } from './routes/document[.]featurePolicy[.]allowedFeatures()'
 import { Route as DocumentDotfeaturePolicyRouteImport } from './routes/document[.]featurePolicy'
@@ -100,6 +101,11 @@ const NavigatorDotconnectionRoute = NavigatorDotconnectionRouteImport.update({
   path: '/navigator.connection',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NavigatorRoute = NavigatorRouteImport.update({
+  id: '/navigator',
+  path: '/navigator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DocumentDotfeaturePolicyDotfeaturesRoute =
   DocumentDotfeaturePolicyDotfeaturesRouteImport.update({
     id: '/document.featurePolicy.features()',
@@ -135,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
   '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
+  '/navigator': typeof NavigatorRoute
   '/navigator.connection': typeof NavigatorDotconnectionRoute
   '/navigator.geolocation.getCurrentPosition()': typeof NavigatorDotgeolocationDotgetCurrentPositionRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
@@ -155,6 +162,7 @@ export interface FileRoutesByTo {
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
   '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
+  '/navigator': typeof NavigatorRoute
   '/navigator.connection': typeof NavigatorDotconnectionRoute
   '/navigator.geolocation.getCurrentPosition()': typeof NavigatorDotgeolocationDotgetCurrentPositionRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
@@ -176,6 +184,7 @@ export interface FileRoutesById {
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
   '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
+  '/navigator': typeof NavigatorRoute
   '/navigator.connection': typeof NavigatorDotconnectionRoute
   '/navigator.geolocation.getCurrentPosition()': typeof NavigatorDotgeolocationDotgetCurrentPositionRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
@@ -198,6 +207,7 @@ export interface FileRouteTypes {
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
     | '/document.featurePolicy.features()'
+    | '/navigator'
     | '/navigator.connection'
     | '/navigator.geolocation.getCurrentPosition()'
     | '/navigator.getBattery()'
@@ -218,6 +228,7 @@ export interface FileRouteTypes {
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
     | '/document.featurePolicy.features()'
+    | '/navigator'
     | '/navigator.connection'
     | '/navigator.geolocation.getCurrentPosition()'
     | '/navigator.getBattery()'
@@ -238,6 +249,7 @@ export interface FileRouteTypes {
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
     | '/document.featurePolicy.features()'
+    | '/navigator'
     | '/navigator.connection'
     | '/navigator.geolocation.getCurrentPosition()'
     | '/navigator.getBattery()'
@@ -259,6 +271,7 @@ export interface RootRouteChildren {
   DocumentDotfeaturePolicyRoute: typeof DocumentDotfeaturePolicyRoute
   DocumentDotfeaturePolicyDotallowedFeaturesRoute: typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
   DocumentDotfeaturePolicyDotfeaturesRoute: typeof DocumentDotfeaturePolicyDotfeaturesRoute
+  NavigatorRoute: typeof NavigatorRoute
   NavigatorDotconnectionRoute: typeof NavigatorDotconnectionRoute
   NavigatorDotgeolocationDotgetCurrentPositionRoute: typeof NavigatorDotgeolocationDotgetCurrentPositionRoute
   NavigatorDotgetBatteryRoute: typeof NavigatorDotgetBatteryRoute
@@ -367,6 +380,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NavigatorDotconnectionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/navigator': {
+      id: '/navigator'
+      path: '/navigator'
+      fullPath: '/navigator'
+      preLoaderRoute: typeof NavigatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/document.featurePolicy.features()': {
       id: '/document.featurePolicy.features()'
       path: '/document.featurePolicy.features()'
@@ -413,6 +433,7 @@ const rootRouteChildren: RootRouteChildren = {
     DocumentDotfeaturePolicyDotallowedFeaturesRoute,
   DocumentDotfeaturePolicyDotfeaturesRoute:
     DocumentDotfeaturePolicyDotfeaturesRoute,
+  NavigatorRoute: NavigatorRoute,
   NavigatorDotconnectionRoute: NavigatorDotconnectionRoute,
   NavigatorDotgeolocationDotgetCurrentPositionRoute:
     NavigatorDotgeolocationDotgetCurrentPositionRoute,
