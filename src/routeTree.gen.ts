@@ -19,6 +19,7 @@ import { Route as NavigatorDotmediaDevicesRouteImport } from './routes/navigator
 import { Route as NavigatorDotkeyboardDotgetLayoutMapRouteImport } from './routes/navigator[.]keyboard[.]getLayoutMap()'
 import { Route as NavigatorDotkeyboardRouteImport } from './routes/navigator[.]keyboard'
 import { Route as NavigatorDotgetBatteryRouteImport } from './routes/navigator[.]getBattery()'
+import { Route as NavigatorDotconnectionRouteImport } from './routes/navigator[.]connection'
 import { Route as DocumentDotfeaturePolicyDotfeaturesRouteImport } from './routes/document[.]featurePolicy[.]features()'
 import { Route as DocumentDotfeaturePolicyDotallowedFeaturesRouteImport } from './routes/document[.]featurePolicy[.]allowedFeatures()'
 import { Route as DocumentDotfeaturePolicyRouteImport } from './routes/document[.]featurePolicy'
@@ -81,6 +82,11 @@ const NavigatorDotgetBatteryRoute = NavigatorDotgetBatteryRouteImport.update({
   path: '/navigator.getBattery()',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NavigatorDotconnectionRoute = NavigatorDotconnectionRouteImport.update({
+  id: '/navigator.connection',
+  path: '/navigator.connection',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DocumentDotfeaturePolicyDotfeaturesRoute =
   DocumentDotfeaturePolicyDotfeaturesRouteImport.update({
     id: '/document.featurePolicy.features()',
@@ -116,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
   '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
+  '/navigator.connection': typeof NavigatorDotconnectionRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
@@ -133,6 +140,7 @@ export interface FileRoutesByTo {
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
   '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
+  '/navigator.connection': typeof NavigatorDotconnectionRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
@@ -151,6 +159,7 @@ export interface FileRoutesById {
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
   '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
+  '/navigator.connection': typeof NavigatorDotconnectionRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
@@ -170,6 +179,7 @@ export interface FileRouteTypes {
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
     | '/document.featurePolicy.features()'
+    | '/navigator.connection'
     | '/navigator.getBattery()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
@@ -187,6 +197,7 @@ export interface FileRouteTypes {
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
     | '/document.featurePolicy.features()'
+    | '/navigator.connection'
     | '/navigator.getBattery()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
@@ -204,6 +215,7 @@ export interface FileRouteTypes {
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
     | '/document.featurePolicy.features()'
+    | '/navigator.connection'
     | '/navigator.getBattery()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
@@ -222,6 +234,7 @@ export interface RootRouteChildren {
   DocumentDotfeaturePolicyRoute: typeof DocumentDotfeaturePolicyRoute
   DocumentDotfeaturePolicyDotallowedFeaturesRoute: typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
   DocumentDotfeaturePolicyDotfeaturesRoute: typeof DocumentDotfeaturePolicyDotfeaturesRoute
+  NavigatorDotconnectionRoute: typeof NavigatorDotconnectionRoute
   NavigatorDotgetBatteryRoute: typeof NavigatorDotgetBatteryRoute
   NavigatorDotkeyboardRoute: typeof NavigatorDotkeyboardRoute
   NavigatorDotkeyboardDotgetLayoutMapRoute: typeof NavigatorDotkeyboardDotgetLayoutMapRoute
@@ -306,6 +319,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NavigatorDotgetBatteryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/navigator.connection': {
+      id: '/navigator.connection'
+      path: '/navigator.connection'
+      fullPath: '/navigator.connection'
+      preLoaderRoute: typeof NavigatorDotconnectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/document.featurePolicy.features()': {
       id: '/document.featurePolicy.features()'
       path: '/document.featurePolicy.features()'
@@ -352,6 +372,7 @@ const rootRouteChildren: RootRouteChildren = {
     DocumentDotfeaturePolicyDotallowedFeaturesRoute,
   DocumentDotfeaturePolicyDotfeaturesRoute:
     DocumentDotfeaturePolicyDotfeaturesRoute,
+  NavigatorDotconnectionRoute: NavigatorDotconnectionRoute,
   NavigatorDotgetBatteryRoute: NavigatorDotgetBatteryRoute,
   NavigatorDotkeyboardRoute: NavigatorDotkeyboardRoute,
   NavigatorDotkeyboardDotgetLayoutMapRoute:
