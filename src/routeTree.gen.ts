@@ -19,6 +19,9 @@ import { Route as NavigatorDotmediaDevicesRouteImport } from './routes/navigator
 import { Route as NavigatorDotkeyboardDotgetLayoutMapRouteImport } from './routes/navigator[.]keyboard[.]getLayoutMap()'
 import { Route as NavigatorDotkeyboardRouteImport } from './routes/navigator[.]keyboard'
 import { Route as NavigatorDotgetBatteryRouteImport } from './routes/navigator[.]getBattery()'
+import { Route as DocumentDotfeaturePolicyDotfeaturesRouteImport } from './routes/document[.]featurePolicy[.]features()'
+import { Route as DocumentDotfeaturePolicyDotallowedFeaturesRouteImport } from './routes/document[.]featurePolicy[.]allowedFeatures()'
+import { Route as DocumentDotfeaturePolicyRouteImport } from './routes/document[.]featurePolicy'
 import { Route as MathDotrandomRouteImport } from './routes/Math[.]random()'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -78,6 +81,24 @@ const NavigatorDotgetBatteryRoute = NavigatorDotgetBatteryRouteImport.update({
   path: '/navigator.getBattery()',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DocumentDotfeaturePolicyDotfeaturesRoute =
+  DocumentDotfeaturePolicyDotfeaturesRouteImport.update({
+    id: '/document.featurePolicy.features()',
+    path: '/document.featurePolicy.features()',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DocumentDotfeaturePolicyDotallowedFeaturesRoute =
+  DocumentDotfeaturePolicyDotallowedFeaturesRouteImport.update({
+    id: '/document.featurePolicy.allowedFeatures()',
+    path: '/document.featurePolicy.allowedFeatures()',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DocumentDotfeaturePolicyRoute =
+  DocumentDotfeaturePolicyRouteImport.update({
+    id: '/document.featurePolicy',
+    path: '/document.featurePolicy',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const MathDotrandomRoute = MathDotrandomRouteImport.update({
   id: '/Math.random()',
   path: '/Math.random()',
@@ -92,6 +113,9 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/Math.random()': typeof MathDotrandomRoute
+  '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
+  '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
+  '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
@@ -106,6 +130,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/Math.random()': typeof MathDotrandomRoute
+  '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
+  '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
+  '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
@@ -121,6 +148,9 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/Math.random()': typeof MathDotrandomRoute
+  '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
+  '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
+  '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
@@ -137,6 +167,9 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/Math.random()'
+    | '/document.featurePolicy'
+    | '/document.featurePolicy.allowedFeatures()'
+    | '/document.featurePolicy.features()'
     | '/navigator.getBattery()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
@@ -151,6 +184,9 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/Math.random()'
+    | '/document.featurePolicy'
+    | '/document.featurePolicy.allowedFeatures()'
+    | '/document.featurePolicy.features()'
     | '/navigator.getBattery()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
@@ -165,6 +201,9 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/Math.random()'
+    | '/document.featurePolicy'
+    | '/document.featurePolicy.allowedFeatures()'
+    | '/document.featurePolicy.features()'
     | '/navigator.getBattery()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
@@ -180,6 +219,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   MathDotrandomRoute: typeof MathDotrandomRoute
+  DocumentDotfeaturePolicyRoute: typeof DocumentDotfeaturePolicyRoute
+  DocumentDotfeaturePolicyDotallowedFeaturesRoute: typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
+  DocumentDotfeaturePolicyDotfeaturesRoute: typeof DocumentDotfeaturePolicyDotfeaturesRoute
   NavigatorDotgetBatteryRoute: typeof NavigatorDotgetBatteryRoute
   NavigatorDotkeyboardRoute: typeof NavigatorDotkeyboardRoute
   NavigatorDotkeyboardDotgetLayoutMapRoute: typeof NavigatorDotkeyboardDotgetLayoutMapRoute
@@ -264,6 +306,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NavigatorDotgetBatteryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/document.featurePolicy.features()': {
+      id: '/document.featurePolicy.features()'
+      path: '/document.featurePolicy.features()'
+      fullPath: '/document.featurePolicy.features()'
+      preLoaderRoute: typeof DocumentDotfeaturePolicyDotfeaturesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/document.featurePolicy.allowedFeatures()': {
+      id: '/document.featurePolicy.allowedFeatures()'
+      path: '/document.featurePolicy.allowedFeatures()'
+      fullPath: '/document.featurePolicy.allowedFeatures()'
+      preLoaderRoute: typeof DocumentDotfeaturePolicyDotallowedFeaturesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/document.featurePolicy': {
+      id: '/document.featurePolicy'
+      path: '/document.featurePolicy'
+      fullPath: '/document.featurePolicy'
+      preLoaderRoute: typeof DocumentDotfeaturePolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/Math.random()': {
       id: '/Math.random()'
       path: '/Math.random()'
@@ -284,6 +347,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   MathDotrandomRoute: MathDotrandomRoute,
+  DocumentDotfeaturePolicyRoute: DocumentDotfeaturePolicyRoute,
+  DocumentDotfeaturePolicyDotallowedFeaturesRoute:
+    DocumentDotfeaturePolicyDotallowedFeaturesRoute,
+  DocumentDotfeaturePolicyDotfeaturesRoute:
+    DocumentDotfeaturePolicyDotfeaturesRoute,
   NavigatorDotgetBatteryRoute: NavigatorDotgetBatteryRoute,
   NavigatorDotkeyboardRoute: NavigatorDotkeyboardRoute,
   NavigatorDotkeyboardDotgetLayoutMapRoute:
