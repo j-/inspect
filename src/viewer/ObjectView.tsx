@@ -1,4 +1,5 @@
 import { type FC } from 'react';
+import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewArray } from './ObjectViewArray';
 import { ObjectViewBoolean } from './ObjectViewBoolean';
 import { ObjectViewFunction } from './ObjectViewFunction';
@@ -11,7 +12,7 @@ import { ObjectViewSet } from './ObjectViewSet';
 import { ObjectViewString } from './ObjectViewString';
 import { ObjectViewUndefined } from './ObjectViewUndefined';
 import { ObjectViewUnknown } from './ObjectViewUnknown';
-import { PartViewerProvider } from './providers';
+import { PartViewerProvider, useIsRecursive } from './providers';
 import {
   isArray,
   isBoolean,
@@ -31,6 +32,16 @@ export type ObjectViewProps = {
 };
 
 export const ObjectView: FC<ObjectViewProps> = ({ value }) => {
+  const isRecursive = useIsRecursive();
+
+  if (isRecursive) {
+    return (
+      <ObjectSymbol>
+        {'↻'}
+      </ObjectSymbol>
+    );
+  }
+
   if (isNull(value)) {
     return <ObjectViewNull />;
   }

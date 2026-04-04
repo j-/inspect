@@ -51,6 +51,14 @@ const App: FC = () => {
       />
 
       <ObjectViewerPanel initialValue={() => {
+        const a: Record<string, any> = {};
+        const b: Record<string, any> = { a };
+        a.b = b; // Create a circular reference
+
+        return b;
+      }} />
+
+      <ObjectViewerPanel initialValue={() => {
         throw new Error('This example error is thrown immediately when the component renders');
       }} />
     </Stack>

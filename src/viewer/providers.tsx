@@ -28,6 +28,27 @@ export const useViewerContext = () => {
   return context;
 };
 
+export const useIsRecursive = () => {
+  const { thisObject, rootObject, thisPath } = useViewerContext();
+
+  const result = (() => {
+    try {
+      let checkObject = rootObject;
+
+      for (const key of thisPath) {
+        if (checkObject === thisObject) return true;
+        checkObject = (checkObject as any)[key];
+      }
+
+      return false;
+    } catch {
+      return null;
+    }
+  })();
+
+  return result;
+};
+
 export type RootViewerProviderProps<T> = PropsWithChildren<{
   object: T;
 }>;
