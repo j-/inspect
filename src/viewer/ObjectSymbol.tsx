@@ -7,7 +7,7 @@ export const ObjectSymbol = memo<PropsWithChildren>(({ children }) => {
   }
 
   return (
-    <Typography component="span" color="gray.300" fontFamily="monospace">
+    <Typography component="span" color="textSecondary" fontFamily="monospace">
       {children}
     </Typography>
   );
