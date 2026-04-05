@@ -1,10 +1,12 @@
 import Box from '@mui/material/Box';
-import { useRouter } from '@tanstack/react-router';
+import { useMatchRoute, useRouter } from '@tanstack/react-router';
 import { useMemo, type FC } from 'react';
 import { AppLink } from './AppLink';
 
 export const MenuConnected: FC = () => {
   const { routesById } = useRouter();
+
+  const matchRoute = useMatchRoute();
 
   const allPaths = useMemo(() => {
     const allRoutes = Object.values(routesById);
@@ -18,14 +20,23 @@ export const MenuConnected: FC = () => {
         <Box component="li" key={path}>
           <AppLink
             to={path}
-            sx={{
-              display: 'block',
-              textDecoration: 'none',
-              '&:hover': {
-                backgroundColor: 'action.hover',
+            sx={[
+              {
+                display: 'block',
+                textDecoration: 'none',
+                '&:hover': {
+                  backgroundColor: 'action.hover',
+                },
+                borderRadius: 1,
+                px: 0.5,
               },
-              borderRadius: 1,
-            }}
+              matchRoute({ to: path, fuzzy: true }) && {
+                backgroundColor: 'action.selected',
+                '&:hover': {
+                  backgroundColor: 'action.selected',
+                },
+              },
+            ]}
           >
             {path}
           </AppLink>

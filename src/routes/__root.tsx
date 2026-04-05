@@ -62,11 +62,15 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               }}
             >
               <Paper
-                sx={{
+                sx={(theme) => ({
                   p: 2,
                   maxWidth: '60ch',
                   alignSelf: 'start',
-                }}
+                  [theme.breakpoints.up('lg')]: {
+                    position: 'sticky',
+                    top: theme.spacing(4),
+                  },
+                })}
               >
                 <MenuConnected />
               </Paper>
