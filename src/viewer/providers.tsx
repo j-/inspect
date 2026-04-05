@@ -9,6 +9,7 @@ import useStorageState from 'use-storage-state';
 import { getStorageNS } from './utils';
 
 export type ViewerContextType<T, U = T> = {
+  id: string;
   root: true;
   rootObject: T;
   rootName: string;
@@ -16,6 +17,7 @@ export type ViewerContextType<T, U = T> = {
   thisKey: undefined;
   thisPath: (string | number | symbol)[];
 } | {
+  id: string;
   root: false;
   rootObject: T;
   rootName: string;
@@ -60,16 +62,16 @@ export const useIsRecursive = () => {
 };
 
 export const useIsCollapsed = () => {
-  const { thisPath } = useViewerContext();
+  const { id, thisPath } = useViewerContext();
 
   const storage = useMemo(() => {
     return getStorageNS(
       window.localStorage,
       window.location.origin,
-      window.location.pathname,
+      id,
       ...thisPath.map(String),
     );
-  }, [thisPath]);
+  }, [id, thisPath]);
 
   return useStorageState<boolean | null>('collapsed', {
     storage,
@@ -78,17 +80,20 @@ export const useIsCollapsed = () => {
 };
 
 export type RootViewerProviderProps<T> = PropsWithChildren<{
+  id: string;
   object: T;
   name?: string;
 }>;
 
 export const RootViewerProvider = <T,>({
+  id,
   children,
   object: rootObject,
   name = 'result',
 }: RootViewerProviderProps<T>) => {
   return (
     <ViewerContext.Provider value={{
+      id,
       root: true,
       rootObject: rootObject,
       rootName: name,

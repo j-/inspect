@@ -10,6 +10,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { Viewer } from '#/viewer/Viewer';
 
 export type ObjectViewerPanelProps = {
+  id: string;
   heading?: ReactNode;
   name?: string;
   initialValue: () => any;
@@ -23,6 +24,7 @@ const codeTheme = createTheme({
 });
 
 const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
+  id,
   name,
   initialValue,
 }) => {
@@ -63,7 +65,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
           )}
         >
           <ThemeProvider theme={codeTheme}>
-            <Viewer key={count} object={object} name={name} />
+            <Viewer id={id} key={count} object={object} name={name} />
           </ThemeProvider>
         </ErrorBoundary>
       </Box>
@@ -72,6 +74,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
 };
 
 export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
+  id,
   heading,
   name,
   initialValue,
@@ -106,7 +109,11 @@ export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
           )}
         >
           <ClientOnly>
-            <ObjectViewerPanelInner name={name} initialValue={initialValue} />
+            <ObjectViewerPanelInner
+              id={id}
+              name={name}
+              initialValue={initialValue}
+            />
           </ClientOnly>
         </ErrorBoundary>
       </Stack>

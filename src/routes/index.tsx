@@ -13,6 +13,7 @@ const App: FC = () => {
       </Paper>
 
       <ObjectViewerPanel
+        id="kitchen-sink"
         heading="Kitchen sink"
         initialValue={() => ({
           sample: [
@@ -52,6 +53,7 @@ const App: FC = () => {
       />
 
       <ObjectViewerPanel
+        id="circular-reference"
         heading="Circular reference example"
         initialValue={() => {
           const a: Record<string, any> = {};
@@ -63,6 +65,7 @@ const App: FC = () => {
       />
 
       <ObjectViewerPanel
+        id="error-example"
         heading="Error example"
         initialValue={() => {
           throw new Error('This example error is thrown immediately when the component renders');

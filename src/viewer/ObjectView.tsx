@@ -101,7 +101,7 @@ export const ObjectView: FC = () => {
           }
 
           return (
-            <RootViewerProvider object={promiseValue}>
+            <RootViewerProvider id={thisPath.join('.')} object={promiseValue}>
               <ObjectView />
             </RootViewerProvider>
           );

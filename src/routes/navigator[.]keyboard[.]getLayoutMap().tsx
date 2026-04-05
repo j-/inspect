@@ -1,5 +1,5 @@
 import Stack from '@mui/material/Stack';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useRouterState } from '@tanstack/react-router';
 import { useEffect, useMemo, useState } from 'react';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
 
@@ -8,6 +8,8 @@ export const Route = createFileRoute('/navigator.keyboard.getLayoutMap()')({
 });
 
 function RouteComponent() {
+  const pathname = useRouterState().location.pathname;
+
   const promise = useMemo(() => {
     return navigator.keyboard.getLayoutMap();
   }, []);
@@ -31,12 +33,14 @@ function RouteComponent() {
   return (
     <Stack gap={4}>
       <ObjectViewerPanel
+        id={pathname + '#layoutMap'}
         heading="navigator.keyboard.getLayoutMap()"
         initialValue={() => promise}
       />
 
       {entries && (
         <ObjectViewerPanel
+          id={pathname + '#layoutMapEntries'}
           heading="Layout Map Entries"
           initialValue={() => entries}
         />
