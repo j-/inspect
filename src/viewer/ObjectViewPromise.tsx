@@ -4,7 +4,7 @@ import { ObjectSymbol } from './ObjectSymbol';
 
 export type ObjectViewPromiseProps = {
   value: Promise<unknown>,
-  renderValue: (value: unknown) => ReactNode;
+  renderValue: (value: unknown, state: 'fulfilled' | 'rejected') => ReactNode;
 };
 
 export const ObjectViewPromise: FC<ObjectViewPromiseProps> = ({
@@ -39,9 +39,9 @@ export const ObjectViewPromise: FC<ObjectViewPromiseProps> = ({
       {promiseState === 'pending' ? (
         <ObjectSymbol>&hellip;</ObjectSymbol>
       ) : promiseState === 'fulfilled' ? (
-        renderValue(promiseValue)
+        renderValue(promiseValue, 'fulfilled')
       ) : (
-        renderValue(promiseError)
+        renderValue(promiseError, 'rejected')
       )}
     </>
   );

@@ -96,7 +96,7 @@ export const ObjectView: FC = () => {
     return (
       <ObjectViewPromise
         value={value}
-        renderValue={(promiseValue) => {
+        renderValue={(promiseValue, state) => {
           if (resolvesToRecursiveValue(promiseValue)) {
             return (
               <ObjectSymbol>
@@ -109,6 +109,7 @@ export const ObjectView: FC = () => {
             <RootViewerProvider
               id={thisPath.join('.')}
               object={promiseValue}
+              name={state === 'rejected' ? 'error' : 'result'}
             >
               <ObjectView />
             </RootViewerProvider>
