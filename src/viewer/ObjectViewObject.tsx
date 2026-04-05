@@ -1,14 +1,13 @@
 import Box from '@mui/material/Box';
-import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { type FC, type ReactNode } from 'react';
 import { ObjectLabel } from './ObjectLabel';
+import { ObjectProperty } from './ObjectProperty';
 import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewComplex } from './ObjectViewComplex';
-import { ObjectViewString } from './ObjectViewString';
 import { useViewerContext } from './providers';
 import type { RenderValueFunction } from './types';
-import { canRenderUnquotedPropertyKey, getName, orderedKeys } from './utils';
+import { getName, orderedKeys } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 const isComplex = (value: unknown, types: Function[]) => (
@@ -67,25 +66,11 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
               component="li"
               sx={{ display: 'inline', listStyle: 'none', whiteSpace: 'nowrap' }}
             >
-              <Tooltip title={[...thisPath, key].join('.')} followCursor>
-                <Box component="span">
-                  {canRenderUnquotedPropertyKey(key) ? (
-                    <Typography
-                      component="span"
-                      color={typeof parent[key] === 'function' ? 'textDisabled' : 'inherit'}
-                      fontFamily="monospace"
-                    >
-                      {key}
-                    </Typography>
-                  ) : (
-                    <ObjectViewString value={key} />
-                  )}
-
-                  <ObjectSymbol>
-                    {': '}
-                  </ObjectSymbol>
-                </Box>
-              </Tooltip>
+              <ObjectProperty
+                name={key}
+                fullPath={[...thisPath, key]}
+                isFunction={typeof parent[key] === 'function'}
+              />
 
               {
                 // Is a custom view defined?
