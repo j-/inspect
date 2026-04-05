@@ -8,7 +8,7 @@ import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewComplex } from './ObjectViewComplex';
 import { useViewerContext } from './providers';
 import type { RenderValueFunction } from './types';
-import { getName, orderedKeys } from './utils';
+import { getName, isFunction, orderedKeys } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 const isComplex = (value: unknown, types: Function[]) => (
@@ -74,7 +74,7 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
                 <ObjectProperty
                   name={key}
                   fullPath={[...thisPath, key]}
-                  isFunction={typeof parent[key] === 'function'}
+                  isFunction={isFunction(parent[key])}
                 />
 
                 {
