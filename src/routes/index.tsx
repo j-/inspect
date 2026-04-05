@@ -1,17 +1,11 @@
-import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { createFileRoute } from '@tanstack/react-router';
 import type { FC } from 'react';
-import { MenuConnected } from '#/components/MenuConnected';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
 
 const App: FC = () => {
   return (
     <Stack gap={4}>
-      <Paper sx={{ p: 2 }}>
-        <MenuConnected />
-      </Paper>
-
       <ObjectViewerPanel
         id="kitchen-sink"
         heading="Kitchen sink"

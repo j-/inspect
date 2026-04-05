@@ -9,7 +9,6 @@ export const MenuConnected: FC = () => {
   const allPaths = useMemo(() => {
     const allRoutes = Object.values(routesById);
     const allPaths = new Set(allRoutes.map((route) => route.fullPath));
-    allPaths.delete('/');
     return allPaths;
   }, [routesById]);
 
@@ -17,7 +16,17 @@ export const MenuConnected: FC = () => {
     <Box component="ul" sx={{ listStyleType: 'disc', pl: 2, m: 0 }}>
       {[...allPaths].map((path) => (
         <Box component="li" key={path}>
-          <AppLink to={path}>
+          <AppLink
+            to={path}
+            sx={{
+              display: 'block',
+              textDecoration: 'none',
+              '&:hover': {
+                backgroundColor: 'action.hover',
+              },
+              borderRadius: 1,
+            }}
+          >
             {path}
           </AppLink>
         </Box>
