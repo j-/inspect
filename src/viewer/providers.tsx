@@ -6,25 +6,19 @@ import {
   type PropsWithChildren,
 } from 'react';
 import useStorageState from 'use-storage-state';
+import type { IsExpandedFunction } from './types';
 import { getStorageNS } from './utils';
 
 export type ViewerContextType<T, U = T> = {
   id: string;
-  root: true;
   rootObject: T;
   rootName: string;
-  thisObject: T;
-  thisKey: undefined;
   thisPath: (string | number | symbol)[];
-} | {
-  id: string;
-  root: false;
-  rootObject: T;
-  rootName: string;
-  thisObject: U;
-  thisKey: string | number | symbol;
-  thisPath: (string | number | symbol)[];
-};
+  defaultIsExpanded?: IsExpandedFunction;
+} & (
+  | { root: true; thisObject: T; thisKey: undefined; }
+  | { root: boolean; thisObject: U; thisKey: string | number | symbol; }
+);
 
 export const ViewerContext = createContext<ViewerContextType<unknown> | null>(
   null,
@@ -67,7 +61,7 @@ export const useCanCollapse = () => {
 };
 
 export const useIsCollapsed = () => {
-  const { id, thisPath } = useViewerContext();
+  const { id, thisPath, thisObject, defaultIsExpanded } = useViewerContext();
 
   const storage = useMemo(() => {
     return getStorageNS(
@@ -80,7 +74,8 @@ export const useIsCollapsed = () => {
 
   return useStorageState<boolean | null>('collapsed', {
     storage,
-    defaultValue: null,
+    defaultValue:
+      defaultIsExpanded ? !defaultIsExpanded(thisObject, thisPath) : null,
   });
 };
 
@@ -88,6 +83,7 @@ export type RootViewerProviderProps<T> = PropsWithChildren<{
   id: string;
   object: T;
   name?: string;
+  defaultIsExpanded?: IsExpandedFunction;
 }>;
 
 export const RootViewerProvider = <T,>({
@@ -95,6 +91,7 @@ export const RootViewerProvider = <T,>({
   children,
   object: rootObject,
   name = 'result',
+  defaultIsExpanded,
 }: RootViewerProviderProps<T>) => {
   return (
     <ViewerContext.Provider value={{
@@ -105,6 +102,7 @@ export const RootViewerProvider = <T,>({
       thisObject: rootObject,
       thisKey: undefined,
       thisPath: [],
+      defaultIsExpanded,
     }}>
       {children}
     </ViewerContext.Provider>

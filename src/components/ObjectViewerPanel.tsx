@@ -14,6 +14,7 @@ import {
 } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ActionSection, type ActionSectionProps } from './ActionSection';
+import type { IsExpandedFunction } from '#/viewer/types';
 import { Viewer } from '#/viewer/Viewer';
 
 export type ObjectViewerPanelProps = PaperProps & {
@@ -24,6 +25,7 @@ export type ObjectViewerPanelProps = PaperProps & {
   reloadInterval?: number;
   actions?: ActionSectionProps[];
   onClear?: () => void;
+  defaultIsExpanded?: IsExpandedFunction;
 };
 
 const codeTheme = createTheme({
@@ -40,6 +42,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   reloadInterval,
   actions,
   onClear,
+  defaultIsExpanded,
 }) => {
   const [object, setObject] = useState(initialValue);
   const [count, setCount] = useState(0);
@@ -112,7 +115,13 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
           )}
         >
           <ThemeProvider theme={codeTheme}>
-            <Viewer id={id} key={count} object={object} name={name} />
+            <Viewer
+              id={id}
+              key={count}
+              object={object}
+              name={name}
+              defaultIsExpanded={defaultIsExpanded}
+            />
           </ThemeProvider>
         </ErrorBoundary>
       </Box>
@@ -136,6 +145,7 @@ export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
   reloadInterval,
   actions,
   onClear,
+  defaultIsExpanded,
   ...props
 }) => {
   return (
@@ -175,6 +185,7 @@ export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
               reloadInterval={reloadInterval}
               actions={actions}
               onClear={onClear}
+              defaultIsExpanded={defaultIsExpanded}
             />
           </ClientOnly>
         </ErrorBoundary>

@@ -15,7 +15,7 @@ export const ObjectViewFunction = memo<ObjectViewFunctionProps>(({ value }) => (
       component="span"
       fontFamily="monospace"
     >
-      {value.name}
+      {value.name || 'anonymous'}
     </Typography>
 
     {'()]'}

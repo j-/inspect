@@ -1,7 +1,7 @@
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
 
-export const Route = createFileRoute('/document')({
+export const Route = createFileRoute('/window')({
   component: RouteComponent,
 });
 
@@ -11,9 +11,9 @@ function RouteComponent() {
   return (
     <ObjectViewerPanel
       id={pathname}
-      heading="document"
-      name="document"
-      initialValue={() => document}
+      heading="window"
+      name="window"
+      initialValue={() => window}
       defaultIsExpanded={(_, thisPath) => thisPath.length < 1}
     />
   );
