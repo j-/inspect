@@ -3,7 +3,6 @@ import { memo, type ReactNode } from 'react';
 import { ObjectCollapseToggleButton } from './ObjectCollapseToggleButton';
 import { ObjectLabel } from './ObjectLabel';
 import { ObjectSymbol } from './ObjectSymbol';
-import { ObjectViewArray } from './ObjectViewArray';
 import { useCanCollapse, useIsCollapsed } from './providers';
 
 export type ObjectViewMapProps = {
@@ -41,9 +40,7 @@ export const ObjectViewMap = memo<ObjectViewMapProps>(({
                 component="li"
                 sx={{ display: 'inline', listStyle: 'none', whiteSpace: 'nowrap' }}
               >
-                <ObjectViewArray value={[key, parent.get(key)]} renderValue={(value, index) => (
-                  renderValue(value, index === 0 ? `${key} (key)` : `${key} (value)`)
-                )} />
+                {renderValue([key, parent.get(key)], key)}
               </Box>,
 
               i < arr.length - 1 ? (

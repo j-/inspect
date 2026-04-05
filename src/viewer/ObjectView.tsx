@@ -138,10 +138,10 @@ export const ObjectView: FC = () => {
     return (
       <ObjectViewMap
         value={value}
-        renderValue={(_, key) => (
+        renderValue={(thisObject, key) => (
           <PartViewerProvider
             thisKey={key}
-            getThisPart={() => value.get(key)}
+            getThisPart={() => thisObject}
           >
             <ObjectView />
           </PartViewerProvider>
