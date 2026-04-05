@@ -49,6 +49,9 @@ export const isMap = (value: unknown): value is Map<unknown, unknown> =>
 export const isSet = (value: unknown): value is Set<unknown> =>
   value instanceof Set;
 
+export const isSymbol = (value: unknown): value is symbol =>
+  typeof value === 'symbol';
+
 export const isObject = (value: unknown): value is object =>
   typeof value === 'object' && value !== null;
 

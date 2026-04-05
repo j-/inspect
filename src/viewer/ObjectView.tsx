@@ -11,6 +11,7 @@ import { ObjectViewObject } from './ObjectViewObject';
 import { ObjectViewPromise } from './ObjectViewPromise';
 import { ObjectViewSet } from './ObjectViewSet';
 import { ObjectViewString } from './ObjectViewString';
+import { ObjectViewSymbol } from './ObjectViewSymbol';
 import { ObjectViewUndefined } from './ObjectViewUndefined';
 import { ObjectViewUnknown } from './ObjectViewUnknown';
 import {
@@ -31,6 +32,7 @@ import {
   isPromise,
   isSet,
   isString,
+  isSymbol,
   isUndefined,
 } from './utils';
 
@@ -164,6 +166,12 @@ export const ObjectView: FC = () => {
           </PartViewerProvider>
         )}
       />
+    );
+  }
+
+  if (isSymbol(value)) {
+    return (
+      <ObjectViewSymbol value={value} />
     );
   }
 

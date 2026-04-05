@@ -49,6 +49,7 @@ const App: FC = () => {
             return 'I am a named function';
           },
           functionAnonymous: [() => 'I am an anonymous function'][0],
+          symbol: Symbol('example'),
         })}
       />
 
