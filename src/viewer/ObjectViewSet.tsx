@@ -20,7 +20,7 @@ export const ObjectViewSet = memo<ObjectViewSetProps>(({
       </ObjectLabel>
 
       <ObjectSymbol>
-        {'( '}
+        {'('}
       </ObjectSymbol>
 
       <ObjectViewArray value={Array.from(parent.values())} renderValue={(value, i) => (

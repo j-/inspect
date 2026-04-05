@@ -144,3 +144,59 @@ export const renderFullPath = ([first, ...rest]: (string | number | symbol)[]) =
     // Otherwise render as an escaped string.
     return `[${JSON.stringify(part)}]`;
   }).join('');
+
+export const getStorageNS = (storage: Storage, ...namespaces: string[]): Storage => {
+  const prefix = `${namespaces.join(':')}:`;
+
+  const toKey = (key: string) => `${prefix}${key}`;
+  const fromKey = (key: string) => key.slice(prefix.length);
+  const isInNamespace = (key: string) => key.startsWith(prefix);
+
+  const api: Storage = {
+    get length() {
+      let count = 0;
+      for (let i = 0; i < storage.length; i++) {
+        const key = storage.key(i);
+        if (key && isInNamespace(key)) count++;
+      }
+      return count;
+    },
+
+    clear() {
+      const keysToRemove: string[] = [];
+      for (let i = 0; i < storage.length; i++) {
+        const key = storage.key(i);
+        if (key && isInNamespace(key)) keysToRemove.push(key);
+      }
+      for (const key of keysToRemove) {
+        storage.removeItem(key);
+      }
+    },
+
+    getItem(key: string) {
+      return storage.getItem(toKey(key));
+    },
+
+    key(index: number) {
+      let seen = 0;
+      for (let i = 0; i < storage.length; i++) {
+        const key = storage.key(i);
+        if (key && isInNamespace(key)) {
+          if (seen === index) return fromKey(key);
+          seen++;
+        }
+      }
+      return null;
+    },
+
+    removeItem(key: string) {
+      storage.removeItem(toKey(key));
+    },
+
+    setItem(key: string, value: string) {
+      storage.setItem(toKey(key), value);
+    },
+  };
+
+  return api;
+};

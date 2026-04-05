@@ -10,7 +10,7 @@ export const ObjectCollapseToggleButton: FC<ObjectViewObjectProps> = (
     <Button
       size="small"
       variant="text"
-      sx={{ minWidth: 0, lineHeight: 1 }}
+      sx={{ minWidth: 0, lineHeight: 0.75 }}
       {...props}
     >
       &hellip;

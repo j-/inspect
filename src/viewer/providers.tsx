@@ -1,4 +1,12 @@
-import { createContext, useContext, type FC, type PropsWithChildren } from 'react';
+import {
+  createContext,
+  useContext,
+  useMemo,
+  type FC,
+  type PropsWithChildren,
+} from 'react';
+import useStorageState from 'use-storage-state';
+import { getStorageNS } from './utils';
 
 export type ViewerContextType<T, U = T> = {
   root: true;
@@ -49,6 +57,24 @@ export const useIsRecursive = () => {
   })();
 
   return result;
+};
+
+export const useIsCollapsed = () => {
+  const { thisPath } = useViewerContext();
+
+  const storage = useMemo(() => {
+    return getStorageNS(
+      window.localStorage,
+      window.location.origin,
+      window.location.pathname,
+      ...thisPath.map(String),
+    );
+  }, [thisPath]);
+
+  return useStorageState<boolean | null>('collapsed', {
+    storage,
+    defaultValue: null,
+  });
 };
 
 export type RootViewerProviderProps<T> = PropsWithChildren<{

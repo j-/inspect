@@ -1,12 +1,12 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { useState, type FC, type ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 import { ObjectCollapseToggleButton } from './ObjectCollapseToggleButton';
 import { ObjectLabel } from './ObjectLabel';
 import { ObjectProperty } from './ObjectProperty';
 import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewComplex } from './ObjectViewComplex';
-import { useViewerContext } from './providers';
+import { useIsCollapsed, useViewerContext } from './providers';
 import type { RenderValueFunction } from './types';
 import { getName, isFunction, orderedKeys } from './utils';
 
@@ -38,7 +38,7 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
   renderValue,
 }) => {
   const { rootName, thisPath } = useViewerContext();
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useIsCollapsed();
 
   if (keys.length === 0) {
     return (

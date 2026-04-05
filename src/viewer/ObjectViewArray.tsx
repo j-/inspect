@@ -1,8 +1,9 @@
 import Box from '@mui/material/Box';
-import { useState, type FC } from 'react';
+import { type FC } from 'react';
 import { ObjectCollapseToggleButton } from './ObjectCollapseToggleButton';
 import { ObjectLabel } from './ObjectLabel';
 import { ObjectSymbol } from './ObjectSymbol';
+import { useIsCollapsed } from './providers';
 import type { RenderValueFunction } from './types';
 import { getArrayName } from './utils';
 
@@ -12,7 +13,7 @@ export type ObjectViewArrayProps = {
 };
 
 export const ObjectViewArray: FC<ObjectViewArrayProps> = ({ value, renderValue }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useIsCollapsed();
 
   if (value.length === 0) {
     return (
