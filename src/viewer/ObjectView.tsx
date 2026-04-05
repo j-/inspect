@@ -13,7 +13,12 @@ import { ObjectViewSet } from './ObjectViewSet';
 import { ObjectViewString } from './ObjectViewString';
 import { ObjectViewUndefined } from './ObjectViewUndefined';
 import { ObjectViewUnknown } from './ObjectViewUnknown';
-import { PartViewerProvider, RootViewerProvider, useIsRecursive, useViewerContext } from './providers';
+import {
+  PartViewerProvider,
+  RootViewerProvider,
+  useIsRecursive,
+  useViewerContext,
+} from './providers';
 import {
   isArray,
   isBoolean,
@@ -101,7 +106,10 @@ export const ObjectView: FC = () => {
           }
 
           return (
-            <RootViewerProvider id={thisPath.join('.')} object={promiseValue}>
+            <RootViewerProvider
+              id={thisPath.join('.')}
+              object={promiseValue}
+            >
               <ObjectView />
             </RootViewerProvider>
           );
@@ -115,7 +123,10 @@ export const ObjectView: FC = () => {
       <ObjectViewArray
         value={value}
         renderValue={(_, index) => (
-          <PartViewerProvider thisKey={index}>
+          <PartViewerProvider
+            thisKey={index}
+            getThisPart={() => value[index as number]}
+          >
             <ObjectView />
           </PartViewerProvider>
         )}
@@ -128,7 +139,10 @@ export const ObjectView: FC = () => {
       <ObjectViewMap
         value={value}
         renderValue={(_, key) => (
-          <PartViewerProvider thisKey={key}>
+          <PartViewerProvider
+            thisKey={key}
+            getThisPart={() => value.get(key)}
+          >
             <ObjectView />
           </PartViewerProvider>
         )}
@@ -140,8 +154,11 @@ export const ObjectView: FC = () => {
     return (
       <ObjectViewSet
         value={value}
-        renderValue={(_, key) => (
-          <PartViewerProvider thisKey={key}>
+        renderValue={(thisObject, key) => (
+          <PartViewerProvider
+            thisKey={key}
+            getThisPart={() => thisObject}
+          >
             <ObjectView />
           </PartViewerProvider>
         )}
@@ -160,7 +177,10 @@ export const ObjectView: FC = () => {
       <ObjectViewObject
         value={value}
         renderValue={(_, thisKey) => (
-          <PartViewerProvider thisKey={thisKey}>
+          <PartViewerProvider
+            thisKey={thisKey}
+            getThisPart={() => value[thisKey as keyof typeof value]}
+          >
             <ObjectView />
           </PartViewerProvider>
         )}

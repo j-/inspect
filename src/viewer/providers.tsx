@@ -113,11 +113,13 @@ export const RootViewerProvider = <T,>({
 
 export type PartViewerProviderProps = PropsWithChildren<{
   thisKey: string | number | symbol;
+  getThisPart: () => unknown;
 }>;
 
 export const PartViewerProvider: FC<PartViewerProviderProps> = ({
   children,
   thisKey,
+  getThisPart,
 }) => {
   const context = useViewerContext();
 
@@ -125,7 +127,7 @@ export const PartViewerProvider: FC<PartViewerProviderProps> = ({
     <ViewerContext.Provider value={{
       ...context,
       root: false,
-      thisObject: (context.thisObject as any)[thisKey],
+      thisObject: getThisPart(),
       thisKey,
       thisPath: [...context.thisPath, thisKey],
     }}>
