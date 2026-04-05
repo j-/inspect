@@ -65,7 +65,7 @@ export const useIsCollapsed = () => {
 
   const storage = useMemo(() => {
     return getStorageNS(
-      window.localStorage,
+      window.sessionStorage,
       window.location.origin,
       id,
       ...thisPath.map(String),
