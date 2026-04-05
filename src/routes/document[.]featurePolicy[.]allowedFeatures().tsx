@@ -1,4 +1,4 @@
-import { createFileRoute, useRouterState } from '@tanstack/react-router';
+import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
 
 export const Route = createFileRoute(
@@ -8,7 +8,7 @@ export const Route = createFileRoute(
 });
 
 function RouteComponent() {
-  const pathname = useRouterState().location.pathname;
+  const { pathname } = useLocation();
 
   return (
     <ObjectViewerPanel
