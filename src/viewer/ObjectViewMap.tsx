@@ -1,8 +1,10 @@
 import Box from '@mui/material/Box';
 import { memo, type ReactNode } from 'react';
+import { ObjectCollapseToggleButton } from './ObjectCollapseToggleButton';
 import { ObjectLabel } from './ObjectLabel';
 import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewArray } from './ObjectViewArray';
+import { useIsCollapsed } from './providers';
 
 export type ObjectViewMapProps = {
   value: Map<any, any>;
@@ -13,6 +15,8 @@ export const ObjectViewMap = memo<ObjectViewMapProps>(({
   value: parent,
   renderValue,
 }) => {
+  const [isCollapsed, setIsCollapsed] = useIsCollapsed();
+
   return (
     <>
       <ObjectLabel>
@@ -23,31 +27,35 @@ export const ObjectViewMap = memo<ObjectViewMapProps>(({
         {'(['}
       </ObjectSymbol>
 
-      <Box component="ul" p={0} m={0} ml="2ch">
-        {Array.from(parent.keys()).map((key, i, arr) => {
-          return [
-            <Box
-              key={key}
-              component="li"
-              sx={{ display: 'inline', listStyle: 'none', whiteSpace: 'nowrap' }}
-            >
-              <ObjectViewArray value={[key, parent.get(key)]} renderValue={(value, index) => (
-                renderValue(value, index === 0 ? `${key} (key)` : `${key} (value)`)
-              )} />
-            </Box>,
+      <ObjectCollapseToggleButton onClick={() => setIsCollapsed((c) => !c)} />
 
-            i < arr.length - 1 ? (
-              <ObjectSymbol key={i + ','}>
-                {','}
-              </ObjectSymbol>
-            ) : null,
+      {isCollapsed ? null : (
+        <Box component="ul" p={0} m={0} ml="2ch">
+          {Array.from(parent.keys()).map((key, i, arr) => {
+            return [
+              <Box
+                key={key}
+                component="li"
+                sx={{ display: 'inline', listStyle: 'none', whiteSpace: 'nowrap' }}
+              >
+                <ObjectViewArray value={[key, parent.get(key)]} renderValue={(value, index) => (
+                  renderValue(value, index === 0 ? `${key} (key)` : `${key} (value)`)
+                )} />
+              </Box>,
 
-            i < arr.length - 1 ? (
-              <br key="br" />
-            ) : null,
-          ];
-        })}
-      </Box>
+              i < arr.length - 1 ? (
+                <ObjectSymbol key={i + ','}>
+                  {','}
+                </ObjectSymbol>
+              ) : null,
+
+              i < arr.length - 1 ? (
+                <br key="br" />
+              ) : null,
+            ];
+          })}
+        </Box>
+      )}
 
       <ObjectSymbol>
         {'])'}
