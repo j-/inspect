@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { type FC, type ReactNode } from 'react';
+import { useState, type FC, type ReactNode } from 'react';
+import { ObjectCollapseToggleButton } from './ObjectCollapseToggleButton';
 import { ObjectLabel } from './ObjectLabel';
 import { ObjectProperty } from './ObjectProperty';
 import { ObjectSymbol } from './ObjectSymbol';
@@ -37,6 +38,7 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
   renderValue,
 }) => {
   const { thisPath } = useViewerContext();
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   if (keys.length === 0) {
     return (
@@ -56,63 +58,67 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
         {'{'}
       </ObjectSymbol>
 
-      <Box component="ul" p={0} m={0} ml="2ch">
-        {keys.map((key, i, arr) => {
-          const CustomView = customViews.get(key);
+      <ObjectCollapseToggleButton onClick={() => setIsCollapsed((c) => !c)} />
 
-          return [
-            <Box
-              key={key}
-              component="li"
-              sx={{ display: 'inline', listStyle: 'none', whiteSpace: 'nowrap' }}
-            >
-              <ObjectProperty
-                name={key}
-                fullPath={[...thisPath, key]}
-                isFunction={typeof parent[key] === 'function'}
-              />
+      {isCollapsed ? null : (
+        <Box component="ul" p={0} m={0} ml="2ch">
+          {keys.map((key, i, arr) => {
+            const CustomView = customViews.get(key);
 
-              {
-                // Is a custom view defined?
-                customViews.has(key) ? <CustomView name={key} value={parent[key]} /> :
-                // Otherwise, is the value too complex to render?
-                isComplex(parent[key], complexTypes) ? <ObjectViewComplex value={parent[key]} /> :
-                // Otherwise just render it like any other value.
-                renderValue(parent[key], key)
-              }
-            </Box>,
+            return [
+              <Box
+                key={key}
+                component="li"
+                sx={{ display: 'inline', listStyle: 'none', whiteSpace: 'nowrap' }}
+              >
+                <ObjectProperty
+                  name={key}
+                  fullPath={[...thisPath, key]}
+                  isFunction={typeof parent[key] === 'function'}
+                />
 
-            i < arr.length - 1 ? (
-              <ObjectSymbol key={i + ','}>
-                {','}
-              </ObjectSymbol>
-            ) : null,
+                {
+                  // Is a custom view defined?
+                  customViews.has(key) ? <CustomView name={key} value={parent[key]} /> :
+                  // Otherwise, is the value too complex to render?
+                  isComplex(parent[key], complexTypes) ? <ObjectViewComplex value={parent[key]} /> :
+                  // Otherwise just render it like any other value.
+                  renderValue(parent[key], key)
+                }
+              </Box>,
 
-            (() => {
-              const commentFn = comments.get(key);
-              if (!commentFn) return null;
+              i < arr.length - 1 ? (
+                <ObjectSymbol key={i + ','}>
+                  {','}
+                </ObjectSymbol>
+              ) : null,
 
-              const comment = commentFn(parent[key]);
-              if (!comment) return null;
+              (() => {
+                const commentFn = comments.get(key);
+                if (!commentFn) return null;
 
-              return (
-                <Typography
-                  key={i + '//'}
-                  component="span"
-                  color="hsl(150, 40%, 40%)"
-                  fontFamily="monospace"
-                >
-                  {' // '}{comment}
-                </Typography>
-              );
-            })(),
+                const comment = commentFn(parent[key]);
+                if (!comment) return null;
 
-            i < arr.length - 1 ? (
-              <br key="br" />
-            ) : null,
-          ];
-        })}
-      </Box>
+                return (
+                  <Typography
+                    key={i + '//'}
+                    component="span"
+                    color="hsl(150, 40%, 40%)"
+                    fontFamily="monospace"
+                  >
+                    {' // '}{comment}
+                  </Typography>
+                );
+              })(),
+
+              i < arr.length - 1 ? (
+                <br key="br" />
+              ) : null,
+            ];
+          })}
+        </Box>
+      )}
 
       <ObjectSymbol>
         {'}'}
