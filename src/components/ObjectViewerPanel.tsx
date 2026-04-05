@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { ClientOnly } from '@tanstack/react-router';
-import { useState, type FC, type ReactNode } from 'react';
+import { useCallback, useState, type FC, type ReactNode } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Viewer } from '#/viewer/Viewer';
 
@@ -25,6 +25,12 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   initialValue,
 }) => {
   const [object, setObject] = useState(initialValue);
+  const [count, setCount] = useState(0);
+
+  const onClickReEvaluate = useCallback(() => {
+    setObject(initialValue);
+    setCount((c) => c + 1);
+  }, [initialValue]);
 
   return (
     <Stack gap={2}>
@@ -32,7 +38,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
         <Button
           size="small"
           variant="outlined"
-          onClick={() => setObject(initialValue)}
+          onClick={onClickReEvaluate}
         >
           Re-evaluate
         </Button>
@@ -55,7 +61,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
           )}
         >
           <ThemeProvider theme={codeTheme}>
-            <Viewer object={object} />
+            <Viewer key={count} object={object} />
           </ThemeProvider>
         </ErrorBoundary>
       </Box>
