@@ -53,7 +53,7 @@ export const isObject = (value: unknown): value is object =>
   typeof value === 'object' && value !== null;
 
 export const isComplex = (value: unknown): boolean =>
-  (value as any).__proto__.constructor.name === 'FiberNode' ||
+  getName(value) === 'FiberNode' ||
   [
     CSSStyleSheet,
     Document,
