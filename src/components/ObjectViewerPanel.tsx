@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
+import Paper, { type PaperProps } from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
@@ -13,14 +13,17 @@ import {
   type ReactNode,
 } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { ActionSection, type ActionSectionProps } from './ActionSection';
 import { Viewer } from '#/viewer/Viewer';
 
-export type ObjectViewerPanelProps = {
+export type ObjectViewerPanelProps = PaperProps & {
   id: string;
   heading?: ReactNode;
   name?: string;
   initialValue: () => any;
   reloadInterval?: number;
+  actions?: ActionSectionProps[];
+  onClear?: () => void;
 };
 
 const codeTheme = createTheme({
@@ -35,9 +38,15 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   name,
   initialValue,
   reloadInterval,
+  actions,
+  onClear,
 }) => {
   const [object, setObject] = useState(initialValue);
   const [count, setCount] = useState(0);
+
+  const onClickReRender = useCallback(() => {
+    setCount((c) => c + 1);
+  }, []);
 
   const onClickReEvaluate = useCallback(() => {
     setObject(initialValue);
@@ -61,6 +70,14 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
         <Button
           size="small"
           variant="outlined"
+          onClick={onClickReRender}
+        >
+          Re-render
+        </Button>
+
+        <Button
+          size="small"
+          variant="outlined"
           onClick={onClickReEvaluate}
         >
           Re-evaluate
@@ -73,6 +90,17 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
         >
           Log result to console
         </Button>
+
+        {onClear && (
+          <Button
+            size="small"
+            variant="outlined"
+            color="inherit"
+            onClick={onClear}
+          >
+            Clear
+          </Button>
+        )}
       </Stack>
 
       <Box sx={{ lineHeight: '1.2em', fontFamily: 'monospace' }}>
@@ -88,6 +116,14 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
           </ThemeProvider>
         </ErrorBoundary>
       </Box>
+
+      {actions && (
+        <Stack gap={1}>
+          {actions.map((action, index) => (
+            <ActionSection key={index} {...action} />
+          ))}
+        </Stack>
+      )}
     </Stack>
   );
 };
@@ -98,9 +134,12 @@ export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
   name,
   initialValue,
   reloadInterval,
+  actions,
+  onClear,
+  ...props
 }) => {
   return (
-    <Paper sx={{ p: 2 }}>
+    <Paper sx={{ p: 2 }} {...props}>
       <Stack gap={1}>
         {heading && (
           <Typography variant="h6">
@@ -134,6 +173,8 @@ export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
               name={name}
               initialValue={initialValue}
               reloadInterval={reloadInterval}
+              actions={actions}
+              onClear={onClear}
             />
           </ClientOnly>
         </ErrorBoundary>
