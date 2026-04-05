@@ -5,7 +5,13 @@ import Stack from '@mui/material/Stack';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { ClientOnly } from '@tanstack/react-router';
-import { useCallback, useState, type FC, type ReactNode } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useState,
+  type FC,
+  type ReactNode,
+} from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Viewer } from '#/viewer/Viewer';
 
@@ -14,6 +20,7 @@ export type ObjectViewerPanelProps = {
   heading?: ReactNode;
   name?: string;
   initialValue: () => any;
+  reloadInterval?: number;
 };
 
 const codeTheme = createTheme({
@@ -27,6 +34,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   id,
   name,
   initialValue,
+  reloadInterval,
 }) => {
   const [object, setObject] = useState(initialValue);
   const [count, setCount] = useState(0);
@@ -35,6 +43,17 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
     setObject(initialValue);
     setCount((c) => c + 1);
   }, [initialValue]);
+
+  useEffect(() => {
+    if (!reloadInterval) return;
+
+    const interval = setInterval(() => {
+      setObject(initialValue);
+      setCount((c) => c + 1);
+    }, reloadInterval);
+
+    return () => clearInterval(interval);
+  }, [initialValue, reloadInterval]);
 
   return (
     <Stack gap={2}>
@@ -78,6 +97,7 @@ export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
   heading,
   name,
   initialValue,
+  reloadInterval,
 }) => {
   return (
     <Paper sx={{ p: 2 }}>
@@ -113,6 +133,7 @@ export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
               id={id}
               name={name}
               initialValue={initialValue}
+              reloadInterval={reloadInterval}
             />
           </ClientOnly>
         </ErrorBoundary>
