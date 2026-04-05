@@ -4,7 +4,7 @@ import { ObjectCollapseToggleButton } from './ObjectCollapseToggleButton';
 import { ObjectLabel } from './ObjectLabel';
 import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewArray } from './ObjectViewArray';
-import { useIsCollapsed } from './providers';
+import { useCanCollapse, useIsCollapsed } from './providers';
 
 export type ObjectViewMapProps = {
   value: Map<any, any>;
@@ -16,6 +16,7 @@ export const ObjectViewMap = memo<ObjectViewMapProps>(({
   renderValue,
 }) => {
   const [isCollapsed, setIsCollapsed] = useIsCollapsed();
+  const canCollapse = useCanCollapse();
 
   return (
     <>
@@ -27,7 +28,9 @@ export const ObjectViewMap = memo<ObjectViewMapProps>(({
         {'(['}
       </ObjectSymbol>
 
-      <ObjectCollapseToggleButton onClick={() => setIsCollapsed((c) => !c)} />
+      {canCollapse && (
+        <ObjectCollapseToggleButton onClick={() => setIsCollapsed((c) => !c)} />
+      )}
 
       {isCollapsed ? null : (
         <Box component="ul" p={0} m={0} ml="2ch">

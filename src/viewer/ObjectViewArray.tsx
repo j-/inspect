@@ -3,7 +3,7 @@ import { type FC } from 'react';
 import { ObjectCollapseToggleButton } from './ObjectCollapseToggleButton';
 import { ObjectLabel } from './ObjectLabel';
 import { ObjectSymbol } from './ObjectSymbol';
-import { useIsCollapsed } from './providers';
+import { useCanCollapse, useIsCollapsed } from './providers';
 import type { RenderValueFunction } from './types';
 import { getArrayName } from './utils';
 
@@ -14,6 +14,7 @@ export type ObjectViewArrayProps = {
 
 export const ObjectViewArray: FC<ObjectViewArrayProps> = ({ value, renderValue }) => {
   const [isCollapsed, setIsCollapsed] = useIsCollapsed();
+  const canCollapse = useCanCollapse();
 
   if (value.length === 0) {
     return (
@@ -43,7 +44,9 @@ export const ObjectViewArray: FC<ObjectViewArrayProps> = ({ value, renderValue }
         {'['}
       </ObjectSymbol>
 
-      <ObjectCollapseToggleButton onClick={() => setIsCollapsed((c) => !c)} />
+      {canCollapse && (
+        <ObjectCollapseToggleButton onClick={() => setIsCollapsed((c) => !c)} />
+      )}
 
       {isCollapsed ? null : (
         <Box component="ul" p={0} m={0} ml="2ch">

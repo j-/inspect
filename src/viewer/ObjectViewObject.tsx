@@ -6,7 +6,7 @@ import { ObjectLabel } from './ObjectLabel';
 import { ObjectProperty } from './ObjectProperty';
 import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewComplex } from './ObjectViewComplex';
-import { useIsCollapsed, useViewerContext } from './providers';
+import { useCanCollapse, useIsCollapsed, useViewerContext } from './providers';
 import type { RenderValueFunction } from './types';
 import { getName, isFunction, orderedKeys } from './utils';
 
@@ -39,6 +39,7 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
 }) => {
   const { rootName, thisPath } = useViewerContext();
   const [isCollapsed, setIsCollapsed] = useIsCollapsed();
+  const canCollapse = useCanCollapse();
 
   if (keys.length === 0) {
     return (
@@ -58,7 +59,9 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
         {'{'}
       </ObjectSymbol>
 
-      <ObjectCollapseToggleButton onClick={() => setIsCollapsed((c) => !c)} />
+      {canCollapse && (
+        <ObjectCollapseToggleButton onClick={() => setIsCollapsed((c) => !c)} />
+      )}
 
       {isCollapsed ? null : (
         <Box component="ul" p={0} m={0} ml="2ch">

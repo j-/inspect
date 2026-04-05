@@ -61,6 +61,11 @@ export const useIsRecursive = () => {
   return result;
 };
 
+export const useCanCollapse = () => {
+  const { root } = useViewerContext();
+  return !root;
+};
+
 export const useIsCollapsed = () => {
   const { id, thisPath } = useViewerContext();
 
