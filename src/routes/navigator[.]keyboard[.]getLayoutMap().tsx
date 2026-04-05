@@ -1,5 +1,6 @@
 import Stack from '@mui/material/Stack';
 import { createFileRoute, useLocation } from '@tanstack/react-router';
+import { createIsomorphicFn } from '@tanstack/react-start';
 import { useEffect, useMemo, useState } from 'react';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
 
@@ -7,11 +8,15 @@ export const Route = createFileRoute('/navigator.keyboard.getLayoutMap()')({
   component: RouteComponent,
 });
 
+const initLayoutMap = createIsomorphicFn()
+  .client(() => navigator.keyboard.getLayoutMap())
+  .server(() => null);
+
 function RouteComponent() {
   const { pathname } = useLocation();
 
   const promise = useMemo(() => {
-    return navigator.keyboard.getLayoutMap();
+    return initLayoutMap();
   }, []);
 
   const [entries, setEntries] = useState<[KeyMapCode, string][] | null>(null);
@@ -19,7 +24,7 @@ function RouteComponent() {
   useEffect(() => {
     let isMounted = true;
 
-    promise.then((layoutMap: Map<KeyMapCode, string>) => {
+    promise?.then((layoutMap: Map<KeyMapCode, string>) => {
       if (!isMounted) return;
 
       setEntries(Array.from(layoutMap.entries()));
