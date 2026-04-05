@@ -22,7 +22,9 @@ const App: FC = () => {
             ['key1', 'value1'],
             ['key2', 42],
           ]),
+          mapEmpty: new Map(),
           set: new Set(['value1', 42]),
+          setEmpty: new Set(),
           nested: {
             a: 1,
             b: 'string',

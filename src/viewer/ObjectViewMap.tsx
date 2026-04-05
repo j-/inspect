@@ -17,6 +17,20 @@ export const ObjectViewMap = memo<ObjectViewMapProps>(({
   const [isCollapsed, setIsCollapsed] = useIsCollapsed();
   const canCollapse = useCanCollapse();
 
+  if (parent.size === 0) {
+    return (
+      <>
+        <ObjectLabel>
+          {'size' in parent ? `Map(${parent.size})` : 'Map'}{' '}
+        </ObjectLabel>
+
+        <ObjectSymbol>
+          {'()'}
+        </ObjectSymbol>
+      </>
+    );
+  }
+
   return (
     <>
       <ObjectLabel>

@@ -13,6 +13,20 @@ export const ObjectViewSet = memo<ObjectViewSetProps>(({
   value: parent,
   renderValue,
 }) => {
+  if (parent.size === 0) {
+    return (
+      <>
+        <ObjectLabel>
+          {'size' in parent ? `Set(${parent.size})` : 'Set'}{' '}
+        </ObjectLabel>
+
+        <ObjectSymbol>
+          {'()'}
+        </ObjectSymbol>
+      </>
+    );
+  }
+
   return (
     <>
       <ObjectLabel>
