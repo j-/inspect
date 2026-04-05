@@ -9,6 +9,7 @@ function RouteComponent() {
   return (
     <ObjectViewerPanel
       heading="window.screen"
+      name="window.screen"
       initialValue={() => window.screen}
     />
   );

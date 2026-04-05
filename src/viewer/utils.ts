@@ -128,3 +128,19 @@ const JS_IDENTIFIER_NAME_RE = /^[$_\p{ID_Start}][$_\u200C\u200D\p{ID_Continue}]*
 export const canRenderUnquotedPropertyKey = (key: string): boolean => (
   JS_IDENTIFIER_NAME_RE.test(key)
 );
+
+export const renderFullPath = ([first, ...rest]: (string | number | symbol)[]) =>
+  String(first) + rest.map((part) => {
+    // If it's a valid identifier, render as `.identifier`.
+    if (typeof part === 'string' && canRenderUnquotedPropertyKey(part)) {
+      return `.${part}`;
+    }
+
+    // If it's a number or numeric string, render as `[number]`.
+    if (!isNaN(Number(part))) {
+      return `[${String(part)}]`;
+    }
+
+    // Otherwise render as an escaped string.
+    return `[${JSON.stringify(part)}]`;
+  }).join('');

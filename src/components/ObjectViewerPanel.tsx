@@ -11,6 +11,7 @@ import { Viewer } from '#/viewer/Viewer';
 
 export type ObjectViewerPanelProps = {
   heading?: ReactNode;
+  name?: string;
   initialValue: () => any;
 };
 
@@ -22,6 +23,7 @@ const codeTheme = createTheme({
 });
 
 const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
+  name,
   initialValue,
 }) => {
   const [object, setObject] = useState(initialValue);
@@ -61,7 +63,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
           )}
         >
           <ThemeProvider theme={codeTheme}>
-            <Viewer key={count} object={object} />
+            <Viewer key={count} object={object} name={name} />
           </ThemeProvider>
         </ErrorBoundary>
       </Box>
@@ -71,6 +73,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
 
 export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
   heading,
+  name,
   initialValue,
 }) => {
   return (
@@ -103,7 +106,7 @@ export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
           )}
         >
           <ClientOnly>
-            <ObjectViewerPanelInner initialValue={initialValue} />
+            <ObjectViewerPanelInner name={name} initialValue={initialValue} />
           </ClientOnly>
         </ErrorBoundary>
       </Stack>

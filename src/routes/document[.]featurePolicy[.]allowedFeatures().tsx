@@ -11,7 +11,8 @@ function RouteComponent() {
   return (
     <ObjectViewerPanel
       heading="document.featurePolicy.allowedFeatures()"
-      initialValue={() => document.featurePolicy.allowedFeatures()}
+      name="document.featurePolicy.allowedFeatures()"
+      initialValue={() => document.featurePolicy!.allowedFeatures()}
     />
   );
 }

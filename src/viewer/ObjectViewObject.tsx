@@ -37,7 +37,7 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
 
   renderValue,
 }) => {
-  const { thisPath } = useViewerContext();
+  const { rootName, thisPath } = useViewerContext();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   if (keys.length === 0) {
@@ -73,6 +73,7 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
               >
                 <ObjectProperty
                   name={key}
+                  rootName={rootName}
                   fullPath={[...thisPath, key]}
                   isFunction={isFunction(parent[key])}
                 />

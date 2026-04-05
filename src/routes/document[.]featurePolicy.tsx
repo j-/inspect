@@ -9,6 +9,7 @@ function RouteComponent() {
   return (
     <ObjectViewerPanel
       heading="document.featurePolicy"
+      name="document.featurePolicy"
       initialValue={() => document.featurePolicy}
     />
   );

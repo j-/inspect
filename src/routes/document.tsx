@@ -7,6 +7,10 @@ export const Route = createFileRoute('/document')({
 
 function RouteComponent() {
   return (
-    <ObjectViewerPanel heading="document" initialValue={() => document} />
+    <ObjectViewerPanel
+      heading="document"
+      name="document"
+      initialValue={() => document}
+    />
   );
 }

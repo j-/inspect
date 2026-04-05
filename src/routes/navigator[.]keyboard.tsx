@@ -9,6 +9,7 @@ function RouteComponent() {
   return (
     <ObjectViewerPanel
       heading="navigator.keyboard"
+      name="navigator.keyboard"
       initialValue={() => navigator.keyboard}
     />
   );

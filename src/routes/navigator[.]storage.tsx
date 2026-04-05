@@ -9,6 +9,7 @@ function RouteComponent() {
   return (
     <ObjectViewerPanel
       heading="navigator.storage"
+      name="navigator.storage"
       initialValue={() => navigator.storage}
     />
   );

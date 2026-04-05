@@ -9,6 +9,7 @@ function RouteComponent() {
   return (
     <ObjectViewerPanel
       heading="navigator.connection"
+      name="navigator.connection"
       initialValue={() => navigator.connection}
     />
   );

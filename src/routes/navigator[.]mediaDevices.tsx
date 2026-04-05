@@ -9,6 +9,7 @@ function RouteComponent() {
   return (
     <ObjectViewerPanel
       heading="navigator.mediaDevices"
+      name="navigator.mediaDevices"
       initialValue={() => navigator.mediaDevices}
     />
   );

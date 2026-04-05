@@ -3,12 +3,14 @@ import { createContext, useContext, type FC, type PropsWithChildren } from 'reac
 export type ViewerContextType<T, U = T> = {
   root: true;
   rootObject: T;
+  rootName: string;
   thisObject: T;
   thisKey: undefined;
   thisPath: (string | number | symbol)[];
 } | {
   root: false;
   rootObject: T;
+  rootName: string;
   thisObject: U;
   thisKey: string | number | symbol;
   thisPath: (string | number | symbol)[];
@@ -51,16 +53,19 @@ export const useIsRecursive = () => {
 
 export type RootViewerProviderProps<T> = PropsWithChildren<{
   object: T;
+  name?: string;
 }>;
 
 export const RootViewerProvider = <T,>({
   children,
   object: rootObject,
+  name = 'result',
 }: RootViewerProviderProps<T>) => {
   return (
     <ViewerContext.Provider value={{
       root: true,
       rootObject: rootObject,
+      rootName: name,
       thisObject: rootObject,
       thisKey: undefined,
       thisPath: [],

@@ -7,6 +7,10 @@ export const Route = createFileRoute('/navigator')({
 
 function RouteComponent() {
   return (
-    <ObjectViewerPanel heading="navigator" initialValue={() => navigator} />
+    <ObjectViewerPanel
+      heading="navigator"
+      name="navigator"
+      initialValue={() => navigator}
+    />
   );
 }
