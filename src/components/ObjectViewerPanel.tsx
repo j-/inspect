@@ -52,7 +52,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
         </Button>
       </Stack>
 
-      <Box sx={{ lineHeight: '1.2em' }}>
+      <Box sx={{ lineHeight: '1.2em', fontFamily: 'monospace' }}>
         <ErrorBoundary
           fallbackRender={({ error }) => (
             <Box color="error.main">
