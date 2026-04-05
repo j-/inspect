@@ -45,6 +45,10 @@ const App: FC = () => {
               return 'resolved after 3 seconds';
             })(),
           },
+          functionNamed: function namedFunction() {
+            return 'I am a named function';
+          },
+          functionAnonymous: [() => 'I am an anonymous function'][0],
         })}
       />
 

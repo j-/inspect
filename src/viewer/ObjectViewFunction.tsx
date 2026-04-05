@@ -1,4 +1,3 @@
-import Typography from '@mui/material/Typography';
 import { memo } from 'react';
 import { ObjectSymbol } from './ObjectSymbol';
 
@@ -9,16 +8,7 @@ export type ObjectViewFunctionProps = {
 
 export const ObjectViewFunction = memo<ObjectViewFunctionProps>(({ value }) => (
   <ObjectSymbol>
-    {'[function '}
-
-    <Typography
-      component="span"
-      fontFamily="monospace"
-    >
-      {value.name || 'anonymous'}
-    </Typography>
-
-    {'()]'}
+    {value.name ? `[function ${value.name}()]` : '[() => {}]'}
   </ObjectSymbol>
 ));
 
