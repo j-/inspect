@@ -99,6 +99,16 @@ export const allKeys = <T extends object>(obj: T): (keyof T)[] => {
   return [...keys.values()];
 };
 
+const collator = new Intl.Collator(undefined, {
+  numeric: true,
+  sensitivity: 'base',
+});
+
+const keyCompare = (
+  a: string | number | symbol,
+  b: string | number | symbol,
+) => collator.compare(String(a), String(b));
+
 export const orderedKeys = <T extends object>(obj: T): (keyof T)[] => {
   const all = allKeys(obj);
   const fnKeys = all.filter((key) => typeof obj[key] === 'function');
@@ -106,8 +116,8 @@ export const orderedKeys = <T extends object>(obj: T): (keyof T)[] => {
   const fnKeySet = new Set(fnKeys);
   const rest = all.filter((key) => !fnKeySet.has(key));
 
-  const restSorted = [...rest].sort();
-  const fnSorted = [...fnKeys].sort();
+  const restSorted = [...rest].sort(keyCompare);
+  const fnSorted = [...fnKeys].sort(keyCompare);
 
   return [...restSorted, ...fnSorted];
 };
