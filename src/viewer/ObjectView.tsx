@@ -12,7 +12,7 @@ import { ObjectViewNull } from './ObjectViewNull';
 import { ObjectViewNumber } from './ObjectViewNumber';
 import { ObjectViewObject } from './ObjectViewObject';
 import { ObjectViewPromise } from './ObjectViewPromise';
-import { ObjectViewRegExp } from './ObjectViewRegexp';
+import { ObjectViewRegExp } from './ObjectViewRegExp';
 import { ObjectViewSet } from './ObjectViewSet';
 import { ObjectViewString } from './ObjectViewString';
 import { ObjectViewSymbol } from './ObjectViewSymbol';

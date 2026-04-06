@@ -21,7 +21,7 @@ export type ObjectViewerPanelProps = PaperProps & {
   id: string;
   heading?: ReactNode;
   name?: string;
-  initialValue: () => any;
+  initialValue?: () => any;
   reloadInterval?: number;
   actions?: ActionSectionProps[];
   onClear?: () => void;
@@ -44,6 +44,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   onClear,
   defaultIsExpanded,
 }) => {
+  const hasInitialValue = typeof initialValue === 'function';
   const [object, setObject] = useState(initialValue);
   const [count, setCount] = useState(0);
 
@@ -57,7 +58,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   }, [initialValue]);
 
   useEffect(() => {
-    if (!reloadInterval) return;
+    if (!reloadInterval || !hasInitialValue) return;
 
     const interval = setInterval(() => {
       setObject(initialValue);
@@ -65,66 +66,70 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
     }, reloadInterval);
 
     return () => clearInterval(interval);
-  }, [initialValue, reloadInterval]);
+  }, [hasInitialValue, initialValue, reloadInterval]);
 
   return (
     <Stack gap={2}>
-      <Stack direction="row" gap={1}>
-        <Button
-          size="small"
-          variant="outlined"
-          onClick={onClickReRender}
-        >
-          Re-render
-        </Button>
-
-        <Button
-          size="small"
-          variant="outlined"
-          onClick={onClickReEvaluate}
-        >
-          Re-evaluate
-        </Button>
-
-        <Button
-          size="small"
-          variant="outlined"
-          onClick={() => console.log(object)}
-        >
-          Log result to console
-        </Button>
-
-        {onClear && (
+      {hasInitialValue && (
+        <Stack direction="row" gap={1} flexWrap="wrap">
           <Button
             size="small"
             variant="outlined"
-            color="inherit"
-            onClick={onClear}
+            onClick={onClickReRender}
           >
-            Clear
+            Re-render
           </Button>
-        )}
-      </Stack>
 
-      <Box sx={{ lineHeight: '1.2em', fontFamily: 'monospace' }}>
-        <ErrorBoundary
-          fallbackRender={({ error }) => (
-            <Box color="error.main">
-              <strong>Error:</strong> {(error as Error).message}
-            </Box>
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={onClickReEvaluate}
+          >
+            Re-evaluate
+          </Button>
+
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={() => console.log(object)}
+          >
+            Log result to console
+          </Button>
+
+          {onClear && (
+            <Button
+              size="small"
+              variant="outlined"
+              color="inherit"
+              onClick={onClear}
+            >
+              Clear
+            </Button>
           )}
-        >
-          <ThemeProvider theme={codeTheme}>
-            <Viewer
-              id={id}
-              key={count}
-              object={object}
-              name={name}
-              defaultIsExpanded={defaultIsExpanded}
-            />
-          </ThemeProvider>
-        </ErrorBoundary>
-      </Box>
+        </Stack>
+      )}
+
+      {hasInitialValue && (
+        <Box sx={{ lineHeight: '1.2em', fontFamily: 'monospace' }}>
+          <ErrorBoundary
+            fallbackRender={({ error }) => (
+              <Box color="error.main">
+                <strong>Error:</strong> {(error as Error).message}
+              </Box>
+            )}
+          >
+            <ThemeProvider theme={codeTheme}>
+              <Viewer
+                id={id}
+                key={count}
+                object={object}
+                name={name}
+                defaultIsExpanded={defaultIsExpanded}
+              />
+            </ThemeProvider>
+          </ErrorBoundary>
+        </Box>
+      )}
 
       {actions && (
         <Stack gap={1}>

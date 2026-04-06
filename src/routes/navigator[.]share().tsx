@@ -12,10 +12,7 @@ const getExampleFile = createIsomorphicFn().client(() => {
 
   try {
     exampleFiles.push(
-      new File(['Example file 1 content'], 'example1.txt', { type: 'text/plain' }),
-    );
-    exampleFiles.push(
-      new File(['Example file 2 content'], 'example2.txt', { type: 'text/plain' }),
+      new File(['Example file content'], 'example.txt', { type: 'text/plain' }),
     );
   } catch (error) {
     console.warn('File API is not supported in this environment. Example files will be unavailable.', error);
@@ -55,7 +52,6 @@ function RouteComponent() {
       <ObjectViewerPanel
         id={pathname + '#noData'}
         heading="No data"
-        initialValue={() => navigator.canShare()}
         actions={[
           {
             buttonProps: {
@@ -75,7 +71,6 @@ function RouteComponent() {
       <ObjectViewerPanel
         id={pathname + '#titleOnly'}
         heading="Title only"
-        initialValue={() => navigator.canShare({ title: 'Share data title' })}
         actions={[
           {
             buttonProps: {
@@ -99,7 +94,6 @@ function RouteComponent() {
       <ObjectViewerPanel
         id={pathname + '#textOnly'}
         heading="Text only"
-        initialValue={() => navigator.canShare({ text: 'Share data text' })}
         actions={[
           {
             buttonProps: {
@@ -123,12 +117,6 @@ function RouteComponent() {
       <ObjectViewerPanel
         id={pathname + '#titleAndText'}
         heading="Title and text"
-        initialValue={() => (
-          navigator.canShare({
-            title: 'Share data title',
-            text: 'Share data text',
-          })
-        )}
         actions={[
           {
             buttonProps: {
@@ -158,7 +146,6 @@ function RouteComponent() {
       <ObjectViewerPanel
         id={pathname + '#urlOnly'}
         heading="URL only"
-        initialValue={() => navigator.canShare({ url: 'https://example.com' })}
         actions={[
           {
             buttonProps: {
@@ -182,12 +169,6 @@ function RouteComponent() {
       <ObjectViewerPanel
         id={pathname + '#urlAndTitle'}
         heading="URL and title"
-        initialValue={() => (
-          navigator.canShare({
-            url: 'https://example.com',
-            title: 'Share data title',
-          })
-        )}
         actions={[
           {
             buttonProps: {
@@ -217,12 +198,6 @@ function RouteComponent() {
       <ObjectViewerPanel
         id={pathname + '#urlAndText'}
         heading="URL and text"
-        initialValue={() => (
-          navigator.canShare({
-            url: 'https://example.com',
-            text: 'Share data text',
-          })
-        )}
         actions={[
           {
             buttonProps: {
@@ -252,13 +227,6 @@ function RouteComponent() {
       <ObjectViewerPanel
         id={pathname + '#urlTitleAndText'}
         heading="URL, title, and text"
-        initialValue={() => (
-          navigator.canShare({
-            url: 'https://example.com',
-            title: 'Share data title',
-            text: 'Share data text',
-          })
-        )}
         actions={[
           {
             buttonProps: {
@@ -290,11 +258,6 @@ function RouteComponent() {
       <ObjectViewerPanel
         id={pathname + '#file'}
         heading="One file"
-        initialValue={() => (
-          navigator.canShare({
-            files: getExampleFile(),
-          })
-        )}
         actions={[
           {
             buttonProps: {
@@ -322,11 +285,6 @@ function RouteComponent() {
       <ObjectViewerPanel
         id={pathname + '#files'}
         heading="Multiple files"
-        initialValue={() => (
-          navigator.canShare({
-            files: getExampleFiles(),
-          })
-        )}
         actions={[
           {
             buttonProps: {
@@ -354,14 +312,6 @@ function RouteComponent() {
       <ObjectViewerPanel
         id={pathname + '#urlTitleTextAndFile'}
         heading="URL, title, text, and one file"
-        initialValue={() => (
-          navigator.canShare({
-            url: 'https://example.com',
-            title: 'Share data title',
-            text: 'Share data text',
-            files: getExampleFile(),
-          })
-        )}
         actions={[
           {
             buttonProps: {
@@ -395,14 +345,6 @@ function RouteComponent() {
       <ObjectViewerPanel
         id={pathname + '#urlTitleTextAndFiles'}
         heading="URL, title, text, and multiple files"
-        initialValue={() => (
-          navigator.canShare({
-            url: 'https://example.com',
-            title: 'Share data title',
-            text: 'Share data text',
-            files: getExampleFiles(),
-          })
-        )}
         actions={[
           {
             buttonProps: {

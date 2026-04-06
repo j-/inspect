@@ -6,11 +6,19 @@ import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 const config = defineConfig({
+  base: '/inspect/',
   plugins: [
     devtools(),
     tsconfigPaths({ projects: ['./tsconfig.json'] }),
     tailwindcss(),
-    tanstackStart(),
+    tanstackStart({
+      prerender: {
+        enabled: true,
+      },
+      spa: {
+        enabled: false,
+      },
+    }),
     viteReact(),
   ],
 });
