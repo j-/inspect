@@ -1,1 +1,0 @@
-import{j as e}from"./main-Bd2CwJJz.js";import{u as o}from"./useLocation-B7erUWcB.js";import{O as i}from"./ObjectViewerPanel-CpMqCgZ5.js";function s(){const{pathname:t}=o();return e.jsx(i,{id:t,heading:"navigator.mediaDevices.getSupportedConstraints()",initialValue:()=>navigator.mediaDevices.getSupportedConstraints()})}export{s as component};
