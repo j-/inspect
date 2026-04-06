@@ -1,1 +1,0 @@
-import{j as a}from"./main-w65F5f4F.js";import{u as t}from"./useLocation-BtT3jGiJ.js";import{O as i}from"./ObjectViewerPanel-BssiSIZL.js";function d(){const{pathname:o}=t();return a.jsx(i,{id:o,heading:"window",name:"window",initialValue:()=>window,defaultIsExpanded:(n,e)=>n!==document&&n!==navigator&&!(n instanceof Storage)&&e.length<5})}export{d as component};

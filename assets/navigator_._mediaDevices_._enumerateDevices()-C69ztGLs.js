@@ -1,1 +1,0 @@
-import{j as i}from"./main-w65F5f4F.js";import{u as t}from"./useLocation-BtT3jGiJ.js";import{O as a}from"./ObjectViewerPanel-BssiSIZL.js";function m(){const{pathname:e}=t();return i.jsx(a,{id:e,heading:"navigator.mediaDevices.enumerateDevices()",initialValue:()=>navigator.mediaDevices.enumerateDevices()})}export{m as component};
