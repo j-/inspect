@@ -71,6 +71,19 @@ const App: FC = () => {
       />
 
       <ObjectViewerPanel
+        id="get-and-set"
+        heading="Get and set example"
+        initialValue={() => ({
+          get value() {
+            return 'This value is from a getter';
+          },
+          set value(newValue) {
+            console.log('Setter called with:', newValue);
+          },
+        })}
+      />
+
+      <ObjectViewerPanel
         id="error-example"
         heading="Error example"
         initialValue={() => {
