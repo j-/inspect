@@ -12,6 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WindowDotscreenRouteImport } from './routes/window[.]screen'
 import { Route as WindowDotgetScreenDetailsRouteImport } from './routes/window[.]getScreenDetails()'
 import { Route as WindowRouteImport } from './routes/window'
+import { Route as UseRouterStateRouteImport } from './routes/useRouterState()'
+import { Route as UseRouterRouteImport } from './routes/useRouter()'
+import { Route as UseLocationRouteImport } from './routes/useLocation()'
 import { Route as NavigatorDotwakeLockRouteImport } from './routes/navigator[.]wakeLock'
 import { Route as NavigatorDotuserActivationRouteImport } from './routes/navigator[.]userActivation'
 import { Route as NavigatorDotstorageDotestimateRouteImport } from './routes/navigator[.]storage[.]estimate()'
@@ -47,6 +50,21 @@ const WindowDotgetScreenDetailsRoute =
 const WindowRoute = WindowRouteImport.update({
   id: '/window',
   path: '/window',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UseRouterStateRoute = UseRouterStateRouteImport.update({
+  id: '/useRouterState()',
+  path: '/useRouterState()',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UseRouterRoute = UseRouterRouteImport.update({
+  id: '/useRouter()',
+  path: '/useRouter()',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UseLocationRoute = UseLocationRouteImport.update({
+  id: '/useLocation()',
+  path: '/useLocation()',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NavigatorDotwakeLockRoute = NavigatorDotwakeLockRouteImport.update({
@@ -181,6 +199,9 @@ export interface FileRoutesByFullPath {
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/navigator.userActivation': typeof NavigatorDotuserActivationRoute
   '/navigator.wakeLock': typeof NavigatorDotwakeLockRoute
+  '/useLocation()': typeof UseLocationRoute
+  '/useRouter()': typeof UseRouterRoute
+  '/useRouterState()': typeof UseRouterStateRoute
   '/window': typeof WindowRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
   '/window.screen': typeof WindowDotscreenRoute
@@ -206,6 +227,9 @@ export interface FileRoutesByTo {
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/navigator.userActivation': typeof NavigatorDotuserActivationRoute
   '/navigator.wakeLock': typeof NavigatorDotwakeLockRoute
+  '/useLocation()': typeof UseLocationRoute
+  '/useRouter()': typeof UseRouterRoute
+  '/useRouterState()': typeof UseRouterStateRoute
   '/window': typeof WindowRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
   '/window.screen': typeof WindowDotscreenRoute
@@ -232,6 +256,9 @@ export interface FileRoutesById {
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/navigator.userActivation': typeof NavigatorDotuserActivationRoute
   '/navigator.wakeLock': typeof NavigatorDotwakeLockRoute
+  '/useLocation()': typeof UseLocationRoute
+  '/useRouter()': typeof UseRouterRoute
+  '/useRouterState()': typeof UseRouterStateRoute
   '/window': typeof WindowRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
   '/window.screen': typeof WindowDotscreenRoute
@@ -259,6 +286,9 @@ export interface FileRouteTypes {
     | '/navigator.storage.estimate()'
     | '/navigator.userActivation'
     | '/navigator.wakeLock'
+    | '/useLocation()'
+    | '/useRouter()'
+    | '/useRouterState()'
     | '/window'
     | '/window.getScreenDetails()'
     | '/window.screen'
@@ -284,6 +314,9 @@ export interface FileRouteTypes {
     | '/navigator.storage.estimate()'
     | '/navigator.userActivation'
     | '/navigator.wakeLock'
+    | '/useLocation()'
+    | '/useRouter()'
+    | '/useRouterState()'
     | '/window'
     | '/window.getScreenDetails()'
     | '/window.screen'
@@ -309,6 +342,9 @@ export interface FileRouteTypes {
     | '/navigator.storage.estimate()'
     | '/navigator.userActivation'
     | '/navigator.wakeLock'
+    | '/useLocation()'
+    | '/useRouter()'
+    | '/useRouterState()'
     | '/window'
     | '/window.getScreenDetails()'
     | '/window.screen'
@@ -335,6 +371,9 @@ export interface RootRouteChildren {
   NavigatorDotstorageDotestimateRoute: typeof NavigatorDotstorageDotestimateRoute
   NavigatorDotuserActivationRoute: typeof NavigatorDotuserActivationRoute
   NavigatorDotwakeLockRoute: typeof NavigatorDotwakeLockRoute
+  UseLocationRoute: typeof UseLocationRoute
+  UseRouterRoute: typeof UseRouterRoute
+  UseRouterStateRoute: typeof UseRouterStateRoute
   WindowRoute: typeof WindowRoute
   WindowDotgetScreenDetailsRoute: typeof WindowDotgetScreenDetailsRoute
   WindowDotscreenRoute: typeof WindowDotscreenRoute
@@ -361,6 +400,27 @@ declare module '@tanstack/react-router' {
       path: '/window'
       fullPath: '/window'
       preLoaderRoute: typeof WindowRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/useRouterState()': {
+      id: '/useRouterState()'
+      path: '/useRouterState()'
+      fullPath: '/useRouterState()'
+      preLoaderRoute: typeof UseRouterStateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/useRouter()': {
+      id: '/useRouter()'
+      path: '/useRouter()'
+      fullPath: '/useRouter()'
+      preLoaderRoute: typeof UseRouterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/useLocation()': {
+      id: '/useLocation()'
+      path: '/useLocation()'
+      fullPath: '/useLocation()'
+      preLoaderRoute: typeof UseLocationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/navigator.wakeLock': {
@@ -533,6 +593,9 @@ const rootRouteChildren: RootRouteChildren = {
   NavigatorDotstorageDotestimateRoute: NavigatorDotstorageDotestimateRoute,
   NavigatorDotuserActivationRoute: NavigatorDotuserActivationRoute,
   NavigatorDotwakeLockRoute: NavigatorDotwakeLockRoute,
+  UseLocationRoute: UseLocationRoute,
+  UseRouterRoute: UseRouterRoute,
+  UseRouterStateRoute: UseRouterStateRoute,
   WindowRoute: WindowRoute,
   WindowDotgetScreenDetailsRoute: WindowDotgetScreenDetailsRoute,
   WindowDotscreenRoute: WindowDotscreenRoute,
