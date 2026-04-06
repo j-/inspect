@@ -1,0 +1,1 @@
+import{j as o}from"./main-C6HPs0ng.js";import{u as e}from"./useLocation-B2fhXSnX.js";import{O as a}from"./ObjectViewerPanel-BFlk7-fj.js";function m(){const{pathname:t}=e();return o.jsx(a,{id:t,heading:"navigator.getBattery()",initialValue:()=>navigator.getBattery()})}export{m as component};
