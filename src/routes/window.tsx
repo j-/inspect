@@ -14,7 +14,11 @@ function RouteComponent() {
       heading="window"
       name="window"
       initialValue={() => window}
-      defaultIsExpanded={(_, thisPath) => thisPath.length < 5}
+      defaultIsExpanded={(thisObject, thisPath) => (
+        thisObject !== document &&
+        thisObject !== navigator &&
+        thisPath.length < 5
+      )}
     />
   );
 }
