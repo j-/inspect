@@ -9,6 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WindowDotvisualViewportRouteImport } from './routes/window[.]visualViewport'
+import { Route as WindowDotviewportRouteImport } from './routes/window[.]viewport'
 import { Route as WindowDotscreenRouteImport } from './routes/window[.]screen'
 import { Route as WindowDotgetScreenDetailsRouteImport } from './routes/window[.]getScreenDetails()'
 import { Route as WindowRouteImport } from './routes/window'
@@ -37,6 +39,16 @@ import { Route as DocumentRouteImport } from './routes/document'
 import { Route as MathDotrandomRouteImport } from './routes/Math[.]random()'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WindowDotvisualViewportRoute = WindowDotvisualViewportRouteImport.update({
+  id: '/window.visualViewport',
+  path: '/window.visualViewport',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WindowDotviewportRoute = WindowDotviewportRouteImport.update({
+  id: '/window.viewport',
+  path: '/window.viewport',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WindowDotscreenRoute = WindowDotscreenRouteImport.update({
   id: '/window.screen',
   path: '/window.screen',
@@ -212,6 +224,8 @@ export interface FileRoutesByFullPath {
   '/window': typeof WindowRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
   '/window.screen': typeof WindowDotscreenRoute
+  '/window.viewport': typeof WindowDotviewportRoute
+  '/window.visualViewport': typeof WindowDotvisualViewportRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -241,6 +255,8 @@ export interface FileRoutesByTo {
   '/window': typeof WindowRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
   '/window.screen': typeof WindowDotscreenRoute
+  '/window.viewport': typeof WindowDotviewportRoute
+  '/window.visualViewport': typeof WindowDotvisualViewportRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -271,6 +287,8 @@ export interface FileRoutesById {
   '/window': typeof WindowRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
   '/window.screen': typeof WindowDotscreenRoute
+  '/window.viewport': typeof WindowDotviewportRoute
+  '/window.visualViewport': typeof WindowDotvisualViewportRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -302,6 +320,8 @@ export interface FileRouteTypes {
     | '/window'
     | '/window.getScreenDetails()'
     | '/window.screen'
+    | '/window.viewport'
+    | '/window.visualViewport'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -331,6 +351,8 @@ export interface FileRouteTypes {
     | '/window'
     | '/window.getScreenDetails()'
     | '/window.screen'
+    | '/window.viewport'
+    | '/window.visualViewport'
   id:
     | '__root__'
     | '/'
@@ -360,6 +382,8 @@ export interface FileRouteTypes {
     | '/window'
     | '/window.getScreenDetails()'
     | '/window.screen'
+    | '/window.viewport'
+    | '/window.visualViewport'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -390,10 +414,26 @@ export interface RootRouteChildren {
   WindowRoute: typeof WindowRoute
   WindowDotgetScreenDetailsRoute: typeof WindowDotgetScreenDetailsRoute
   WindowDotscreenRoute: typeof WindowDotscreenRoute
+  WindowDotviewportRoute: typeof WindowDotviewportRoute
+  WindowDotvisualViewportRoute: typeof WindowDotvisualViewportRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/window.visualViewport': {
+      id: '/window.visualViewport'
+      path: '/window.visualViewport'
+      fullPath: '/window.visualViewport'
+      preLoaderRoute: typeof WindowDotvisualViewportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/window.viewport': {
+      id: '/window.viewport'
+      path: '/window.viewport'
+      fullPath: '/window.viewport'
+      preLoaderRoute: typeof WindowDotviewportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/window.screen': {
       id: '/window.screen'
       path: '/window.screen'
@@ -620,6 +660,8 @@ const rootRouteChildren: RootRouteChildren = {
   WindowRoute: WindowRoute,
   WindowDotgetScreenDetailsRoute: WindowDotgetScreenDetailsRoute,
   WindowDotscreenRoute: WindowDotscreenRoute,
+  WindowDotviewportRoute: WindowDotviewportRoute,
+  WindowDotvisualViewportRoute: WindowDotvisualViewportRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

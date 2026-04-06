@@ -17,6 +17,7 @@ function RouteComponent() {
       defaultIsExpanded={(thisObject, thisPath) => (
         thisObject !== document &&
         thisObject !== navigator &&
+        thisObject instanceof Storage === false &&
         thisPath.length < 5
       )}
     />
