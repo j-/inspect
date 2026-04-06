@@ -15,6 +15,7 @@ import { Route as WindowRouteImport } from './routes/window'
 import { Route as UseRouterStateRouteImport } from './routes/useRouterState()'
 import { Route as UseRouterRouteImport } from './routes/useRouter()'
 import { Route as UseLocationRouteImport } from './routes/useLocation()'
+import { Route as PerformanceRouteImport } from './routes/performance'
 import { Route as NavigatorDotwakeLockRouteImport } from './routes/navigator[.]wakeLock'
 import { Route as NavigatorDotuserActivationRouteImport } from './routes/navigator[.]userActivation'
 import { Route as NavigatorDotstorageDotestimateRouteImport } from './routes/navigator[.]storage[.]estimate()'
@@ -65,6 +66,11 @@ const UseRouterRoute = UseRouterRouteImport.update({
 const UseLocationRoute = UseLocationRouteImport.update({
   id: '/useLocation()',
   path: '/useLocation()',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerformanceRoute = PerformanceRouteImport.update({
+  id: '/performance',
+  path: '/performance',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NavigatorDotwakeLockRoute = NavigatorDotwakeLockRouteImport.update({
@@ -199,6 +205,7 @@ export interface FileRoutesByFullPath {
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/navigator.userActivation': typeof NavigatorDotuserActivationRoute
   '/navigator.wakeLock': typeof NavigatorDotwakeLockRoute
+  '/performance': typeof PerformanceRoute
   '/useLocation()': typeof UseLocationRoute
   '/useRouter()': typeof UseRouterRoute
   '/useRouterState()': typeof UseRouterStateRoute
@@ -227,6 +234,7 @@ export interface FileRoutesByTo {
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/navigator.userActivation': typeof NavigatorDotuserActivationRoute
   '/navigator.wakeLock': typeof NavigatorDotwakeLockRoute
+  '/performance': typeof PerformanceRoute
   '/useLocation()': typeof UseLocationRoute
   '/useRouter()': typeof UseRouterRoute
   '/useRouterState()': typeof UseRouterStateRoute
@@ -256,6 +264,7 @@ export interface FileRoutesById {
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/navigator.userActivation': typeof NavigatorDotuserActivationRoute
   '/navigator.wakeLock': typeof NavigatorDotwakeLockRoute
+  '/performance': typeof PerformanceRoute
   '/useLocation()': typeof UseLocationRoute
   '/useRouter()': typeof UseRouterRoute
   '/useRouterState()': typeof UseRouterStateRoute
@@ -286,6 +295,7 @@ export interface FileRouteTypes {
     | '/navigator.storage.estimate()'
     | '/navigator.userActivation'
     | '/navigator.wakeLock'
+    | '/performance'
     | '/useLocation()'
     | '/useRouter()'
     | '/useRouterState()'
@@ -314,6 +324,7 @@ export interface FileRouteTypes {
     | '/navigator.storage.estimate()'
     | '/navigator.userActivation'
     | '/navigator.wakeLock'
+    | '/performance'
     | '/useLocation()'
     | '/useRouter()'
     | '/useRouterState()'
@@ -342,6 +353,7 @@ export interface FileRouteTypes {
     | '/navigator.storage.estimate()'
     | '/navigator.userActivation'
     | '/navigator.wakeLock'
+    | '/performance'
     | '/useLocation()'
     | '/useRouter()'
     | '/useRouterState()'
@@ -371,6 +383,7 @@ export interface RootRouteChildren {
   NavigatorDotstorageDotestimateRoute: typeof NavigatorDotstorageDotestimateRoute
   NavigatorDotuserActivationRoute: typeof NavigatorDotuserActivationRoute
   NavigatorDotwakeLockRoute: typeof NavigatorDotwakeLockRoute
+  PerformanceRoute: typeof PerformanceRoute
   UseLocationRoute: typeof UseLocationRoute
   UseRouterRoute: typeof UseRouterRoute
   UseRouterStateRoute: typeof UseRouterStateRoute
@@ -421,6 +434,13 @@ declare module '@tanstack/react-router' {
       path: '/useLocation()'
       fullPath: '/useLocation()'
       preLoaderRoute: typeof UseLocationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/performance': {
+      id: '/performance'
+      path: '/performance'
+      fullPath: '/performance'
+      preLoaderRoute: typeof PerformanceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/navigator.wakeLock': {
@@ -593,6 +613,7 @@ const rootRouteChildren: RootRouteChildren = {
   NavigatorDotstorageDotestimateRoute: NavigatorDotstorageDotestimateRoute,
   NavigatorDotuserActivationRoute: NavigatorDotuserActivationRoute,
   NavigatorDotwakeLockRoute: NavigatorDotwakeLockRoute,
+  PerformanceRoute: PerformanceRoute,
   UseLocationRoute: UseLocationRoute,
   UseRouterRoute: UseRouterRoute,
   UseRouterStateRoute: UseRouterStateRoute,
