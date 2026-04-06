@@ -63,7 +63,7 @@ export const ObjectViewArray: FC<ObjectViewArrayProps> = ({ value, renderValue }
 
             i < arr.length - 1 ? (
               <ObjectSymbol key={i + ','}>
-                {', '}
+                {', '}<wbr />
               </ObjectSymbol>
             ) : null,
           ])}
