@@ -14,7 +14,7 @@ function RouteComponent() {
       heading="document"
       name="document"
       initialValue={() => document}
-      defaultIsExpanded={(_, thisPath) => thisPath.length < 1}
+      defaultIsExpanded={(_, thisPath) => thisPath.length < 5}
     />
   );
 }

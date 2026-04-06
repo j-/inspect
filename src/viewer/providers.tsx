@@ -6,14 +6,14 @@ import {
   type PropsWithChildren,
 } from 'react';
 import useStorageState from 'use-storage-state';
-import type { IsExpandedFunction } from './types';
+import type { IsExpandedFunction, ViewerPathStep } from './types';
 import { getStorageNS } from './utils';
 
 export type ViewerContextType<T, U = T> = {
   id: string;
   rootObject: T;
   rootName: string;
-  thisPath: (string | number | symbol)[];
+  thisPath: ViewerPathStep[];
   defaultIsExpanded?: IsExpandedFunction;
 } & (
   | { root: true; thisObject: T; thisKey: undefined; }
@@ -41,9 +41,9 @@ export const useIsRecursive = () => {
     try {
       let checkObject = rootObject;
 
-      for (const key of thisPath) {
+      for (const step of thisPath) {
         if (checkObject === thisObject) return true;
-        checkObject = (checkObject as any)[key];
+        checkObject = step.selector(checkObject);
       }
 
       return false;
@@ -68,7 +68,7 @@ export const useIsCollapsed = () => {
       window.sessionStorage,
       window.location.origin,
       id,
-      ...thisPath.map(String),
+      ...thisPath.map(({ key }) => String(key)),
     );
   }, [id, thisPath]);
 
@@ -110,14 +110,16 @@ export const RootViewerProvider = <T,>({
 };
 
 export type PartViewerProviderProps = PropsWithChildren<{
+  thisType: ViewerPathStep['type'];
   thisKey: string | number | symbol;
-  getThisPart: () => unknown;
+  selector: (prevObject: unknown) => unknown;
 }>;
 
 export const PartViewerProvider: FC<PartViewerProviderProps> = ({
   children,
+  thisType,
   thisKey,
-  getThisPart,
+  selector,
 }) => {
   const context = useViewerContext();
 
@@ -125,9 +127,12 @@ export const PartViewerProvider: FC<PartViewerProviderProps> = ({
     <ViewerContext.Provider value={{
       ...context,
       root: false,
-      thisObject: getThisPart(),
+      thisObject: selector(context.thisObject),
       thisKey,
-      thisPath: [...context.thisPath, thisKey],
+      thisPath: [
+        ...context.thisPath,
+        { type: thisType, key: thisKey, selector },
+      ],
     }}>
       {children}
     </ViewerContext.Provider>

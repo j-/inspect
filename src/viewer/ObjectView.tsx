@@ -48,12 +48,12 @@ export const ObjectView: FC = () => {
     try {
       let checkObject = rootObject;
 
-      for (const key of thisPath) {
+      for (const step of thisPath) {
         if (checkObject === promiseValue) {
           return true;
         }
 
-        checkObject = (checkObject as any)[key];
+        checkObject = step.selector(checkObject);
       }
 
       return checkObject === promiseValue;
@@ -109,7 +109,7 @@ export const ObjectView: FC = () => {
 
           return (
             <RootViewerProvider
-              id={thisPath.join('.')}
+              id={thisPath.map(({ key }) => String(key)).join('.')}
               object={promiseValue}
               name={state === 'rejected' ? 'error' : 'result'}
             >
@@ -127,8 +127,11 @@ export const ObjectView: FC = () => {
         value={value}
         renderValue={(_, index) => (
           <PartViewerProvider
+            thisType="array"
             thisKey={index}
-            getThisPart={() => value[index as number]}
+            selector={(prevObject) => (
+              (prevObject as unknown[])[index as number]
+            )}
           >
             <ObjectView />
           </PartViewerProvider>
@@ -141,14 +144,22 @@ export const ObjectView: FC = () => {
     return (
       <ObjectViewMap
         value={value}
-        renderValue={(thisObject, key) => (
-          <PartViewerProvider
-            thisKey={key}
-            getThisPart={() => thisObject}
-          >
-            <ObjectView />
-          </PartViewerProvider>
-        )}
+        renderValue={(entry, index) => {
+          const [mapKey] = entry as [unknown, unknown];
+
+          return (
+            <PartViewerProvider
+              thisType="map"
+              thisKey={index}
+              selector={(prevObject) => {
+                const map = prevObject as Map<unknown, unknown>;
+                return [mapKey, map.get(mapKey)];
+              }}
+            >
+              <ObjectView />
+            </PartViewerProvider>
+          );
+        }}
       />
     );
   }
@@ -157,10 +168,13 @@ export const ObjectView: FC = () => {
     return (
       <ObjectViewSet
         value={value}
-        renderValue={(thisObject, key) => (
+        renderValue={(_, key) => (
           <PartViewerProvider
+            thisType="set"
             thisKey={key}
-            getThisPart={() => thisObject}
+            selector={(prevObject) => (
+              Array.from((prevObject as Set<unknown>).values())[key as number]
+            )}
           >
             <ObjectView />
           </PartViewerProvider>
@@ -187,8 +201,11 @@ export const ObjectView: FC = () => {
         value={value}
         renderValue={(_, thisKey) => (
           <PartViewerProvider
+            thisType="object"
             thisKey={thisKey}
-            getThisPart={() => value[thisKey as keyof typeof value]}
+            selector={(prevObject) => (
+              prevObject as Record<string | number | symbol, unknown>
+            )[thisKey as keyof typeof prevObject]}
           >
             <ObjectView />
           </PartViewerProvider>

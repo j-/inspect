@@ -7,7 +7,7 @@ import { useCanCollapse, useIsCollapsed } from './providers';
 
 export type ObjectViewMapProps = {
   value: Map<any, any>;
-  renderValue: (value: unknown, nextKey: string | symbol) => ReactNode;
+  renderValue: (value: unknown, nextKey: number) => ReactNode;
 };
 
 export const ObjectViewMap = memo<ObjectViewMapProps>(({
@@ -54,7 +54,7 @@ export const ObjectViewMap = memo<ObjectViewMapProps>(({
                 component="li"
                 sx={{ display: 'inline', listStyle: 'none', whiteSpace: 'nowrap' }}
               >
-                {renderValue([key, parent.get(key)], key)}
+                {renderValue([key, parent.get(key)], i)}
               </Box>,
 
               i < arr.length - 1 ? (

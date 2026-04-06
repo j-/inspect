@@ -77,7 +77,7 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
                 <ObjectProperty
                   name={key}
                   rootName={rootName}
-                  fullPath={[...thisPath, key]}
+                  fullPath={[...thisPath.map(({ key }) => key), key]}
                   isFunction={isFunction(parent[key])}
                 />
 

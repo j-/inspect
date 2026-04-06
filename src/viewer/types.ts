@@ -1,11 +1,21 @@
 import type { ReactNode } from 'react';
 
-export type RenderValueFunction = (
-  value: unknown,
-  key: string | symbol | number,
+export type KeyType = string | number | symbol;
+
+export type ViewerPathStepType = 'object' | 'array' | 'set' | 'map';
+
+export type ViewerPathStep = {
+  type: ViewerPathStepType;
+  key: KeyType;
+  selector: (prevObject: unknown) => unknown;
+};
+
+export type RenderValueFunction = <T, U extends KeyType>(
+  value: T,
+  key: U,
 ) => ReactNode;
 
 export type IsExpandedFunction = (
   thisObject: unknown,
-  thisPath: (string | number | symbol)[],
+  thisPath: ViewerPathStep[],
 ) => boolean;
