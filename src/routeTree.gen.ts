@@ -13,12 +13,12 @@ import { Route as WindowDotvisualViewportRouteImport } from './routes/window[.]v
 import { Route as WindowDotviewportRouteImport } from './routes/window[.]viewport'
 import { Route as WindowDotscreenRouteImport } from './routes/window[.]screen'
 import { Route as WindowDotqueryLocalFontsRouteImport } from './routes/window[.]queryLocalFonts()'
+import { Route as WindowDotperformanceRouteImport } from './routes/window[.]performance'
 import { Route as WindowDotgetScreenDetailsRouteImport } from './routes/window[.]getScreenDetails()'
 import { Route as WindowRouteImport } from './routes/window'
 import { Route as UseRouterStateRouteImport } from './routes/useRouterState()'
 import { Route as UseRouterRouteImport } from './routes/useRouter()'
 import { Route as UseLocationRouteImport } from './routes/useLocation()'
-import { Route as PerformanceRouteImport } from './routes/performance'
 import { Route as NavigatorDotwakeLockRouteImport } from './routes/navigator[.]wakeLock'
 import { Route as NavigatorDotuserActivationRouteImport } from './routes/navigator[.]userActivation'
 import { Route as NavigatorDotstorageDotestimateRouteImport } from './routes/navigator[.]storage[.]estimate()'
@@ -61,6 +61,11 @@ const WindowDotqueryLocalFontsRoute =
     path: '/window.queryLocalFonts()',
     getParentRoute: () => rootRouteImport,
   } as any)
+const WindowDotperformanceRoute = WindowDotperformanceRouteImport.update({
+  id: '/window.performance',
+  path: '/window.performance',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WindowDotgetScreenDetailsRoute =
   WindowDotgetScreenDetailsRouteImport.update({
     id: '/window.getScreenDetails()',
@@ -85,11 +90,6 @@ const UseRouterRoute = UseRouterRouteImport.update({
 const UseLocationRoute = UseLocationRouteImport.update({
   id: '/useLocation()',
   path: '/useLocation()',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PerformanceRoute = PerformanceRouteImport.update({
-  id: '/performance',
-  path: '/performance',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NavigatorDotwakeLockRoute = NavigatorDotwakeLockRouteImport.update({
@@ -224,12 +224,12 @@ export interface FileRoutesByFullPath {
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/navigator.userActivation': typeof NavigatorDotuserActivationRoute
   '/navigator.wakeLock': typeof NavigatorDotwakeLockRoute
-  '/performance': typeof PerformanceRoute
   '/useLocation()': typeof UseLocationRoute
   '/useRouter()': typeof UseRouterRoute
   '/useRouterState()': typeof UseRouterStateRoute
   '/window': typeof WindowRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
+  '/window.performance': typeof WindowDotperformanceRoute
   '/window.queryLocalFonts()': typeof WindowDotqueryLocalFontsRoute
   '/window.screen': typeof WindowDotscreenRoute
   '/window.viewport': typeof WindowDotviewportRoute
@@ -256,12 +256,12 @@ export interface FileRoutesByTo {
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/navigator.userActivation': typeof NavigatorDotuserActivationRoute
   '/navigator.wakeLock': typeof NavigatorDotwakeLockRoute
-  '/performance': typeof PerformanceRoute
   '/useLocation()': typeof UseLocationRoute
   '/useRouter()': typeof UseRouterRoute
   '/useRouterState()': typeof UseRouterStateRoute
   '/window': typeof WindowRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
+  '/window.performance': typeof WindowDotperformanceRoute
   '/window.queryLocalFonts()': typeof WindowDotqueryLocalFontsRoute
   '/window.screen': typeof WindowDotscreenRoute
   '/window.viewport': typeof WindowDotviewportRoute
@@ -289,12 +289,12 @@ export interface FileRoutesById {
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/navigator.userActivation': typeof NavigatorDotuserActivationRoute
   '/navigator.wakeLock': typeof NavigatorDotwakeLockRoute
-  '/performance': typeof PerformanceRoute
   '/useLocation()': typeof UseLocationRoute
   '/useRouter()': typeof UseRouterRoute
   '/useRouterState()': typeof UseRouterStateRoute
   '/window': typeof WindowRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
+  '/window.performance': typeof WindowDotperformanceRoute
   '/window.queryLocalFonts()': typeof WindowDotqueryLocalFontsRoute
   '/window.screen': typeof WindowDotscreenRoute
   '/window.viewport': typeof WindowDotviewportRoute
@@ -323,12 +323,12 @@ export interface FileRouteTypes {
     | '/navigator.storage.estimate()'
     | '/navigator.userActivation'
     | '/navigator.wakeLock'
-    | '/performance'
     | '/useLocation()'
     | '/useRouter()'
     | '/useRouterState()'
     | '/window'
     | '/window.getScreenDetails()'
+    | '/window.performance'
     | '/window.queryLocalFonts()'
     | '/window.screen'
     | '/window.viewport'
@@ -355,12 +355,12 @@ export interface FileRouteTypes {
     | '/navigator.storage.estimate()'
     | '/navigator.userActivation'
     | '/navigator.wakeLock'
-    | '/performance'
     | '/useLocation()'
     | '/useRouter()'
     | '/useRouterState()'
     | '/window'
     | '/window.getScreenDetails()'
+    | '/window.performance'
     | '/window.queryLocalFonts()'
     | '/window.screen'
     | '/window.viewport'
@@ -387,12 +387,12 @@ export interface FileRouteTypes {
     | '/navigator.storage.estimate()'
     | '/navigator.userActivation'
     | '/navigator.wakeLock'
-    | '/performance'
     | '/useLocation()'
     | '/useRouter()'
     | '/useRouterState()'
     | '/window'
     | '/window.getScreenDetails()'
+    | '/window.performance'
     | '/window.queryLocalFonts()'
     | '/window.screen'
     | '/window.viewport'
@@ -420,12 +420,12 @@ export interface RootRouteChildren {
   NavigatorDotstorageDotestimateRoute: typeof NavigatorDotstorageDotestimateRoute
   NavigatorDotuserActivationRoute: typeof NavigatorDotuserActivationRoute
   NavigatorDotwakeLockRoute: typeof NavigatorDotwakeLockRoute
-  PerformanceRoute: typeof PerformanceRoute
   UseLocationRoute: typeof UseLocationRoute
   UseRouterRoute: typeof UseRouterRoute
   UseRouterStateRoute: typeof UseRouterStateRoute
   WindowRoute: typeof WindowRoute
   WindowDotgetScreenDetailsRoute: typeof WindowDotgetScreenDetailsRoute
+  WindowDotperformanceRoute: typeof WindowDotperformanceRoute
   WindowDotqueryLocalFontsRoute: typeof WindowDotqueryLocalFontsRoute
   WindowDotscreenRoute: typeof WindowDotscreenRoute
   WindowDotviewportRoute: typeof WindowDotviewportRoute
@@ -462,6 +462,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WindowDotqueryLocalFontsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/window.performance': {
+      id: '/window.performance'
+      path: '/window.performance'
+      fullPath: '/window.performance'
+      preLoaderRoute: typeof WindowDotperformanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/window.getScreenDetails()': {
       id: '/window.getScreenDetails()'
       path: '/window.getScreenDetails()'
@@ -495,13 +502,6 @@ declare module '@tanstack/react-router' {
       path: '/useLocation()'
       fullPath: '/useLocation()'
       preLoaderRoute: typeof UseLocationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/performance': {
-      id: '/performance'
-      path: '/performance'
-      fullPath: '/performance'
-      preLoaderRoute: typeof PerformanceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/navigator.wakeLock': {
@@ -674,12 +674,12 @@ const rootRouteChildren: RootRouteChildren = {
   NavigatorDotstorageDotestimateRoute: NavigatorDotstorageDotestimateRoute,
   NavigatorDotuserActivationRoute: NavigatorDotuserActivationRoute,
   NavigatorDotwakeLockRoute: NavigatorDotwakeLockRoute,
-  PerformanceRoute: PerformanceRoute,
   UseLocationRoute: UseLocationRoute,
   UseRouterRoute: UseRouterRoute,
   UseRouterStateRoute: UseRouterStateRoute,
   WindowRoute: WindowRoute,
   WindowDotgetScreenDetailsRoute: WindowDotgetScreenDetailsRoute,
+  WindowDotperformanceRoute: WindowDotperformanceRoute,
   WindowDotqueryLocalFontsRoute: WindowDotqueryLocalFontsRoute,
   WindowDotscreenRoute: WindowDotscreenRoute,
   WindowDotviewportRoute: WindowDotviewportRoute,
