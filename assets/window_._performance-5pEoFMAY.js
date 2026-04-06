@@ -1,0 +1,1 @@
+import{j as e}from"./main-DUhn1dTy.js";import{u as n}from"./useLocation-BidGBUGM.js";import{O as r}from"./ObjectViewerPanel-DMEdmmZP.js";function m(){const{pathname:o}=n();return e.jsx(r,{id:o,heading:"window.performance",name:"window.performance",initialValue:()=>window.performance})}export{m as component};
