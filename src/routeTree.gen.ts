@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WindowDotvisualViewportRouteImport } from './routes/window[.]visualViewport'
 import { Route as WindowDotviewportRouteImport } from './routes/window[.]viewport'
 import { Route as WindowDotscreenRouteImport } from './routes/window[.]screen'
+import { Route as WindowDotqueryLocalFontsRouteImport } from './routes/window[.]queryLocalFonts()'
 import { Route as WindowDotgetScreenDetailsRouteImport } from './routes/window[.]getScreenDetails()'
 import { Route as WindowRouteImport } from './routes/window'
 import { Route as UseRouterStateRouteImport } from './routes/useRouterState()'
@@ -54,6 +55,12 @@ const WindowDotscreenRoute = WindowDotscreenRouteImport.update({
   path: '/window.screen',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WindowDotqueryLocalFontsRoute =
+  WindowDotqueryLocalFontsRouteImport.update({
+    id: '/window.queryLocalFonts()',
+    path: '/window.queryLocalFonts()',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const WindowDotgetScreenDetailsRoute =
   WindowDotgetScreenDetailsRouteImport.update({
     id: '/window.getScreenDetails()',
@@ -223,6 +230,7 @@ export interface FileRoutesByFullPath {
   '/useRouterState()': typeof UseRouterStateRoute
   '/window': typeof WindowRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
+  '/window.queryLocalFonts()': typeof WindowDotqueryLocalFontsRoute
   '/window.screen': typeof WindowDotscreenRoute
   '/window.viewport': typeof WindowDotviewportRoute
   '/window.visualViewport': typeof WindowDotvisualViewportRoute
@@ -254,6 +262,7 @@ export interface FileRoutesByTo {
   '/useRouterState()': typeof UseRouterStateRoute
   '/window': typeof WindowRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
+  '/window.queryLocalFonts()': typeof WindowDotqueryLocalFontsRoute
   '/window.screen': typeof WindowDotscreenRoute
   '/window.viewport': typeof WindowDotviewportRoute
   '/window.visualViewport': typeof WindowDotvisualViewportRoute
@@ -286,6 +295,7 @@ export interface FileRoutesById {
   '/useRouterState()': typeof UseRouterStateRoute
   '/window': typeof WindowRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
+  '/window.queryLocalFonts()': typeof WindowDotqueryLocalFontsRoute
   '/window.screen': typeof WindowDotscreenRoute
   '/window.viewport': typeof WindowDotviewportRoute
   '/window.visualViewport': typeof WindowDotvisualViewportRoute
@@ -319,6 +329,7 @@ export interface FileRouteTypes {
     | '/useRouterState()'
     | '/window'
     | '/window.getScreenDetails()'
+    | '/window.queryLocalFonts()'
     | '/window.screen'
     | '/window.viewport'
     | '/window.visualViewport'
@@ -350,6 +361,7 @@ export interface FileRouteTypes {
     | '/useRouterState()'
     | '/window'
     | '/window.getScreenDetails()'
+    | '/window.queryLocalFonts()'
     | '/window.screen'
     | '/window.viewport'
     | '/window.visualViewport'
@@ -381,6 +393,7 @@ export interface FileRouteTypes {
     | '/useRouterState()'
     | '/window'
     | '/window.getScreenDetails()'
+    | '/window.queryLocalFonts()'
     | '/window.screen'
     | '/window.viewport'
     | '/window.visualViewport'
@@ -413,6 +426,7 @@ export interface RootRouteChildren {
   UseRouterStateRoute: typeof UseRouterStateRoute
   WindowRoute: typeof WindowRoute
   WindowDotgetScreenDetailsRoute: typeof WindowDotgetScreenDetailsRoute
+  WindowDotqueryLocalFontsRoute: typeof WindowDotqueryLocalFontsRoute
   WindowDotscreenRoute: typeof WindowDotscreenRoute
   WindowDotviewportRoute: typeof WindowDotviewportRoute
   WindowDotvisualViewportRoute: typeof WindowDotvisualViewportRoute
@@ -439,6 +453,13 @@ declare module '@tanstack/react-router' {
       path: '/window.screen'
       fullPath: '/window.screen'
       preLoaderRoute: typeof WindowDotscreenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/window.queryLocalFonts()': {
+      id: '/window.queryLocalFonts()'
+      path: '/window.queryLocalFonts()'
+      fullPath: '/window.queryLocalFonts()'
+      preLoaderRoute: typeof WindowDotqueryLocalFontsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/window.getScreenDetails()': {
@@ -659,6 +680,7 @@ const rootRouteChildren: RootRouteChildren = {
   UseRouterStateRoute: UseRouterStateRoute,
   WindowRoute: WindowRoute,
   WindowDotgetScreenDetailsRoute: WindowDotgetScreenDetailsRoute,
+  WindowDotqueryLocalFontsRoute: WindowDotqueryLocalFontsRoute,
   WindowDotscreenRoute: WindowDotscreenRoute,
   WindowDotviewportRoute: WindowDotviewportRoute,
   WindowDotvisualViewportRoute: WindowDotvisualViewportRoute,
