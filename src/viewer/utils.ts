@@ -68,6 +68,18 @@ export const isComplex = (value: unknown): boolean =>
     Window,
   ].some((cls) => value instanceof cls);
 
+export const isNaN = (value: unknown): value is typeof NaN =>
+  typeof value === 'number' && globalThis.isNaN(value);
+
+export const isInfinity = (value: unknown): value is typeof Infinity =>
+  typeof value === 'number' && (value === Infinity || value === -Infinity);
+
+export const isDate = (value: unknown): value is Date =>
+  value instanceof Date;
+
+export const isRegExp = (value: unknown): value is RegExp =>
+  value instanceof RegExp;
+
 export const forInKeys = <T>(obj: T): (keyof T)[] => {
   const keys: (keyof T)[] = [];
   for (const key in obj) {

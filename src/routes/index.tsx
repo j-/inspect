@@ -50,6 +50,11 @@ const App: FC = () => {
           },
           functionAnonymous: [() => 'I am an anonymous function'][0],
           symbol: Symbol('example'),
+          NaN: NaN,
+          Infinity: Infinity,
+          regex: new RegExp('\\x68ttp\\x3a\\/\\/localhost\\x3a3000\\/', 'gi'),
+          dateValid: new Date(),
+          dateInvalid: new Date('invalid'),
         })}
       />
 

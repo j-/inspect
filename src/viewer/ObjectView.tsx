@@ -3,12 +3,16 @@ import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewArray } from './ObjectViewArray';
 import { ObjectViewBoolean } from './ObjectViewBoolean';
 import { ObjectViewComplex } from './ObjectViewComplex';
+import { ObjectViewDate } from './ObjectViewDate';
 import { ObjectViewFunction } from './ObjectViewFunction';
+import { ObjectViewInfinity } from './ObjectViewInfinity';
 import { ObjectViewMap } from './ObjectViewMap';
+import { ObjectViewNaN } from './ObjectViewNaN';
 import { ObjectViewNull } from './ObjectViewNull';
 import { ObjectViewNumber } from './ObjectViewNumber';
 import { ObjectViewObject } from './ObjectViewObject';
 import { ObjectViewPromise } from './ObjectViewPromise';
+import { ObjectViewRegExp } from './ObjectViewRegexp';
 import { ObjectViewSet } from './ObjectViewSet';
 import { ObjectViewString } from './ObjectViewString';
 import { ObjectViewSymbol } from './ObjectViewSymbol';
@@ -24,12 +28,16 @@ import {
   isArray,
   isBoolean,
   isComplex,
+  isDate,
   isFunction,
+  isInfinity,
   isMap,
+  isNaN,
   isNull,
   isNumber,
   isObject,
   isPromise,
+  isRegExp,
   isSet,
   isString,
   isSymbol,
@@ -82,6 +90,14 @@ export const ObjectView: FC = () => {
     return <ObjectViewBoolean value={value} />;
   }
 
+  if (isNaN(value)) {
+    return <ObjectViewNaN />;
+  }
+
+  if (isInfinity(value)) {
+    return <ObjectViewInfinity />;
+  }
+
   if (isNumber(value)) {
     return <ObjectViewNumber value={value} />;
   }
@@ -92,6 +108,14 @@ export const ObjectView: FC = () => {
 
   if (isFunction(value)) {
     return <ObjectViewFunction value={value} />;
+  }
+
+  if (isDate(value)) {
+    return <ObjectViewDate value={value} />;
+  }
+
+  if (isRegExp(value)) {
+    return <ObjectViewRegExp value={value} />;
   }
 
   if (isPromise(value)) {
