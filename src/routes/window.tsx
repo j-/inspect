@@ -15,6 +15,7 @@ function RouteComponent() {
       name="window"
       initialValue={() => window}
       defaultIsExpanded={(thisObject, thisPath) => (
+        !String(thisPath.at(-1)?.key).startsWith('__') &&
         thisObject !== document &&
         thisObject !== navigator &&
         thisObject instanceof Storage === false &&
