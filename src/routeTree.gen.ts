@@ -40,6 +40,7 @@ import { Route as DocumentDotfeaturePolicyDotallowedFeaturesRouteImport } from '
 import { Route as DocumentDotfeaturePolicyRouteImport } from './routes/document[.]featurePolicy'
 import { Route as DocumentRouteImport } from './routes/document'
 import { Route as MathDotrandomRouteImport } from './routes/Math[.]random()'
+import { Route as ImageRouteImport } from './routes/Image()'
 import { Route as IndexRouteImport } from './routes/index'
 
 const WindowDotvisualViewportRoute = WindowDotvisualViewportRouteImport.update({
@@ -209,6 +210,11 @@ const MathDotrandomRoute = MathDotrandomRouteImport.update({
   path: '/Math.random()',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ImageRoute = ImageRouteImport.update({
+  id: '/Image()',
+  path: '/Image()',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -217,6 +223,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/Image()': typeof ImageRoute
   '/Math.random()': typeof MathDotrandomRoute
   '/document': typeof DocumentRoute
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
@@ -251,6 +258,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/Image()': typeof ImageRoute
   '/Math.random()': typeof MathDotrandomRoute
   '/document': typeof DocumentRoute
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
@@ -286,6 +294,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/Image()': typeof ImageRoute
   '/Math.random()': typeof MathDotrandomRoute
   '/document': typeof DocumentRoute
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
@@ -322,6 +331,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/Image()'
     | '/Math.random()'
     | '/document'
     | '/document.featurePolicy'
@@ -356,6 +366,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/Image()'
     | '/Math.random()'
     | '/document'
     | '/document.featurePolicy'
@@ -390,6 +401,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/Image()'
     | '/Math.random()'
     | '/document'
     | '/document.featurePolicy'
@@ -425,6 +437,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ImageRoute: typeof ImageRoute
   MathDotrandomRoute: typeof MathDotrandomRoute
   DocumentRoute: typeof DocumentRoute
   DocumentDotfeaturePolicyRoute: typeof DocumentDotfeaturePolicyRoute
@@ -677,6 +690,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MathDotrandomRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/Image()': {
+      id: '/Image()'
+      path: '/Image()'
+      fullPath: '/Image()'
+      preLoaderRoute: typeof ImageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -689,6 +709,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ImageRoute: ImageRoute,
   MathDotrandomRoute: MathDotrandomRoute,
   DocumentRoute: DocumentRoute,
   DocumentDotfeaturePolicyRoute: DocumentDotfeaturePolicyRoute,
