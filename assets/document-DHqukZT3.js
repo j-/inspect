@@ -1,0 +1,1 @@
+import{j as n}from"./main-uYLuinyN.js";import{u as o}from"./useLocation-C5gYjhJP.js";import{O as a}from"./ObjectViewerPanel-BQJoe26Q.js";function s(){const{pathname:e}=o();return n.jsx(a,{id:e,heading:"document",name:"document",initialValue:()=>document,defaultIsExpanded:(m,t)=>t.length<5})}export{s as component};
