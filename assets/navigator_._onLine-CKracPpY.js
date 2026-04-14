@@ -1,0 +1,1 @@
+import{j as n}from"./main-wSmP_1yV.js";import{u as t}from"./useLocation-CD1mm_Zf.js";import{O as e}from"./ObjectViewerPanel-B57-HwEf.js";function m(){const{pathname:o}=t();return n.jsx(e,{id:o,heading:"navigator.onLine",initialValue:()=>navigator.onLine})}export{m as component};

@@ -1,1 +1,0 @@
-import{j as a}from"./main-Cyfnsl21.js";import{u as t}from"./useLocation-Da3ioToQ.js";import{O as i}from"./ObjectViewerPanel-Br4WYc77.js";function d(){const{pathname:o}=t();return a.jsx(i,{id:o,heading:"window",name:"window",initialValue:()=>window,defaultIsExpanded:(n,e)=>n!==document&&n!==navigator&&!(n instanceof Storage)&&e.length<5})}export{d as component};

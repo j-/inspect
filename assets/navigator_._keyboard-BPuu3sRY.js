@@ -1,1 +1,0 @@
-import{j as a}from"./main-Cyfnsl21.js";import{u as t}from"./useLocation-Da3ioToQ.js";import{O as e}from"./ObjectViewerPanel-Br4WYc77.js";function m(){const{pathname:o}=t();return a.jsx(e,{id:o,heading:"navigator.keyboard",name:"navigator.keyboard",initialValue:()=>navigator.keyboard})}export{m as component};

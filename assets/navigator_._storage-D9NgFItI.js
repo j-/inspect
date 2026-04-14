@@ -1,1 +1,0 @@
-import{j as t}from"./main-Cyfnsl21.js";import{u as a}from"./useLocation-Da3ioToQ.js";import{O as e}from"./ObjectViewerPanel-Br4WYc77.js";function s(){const{pathname:o}=a();return t.jsx(e,{id:o,heading:"navigator.storage",name:"navigator.storage",initialValue:()=>navigator.storage})}export{s as component};

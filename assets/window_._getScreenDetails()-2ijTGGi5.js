@@ -1,1 +1,0 @@
-import{j as t}from"./main-Cyfnsl21.js";import{u as o}from"./useLocation-Da3ioToQ.js";import{O as n}from"./ObjectViewerPanel-Br4WYc77.js";function s(){const{pathname:e}=o();return t.jsx(n,{id:e,heading:"window.getScreenDetails()",initialValue:()=>window.getScreenDetails()})}export{s as component};

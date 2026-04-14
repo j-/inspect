@@ -1,0 +1,1 @@
+import{j as e}from"./main-wSmP_1yV.js";import{u as n}from"./useLocation-CD1mm_Zf.js";import{O as a}from"./ObjectViewerPanel-B57-HwEf.js";function u(){const o=n();return e.jsx(a,{id:o.pathname,heading:"useLocation()",name:"useLocation()",initialValue:()=>o,defaultIsExpanded:(i,t)=>t.length<3})}export{u as component};

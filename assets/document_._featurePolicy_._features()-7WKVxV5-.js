@@ -1,1 +1,0 @@
-import{j as t}from"./main-Cyfnsl21.js";import{u as o}from"./useLocation-Da3ioToQ.js";import{O as a}from"./ObjectViewerPanel-Br4WYc77.js";function i(){const{pathname:e}=o();return t.jsx(a,{id:e,heading:"document.featurePolicy.features()",name:"document.featurePolicy.features()",initialValue:()=>document.featurePolicy.features()})}export{i as component};
