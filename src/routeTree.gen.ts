@@ -15,6 +15,7 @@ import { Route as WindowDotscreenRouteImport } from './routes/window[.]screen'
 import { Route as WindowDotqueryLocalFontsRouteImport } from './routes/window[.]queryLocalFonts()'
 import { Route as WindowDotperformanceRouteImport } from './routes/window[.]performance'
 import { Route as WindowDotgetScreenDetailsRouteImport } from './routes/window[.]getScreenDetails()'
+import { Route as WindowDotgetComputedStyleRouteImport } from './routes/window[.]getComputedStyle()'
 import { Route as WindowRouteImport } from './routes/window'
 import { Route as UseRouterStateRouteImport } from './routes/useRouterState()'
 import { Route as UseRouterRouteImport } from './routes/useRouter()'
@@ -73,6 +74,12 @@ const WindowDotgetScreenDetailsRoute =
   WindowDotgetScreenDetailsRouteImport.update({
     id: '/window.getScreenDetails()',
     path: '/window.getScreenDetails()',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const WindowDotgetComputedStyleRoute =
+  WindowDotgetComputedStyleRouteImport.update({
+    id: '/window.getComputedStyle()',
+    path: '/window.getComputedStyle()',
     getParentRoute: () => rootRouteImport,
   } as any)
 const WindowRoute = WindowRouteImport.update({
@@ -249,6 +256,7 @@ export interface FileRoutesByFullPath {
   '/useRouter()': typeof UseRouterRoute
   '/useRouterState()': typeof UseRouterStateRoute
   '/window': typeof WindowRoute
+  '/window.getComputedStyle()': typeof WindowDotgetComputedStyleRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
   '/window.performance': typeof WindowDotperformanceRoute
   '/window.queryLocalFonts()': typeof WindowDotqueryLocalFontsRoute
@@ -284,6 +292,7 @@ export interface FileRoutesByTo {
   '/useRouter()': typeof UseRouterRoute
   '/useRouterState()': typeof UseRouterStateRoute
   '/window': typeof WindowRoute
+  '/window.getComputedStyle()': typeof WindowDotgetComputedStyleRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
   '/window.performance': typeof WindowDotperformanceRoute
   '/window.queryLocalFonts()': typeof WindowDotqueryLocalFontsRoute
@@ -320,6 +329,7 @@ export interface FileRoutesById {
   '/useRouter()': typeof UseRouterRoute
   '/useRouterState()': typeof UseRouterStateRoute
   '/window': typeof WindowRoute
+  '/window.getComputedStyle()': typeof WindowDotgetComputedStyleRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
   '/window.performance': typeof WindowDotperformanceRoute
   '/window.queryLocalFonts()': typeof WindowDotqueryLocalFontsRoute
@@ -357,6 +367,7 @@ export interface FileRouteTypes {
     | '/useRouter()'
     | '/useRouterState()'
     | '/window'
+    | '/window.getComputedStyle()'
     | '/window.getScreenDetails()'
     | '/window.performance'
     | '/window.queryLocalFonts()'
@@ -392,6 +403,7 @@ export interface FileRouteTypes {
     | '/useRouter()'
     | '/useRouterState()'
     | '/window'
+    | '/window.getComputedStyle()'
     | '/window.getScreenDetails()'
     | '/window.performance'
     | '/window.queryLocalFonts()'
@@ -427,6 +439,7 @@ export interface FileRouteTypes {
     | '/useRouter()'
     | '/useRouterState()'
     | '/window'
+    | '/window.getComputedStyle()'
     | '/window.getScreenDetails()'
     | '/window.performance'
     | '/window.queryLocalFonts()'
@@ -463,6 +476,7 @@ export interface RootRouteChildren {
   UseRouterRoute: typeof UseRouterRoute
   UseRouterStateRoute: typeof UseRouterStateRoute
   WindowRoute: typeof WindowRoute
+  WindowDotgetComputedStyleRoute: typeof WindowDotgetComputedStyleRoute
   WindowDotgetScreenDetailsRoute: typeof WindowDotgetScreenDetailsRoute
   WindowDotperformanceRoute: typeof WindowDotperformanceRoute
   WindowDotqueryLocalFontsRoute: typeof WindowDotqueryLocalFontsRoute
@@ -513,6 +527,13 @@ declare module '@tanstack/react-router' {
       path: '/window.getScreenDetails()'
       fullPath: '/window.getScreenDetails()'
       preLoaderRoute: typeof WindowDotgetScreenDetailsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/window.getComputedStyle()': {
+      id: '/window.getComputedStyle()'
+      path: '/window.getComputedStyle()'
+      fullPath: '/window.getComputedStyle()'
+      preLoaderRoute: typeof WindowDotgetComputedStyleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/window': {
@@ -741,6 +762,7 @@ const rootRouteChildren: RootRouteChildren = {
   UseRouterRoute: UseRouterRoute,
   UseRouterStateRoute: UseRouterStateRoute,
   WindowRoute: WindowRoute,
+  WindowDotgetComputedStyleRoute: WindowDotgetComputedStyleRoute,
   WindowDotgetScreenDetailsRoute: WindowDotgetScreenDetailsRoute,
   WindowDotperformanceRoute: WindowDotperformanceRoute,
   WindowDotqueryLocalFontsRoute: WindowDotqueryLocalFontsRoute,
