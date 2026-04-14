@@ -1,0 +1,1 @@
+import{j as e}from"./main-Cyfnsl21.js";import{u as n}from"./useLocation-Da3ioToQ.js";import{O as r}from"./ObjectViewerPanel-Br4WYc77.js";function m(){const{pathname:o}=n();return e.jsx(r,{id:o,heading:"window.performance",name:"window.performance",initialValue:()=>window.performance})}export{m as component};

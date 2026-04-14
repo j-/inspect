@@ -1,1 +1,0 @@
-import{u as n,j as r}from"./main-DYgc43Ex.js";import{u}from"./useLocation-CzzlbhlG.js";import{O as a}from"./ObjectViewerPanel-CJt0gdsy.js";function c(){const e=n(),{pathname:t}=u();return r.jsx(a,{id:t,heading:"useRouter()",name:"useRouter()",initialValue:()=>e,defaultIsExpanded:(s,o)=>o.length<3})}export{c as component};

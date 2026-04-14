@@ -1,0 +1,1 @@
+import{j as n}from"./main-Cyfnsl21.js";import{u as t}from"./useLocation-Da3ioToQ.js";import{O as e}from"./ObjectViewerPanel-Br4WYc77.js";function m(){const{pathname:o}=t();return n.jsx(e,{id:o,heading:"navigator.onLine",initialValue:()=>navigator.onLine})}export{m as component};

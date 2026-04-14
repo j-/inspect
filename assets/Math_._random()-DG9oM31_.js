@@ -1,0 +1,1 @@
+import{j as t}from"./main-Cyfnsl21.js";import{u as n}from"./useLocation-Da3ioToQ.js";import{O as a}from"./ObjectViewerPanel-Br4WYc77.js";function m(){const{pathname:o}=n();return t.jsx(a,{id:o,heading:"Math.random()",initialValue:()=>Math.random()})}export{m as component};

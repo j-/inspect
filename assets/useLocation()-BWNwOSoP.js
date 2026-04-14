@@ -1,0 +1,1 @@
+import{j as e}from"./main-Cyfnsl21.js";import{u as n}from"./useLocation-Da3ioToQ.js";import{O as a}from"./ObjectViewerPanel-Br4WYc77.js";function u(){const o=n();return e.jsx(a,{id:o.pathname,heading:"useLocation()",name:"useLocation()",initialValue:()=>o,defaultIsExpanded:(i,t)=>t.length<3})}export{u as component};

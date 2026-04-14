@@ -1,0 +1,1 @@
+import{j as t}from"./main-Cyfnsl21.js";import{u as e}from"./useLocation-Da3ioToQ.js";import{O as n}from"./ObjectViewerPanel-Br4WYc77.js";function r(){const{pathname:o}=e();return t.jsx(n,{id:o,heading:"window.getComputedStyle(document.body)",initialValue:()=>window.getComputedStyle(document.body)})}export{r as component};

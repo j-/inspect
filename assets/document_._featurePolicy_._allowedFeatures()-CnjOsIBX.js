@@ -1,0 +1,1 @@
+import{j as o}from"./main-Cyfnsl21.js";import{u as t}from"./useLocation-Da3ioToQ.js";import{O as a}from"./ObjectViewerPanel-Br4WYc77.js";function i(){const{pathname:e}=t();return o.jsx(a,{id:e,heading:"document.featurePolicy.allowedFeatures()",name:"document.featurePolicy.allowedFeatures()",initialValue:()=>document.featurePolicy.allowedFeatures()})}export{i as component};
