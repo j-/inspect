@@ -15,11 +15,11 @@ function RouteComponent() {
     <Stack gap={4}>
       <Paper sx={{ p: 2 }}>
         <Typography>
-          Constructs an <code>Image</code> object with width and height of 100.
-          Sets the <code>src</code> to a 1px by 1px white dot PNG data URL.
-          On first evaluation this will have a <code>complete</code>{' '}
-          property of <code>false</code>, and the <code>naturalWidth</code>{' '}
-          and <code>naturalHeight</code> properties will be <code>0</code>.
+          Constructs an <code>Image</code> object with width and height of 100. Sets the{' '}
+          <code><a href="#result.src">src</a></code> to a 1px by 1px white dot PNG data URL. On first evaluation this
+          will have a <code><a href="#result.complete">complete</a></code> property of <code>false</code>, and the{' '}
+          <code><a href="#result.naturalWidth">naturalWidth</a></code> and{' '}
+          <code><a href="#result.naturalHeight">naturalHeight</a></code> properties will be <code>0</code>.
         </Typography>
       </Paper>
 

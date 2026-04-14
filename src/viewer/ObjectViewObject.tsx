@@ -8,7 +8,7 @@ import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewComplex } from './ObjectViewComplex';
 import { useCanCollapse, useIsCollapsed, useViewerContext } from './providers';
 import type { RenderValueFunction } from './types';
-import { getName, isFunction, orderedKeys } from './utils';
+import { getName, isFunction, orderedKeys, renderFullPath } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 const isComplex = (value: unknown, types: Function[]) => (
@@ -74,6 +74,7 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
                 component="li"
                 sx={{ display: 'inline', listStyle: 'none', whiteSpace: 'nowrap' }}
               >
+                <a id={renderFullPath([rootName, ...thisPath.map(({ key }) => key), key])} />
                 <ObjectProperty
                   name={key}
                   rootName={rootName}
