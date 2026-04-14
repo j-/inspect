@@ -14,7 +14,7 @@ import {
 } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ActionSection, type ActionSectionProps } from './ActionSection';
-import type { IsExpandedFunction } from '#/viewer/types';
+import type { FilterKeysPredicate, IsExpandedFunction } from '#/viewer/types';
 import { Viewer } from '#/viewer/Viewer';
 
 export type ObjectViewerPanelProps = PaperProps & {
@@ -26,6 +26,7 @@ export type ObjectViewerPanelProps = PaperProps & {
   actions?: ActionSectionProps[];
   onClear?: () => void;
   defaultIsExpanded?: IsExpandedFunction;
+  filterKeys?: FilterKeysPredicate;
 };
 
 const codeTheme = createTheme({
@@ -43,6 +44,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   actions,
   onClear,
   defaultIsExpanded,
+  filterKeys,
 }) => {
   const hasInitialValue = typeof initialValue === 'function';
   const [object, setObject] = useState(initialValue);
@@ -125,6 +127,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
                 object={object}
                 name={name}
                 defaultIsExpanded={defaultIsExpanded}
+                filterKeys={filterKeys}
               />
             </ThemeProvider>
           </ErrorBoundary>
@@ -151,6 +154,7 @@ export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
   actions,
   onClear,
   defaultIsExpanded,
+  filterKeys,
   ...props
 }) => {
   return (
@@ -191,6 +195,7 @@ export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
               actions={actions}
               onClear={onClear}
               defaultIsExpanded={defaultIsExpanded}
+              filterKeys={filterKeys}
             />
           </ClientOnly>
         </ErrorBoundary>

@@ -6,7 +6,11 @@ import {
   type PropsWithChildren,
 } from 'react';
 import useStorageState from 'use-storage-state';
-import type { IsExpandedFunction, ViewerPathStep } from './types';
+import type {
+  FilterKeysPredicate,
+  IsExpandedFunction,
+  ViewerPathStep,
+} from './types';
 import { getStorageNS } from './utils';
 
 export type ViewerContextType<T, U = T> = {
@@ -15,6 +19,7 @@ export type ViewerContextType<T, U = T> = {
   rootName: string;
   thisPath: ViewerPathStep[];
   defaultIsExpanded?: IsExpandedFunction;
+  filterKeys?: FilterKeysPredicate;
 } & (
   | { root: true; thisObject: T; thisKey: undefined; }
   | { root: boolean; thisObject: U; thisKey: string | number | symbol; }
@@ -84,6 +89,7 @@ export type RootViewerProviderProps<T> = PropsWithChildren<{
   object: T;
   name?: string;
   defaultIsExpanded?: IsExpandedFunction;
+  filterKeys?: FilterKeysPredicate;
 }>;
 
 export const RootViewerProvider = <T,>({
@@ -92,6 +98,7 @@ export const RootViewerProvider = <T,>({
   object: rootObject,
   name = 'result',
   defaultIsExpanded,
+  filterKeys,
 }: RootViewerProviderProps<T>) => {
   return (
     <ViewerContext.Provider value={{
@@ -103,6 +110,7 @@ export const RootViewerProvider = <T,>({
       thisKey: undefined,
       thisPath: [],
       defaultIsExpanded,
+      filterKeys,
     }}>
       {children}
     </ViewerContext.Provider>

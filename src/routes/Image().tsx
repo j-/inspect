@@ -14,12 +14,16 @@ function RouteComponent() {
   return (
     <Stack gap={4}>
       <Paper sx={{ p: 2 }}>
-        <Typography>
+        <Typography mb={2}>
           Constructs an <code>Image</code> object with width and height of 100. Sets the{' '}
           <code><a href="#result.src">src</a></code> to a 1px by 1px white dot PNG data URL. On first evaluation this
           will have a <code><a href="#result.complete">complete</a></code> property of <code>false</code>, and the{' '}
           <code><a href="#result.naturalWidth">naturalWidth</a></code> and{' '}
           <code><a href="#result.naturalHeight">naturalHeight</a></code> properties will be <code>0</code>.
+        </Typography>
+
+        <Typography>
+          Only showing keys not already in <code>HTMLElement.prototype</code>.
         </Typography>
       </Paper>
 
@@ -31,6 +35,7 @@ function RouteComponent() {
           img.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAn8B9pXrHAAAAABJRU5ErkJggg==';
           return img;
         }}
+        filterKeys={(_thisObject, _fullPath, key) => !(key in HTMLElement.prototype)}
       />
     </Stack>
   );

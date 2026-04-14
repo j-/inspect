@@ -37,7 +37,7 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
 
   renderValue,
 }) => {
-  const { rootName, thisPath } = useViewerContext();
+  const { rootName, thisPath, filterKeys } = useViewerContext();
   const [isCollapsed, setIsCollapsed] = useIsCollapsed();
   const canCollapse = useCanCollapse();
 
@@ -67,6 +67,10 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
         <Box component="ul" p={0} m={0} ml="2ch">
           {keys.map((key, i, arr) => {
             const CustomView = customViews.get(key);
+
+            if (filterKeys && !filterKeys(parent, thisPath, key)) {
+              return null;
+            }
 
             return [
               <Box

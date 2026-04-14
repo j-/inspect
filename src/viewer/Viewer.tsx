@@ -1,13 +1,14 @@
 import type { FC } from 'react';
 import { ObjectView } from './ObjectView';
 import { RootViewerProvider } from './providers';
-import type { IsExpandedFunction } from './types';
+import type { FilterKeysPredicate, IsExpandedFunction } from './types';
 
 export type ViewerProps = {
   id: string;
   object: unknown;
   name?: string;
   defaultIsExpanded?: IsExpandedFunction;
+  filterKeys?: FilterKeysPredicate;
 };
 
 export const Viewer: FC<ViewerProps> = ({
@@ -15,6 +16,7 @@ export const Viewer: FC<ViewerProps> = ({
   object,
   name,
   defaultIsExpanded,
+  filterKeys,
 }) => {
   return (
     <RootViewerProvider
@@ -22,6 +24,7 @@ export const Viewer: FC<ViewerProps> = ({
       object={object}
       name={name}
       defaultIsExpanded={defaultIsExpanded}
+      filterKeys={filterKeys}
     >
       <ObjectView />
     </RootViewerProvider>

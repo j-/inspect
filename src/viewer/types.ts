@@ -19,3 +19,9 @@ export type IsExpandedFunction = (
   thisObject: unknown,
   thisPath: ViewerPathStep[],
 ) => boolean;
+
+export type FilterKeysPredicate = (
+  thisObject: unknown,
+  thisPath: ViewerPathStep[],
+  key: KeyType,
+) => boolean;
