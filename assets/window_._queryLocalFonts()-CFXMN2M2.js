@@ -1,0 +1,1 @@
+import{j as n}from"./main-CutOdBoR.js";import{u as t}from"./useLocation-D3OkM_4q.js";import{O as e}from"./ObjectViewerPanel-BhA6u-7_.js";function s(){const{pathname:o}=t();return n.jsx(e,{id:o,heading:"window.queryLocalFonts()",initialValue:()=>window.queryLocalFonts()})}export{s as component};

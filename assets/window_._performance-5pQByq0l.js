@@ -1,0 +1,1 @@
+import{j as e}from"./main-CutOdBoR.js";import{u as n}from"./useLocation-D3OkM_4q.js";import{O as r}from"./ObjectViewerPanel-BhA6u-7_.js";function m(){const{pathname:o}=n();return e.jsx(r,{id:o,heading:"window.performance",name:"window.performance",initialValue:()=>window.performance})}export{m as component};

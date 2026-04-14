@@ -1,0 +1,1 @@
+import{j as o}from"./main-CutOdBoR.js";import{u as a}from"./useLocation-D3OkM_4q.js";import{O as n}from"./ObjectViewerPanel-BhA6u-7_.js";function s(){const{pathname:t}=a();return o.jsx(n,{id:t,heading:"navigator.userActivation",name:"navigator.userActivation",initialValue:()=>navigator.userActivation,reloadInterval:100})}export{s as component};

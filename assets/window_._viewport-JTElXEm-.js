@@ -1,1 +1,0 @@
-import{j as t}from"./main-wSmP_1yV.js";import{u as e}from"./useLocation-CD1mm_Zf.js";import{O as i}from"./ObjectViewerPanel-B57-HwEf.js";function m(){const{pathname:o}=e();return t.jsx(i,{id:o,heading:"window.viewport",name:"window.viewport",initialValue:()=>window.viewport})}export{m as component};

@@ -1,0 +1,1 @@
+import{j as t}from"./main-CutOdBoR.js";import{u as e}from"./useLocation-D3OkM_4q.js";import{O as n}from"./ObjectViewerPanel-BhA6u-7_.js";function r(){const{pathname:o}=e();return t.jsx(n,{id:o,heading:"window.getComputedStyle(document.body)",initialValue:()=>window.getComputedStyle(document.body)})}export{r as component};

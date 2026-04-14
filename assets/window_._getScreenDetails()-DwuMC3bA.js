@@ -1,1 +1,0 @@
-import{j as t}from"./main-wSmP_1yV.js";import{u as o}from"./useLocation-CD1mm_Zf.js";import{O as n}from"./ObjectViewerPanel-B57-HwEf.js";function s(){const{pathname:e}=o();return t.jsx(n,{id:e,heading:"window.getScreenDetails()",initialValue:()=>window.getScreenDetails()})}export{s as component};

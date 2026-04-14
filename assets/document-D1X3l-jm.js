@@ -1,1 +1,0 @@
-import{j as n}from"./main-wSmP_1yV.js";import{u as o}from"./useLocation-CD1mm_Zf.js";import{O as a}from"./ObjectViewerPanel-B57-HwEf.js";function s(){const{pathname:e}=o();return n.jsx(a,{id:e,heading:"document",name:"document",initialValue:()=>document,defaultIsExpanded:(m,t)=>t.length<5})}export{s as component};
