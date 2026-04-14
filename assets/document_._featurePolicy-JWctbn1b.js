@@ -1,1 +1,0 @@
-import{j as o}from"./main-CYAIb0Kh.js";import{u as t}from"./useLocation-DHwtsJm3.js";import{O as n}from"./ObjectViewerPanel-7RLzq8c3.js";function r(){const{pathname:e}=t();return o.jsx(n,{id:e,heading:"document.featurePolicy",name:"document.featurePolicy",initialValue:()=>document.featurePolicy})}export{r as component};

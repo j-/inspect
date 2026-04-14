@@ -1,0 +1,1 @@
+import{j as o}from"./main-DwZnt9e2.js";import{u as a}from"./useLocation-BR9JIKC0.js";import{O as n}from"./ObjectViewerPanel-CpSGP88v.js";function s(){const{pathname:t}=a();return o.jsx(n,{id:t,heading:"navigator.userActivation",name:"navigator.userActivation",initialValue:()=>navigator.userActivation,reloadInterval:100})}export{s as component};
