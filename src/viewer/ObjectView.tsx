@@ -45,7 +45,8 @@ import {
 } from './utils';
 
 export const ObjectView: FC = () => {
-  const { rootObject, thisObject: value, thisPath } = useViewerContext();
+  const { rootObject, thisPath, useGetThisObject } = useViewerContext();
+  const value = useGetThisObject();
   const isRecursive = useIsRecursive();
 
   const resolvesToRecursiveValue = (promiseValue: unknown) => {
@@ -136,6 +137,7 @@ export const ObjectView: FC = () => {
               id={thisPath.map(({ key }) => String(key)).join('.')}
               object={promiseValue}
               name={state === 'rejected' ? 'error' : 'result'}
+              useGetThisObject={useGetThisObject}
             >
               <ObjectView />
             </RootViewerProvider>

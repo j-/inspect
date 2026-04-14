@@ -27,6 +27,7 @@ export type ObjectViewerPanelProps = PaperProps & {
   onClear?: () => void;
   defaultIsExpanded?: IsExpandedFunction;
   filterKeys?: FilterKeysPredicate;
+  useGetThisObject?: () => unknown;
 };
 
 const codeTheme = createTheme({
@@ -45,6 +46,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   onClear,
   defaultIsExpanded,
   filterKeys,
+  useGetThisObject,
 }) => {
   const hasInitialValue = typeof initialValue === 'function';
   const [object, setObject] = useState(initialValue);
@@ -128,6 +130,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
                 name={name}
                 defaultIsExpanded={defaultIsExpanded}
                 filterKeys={filterKeys}
+                useGetThisObject={useGetThisObject}
               />
             </ThemeProvider>
           </ErrorBoundary>
@@ -155,6 +158,7 @@ export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
   onClear,
   defaultIsExpanded,
   filterKeys,
+  useGetThisObject,
   ...props
 }) => {
   return (
@@ -196,6 +200,7 @@ export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
               onClear={onClear}
               defaultIsExpanded={defaultIsExpanded}
               filterKeys={filterKeys}
+              useGetThisObject={useGetThisObject}
             />
           </ClientOnly>
         </ErrorBoundary>

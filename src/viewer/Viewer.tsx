@@ -9,6 +9,7 @@ export type ViewerProps = {
   name?: string;
   defaultIsExpanded?: IsExpandedFunction;
   filterKeys?: FilterKeysPredicate;
+  useGetThisObject?: () => unknown;
 };
 
 export const Viewer: FC<ViewerProps> = ({
@@ -17,6 +18,7 @@ export const Viewer: FC<ViewerProps> = ({
   name,
   defaultIsExpanded,
   filterKeys,
+  useGetThisObject,
 }) => {
   return (
     <RootViewerProvider
@@ -25,6 +27,7 @@ export const Viewer: FC<ViewerProps> = ({
       name={name}
       defaultIsExpanded={defaultIsExpanded}
       filterKeys={filterKeys}
+      useGetThisObject={useGetThisObject}
     >
       <ObjectView />
     </RootViewerProvider>

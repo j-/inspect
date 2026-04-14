@@ -20,6 +20,7 @@ export type ViewerContextType<T, U = T> = {
   thisPath: ViewerPathStep[];
   defaultIsExpanded?: IsExpandedFunction;
   filterKeys?: FilterKeysPredicate;
+  useGetThisObject: () => U;
 } & (
   | { root: true; thisObject: T; thisKey: undefined; }
   | { root: boolean; thisObject: U; thisKey: string | number | symbol; }
@@ -65,6 +66,11 @@ export const useCanCollapse = () => {
   return !root;
 };
 
+export const useGetThisObject =() => {
+  const { thisObject } = useViewerContext();
+  return thisObject;
+};
+
 export const useIsCollapsed = () => {
   const { id, thisPath, thisObject, defaultIsExpanded } = useViewerContext();
 
@@ -90,6 +96,7 @@ export type RootViewerProviderProps<T> = PropsWithChildren<{
   name?: string;
   defaultIsExpanded?: IsExpandedFunction;
   filterKeys?: FilterKeysPredicate;
+  useGetThisObject?: typeof useGetThisObject;
 }>;
 
 export const RootViewerProvider = <T,>({
@@ -99,6 +106,7 @@ export const RootViewerProvider = <T,>({
   name = 'result',
   defaultIsExpanded,
   filterKeys,
+  useGetThisObject: useGetThisObjectProp = useGetThisObject,
 }: RootViewerProviderProps<T>) => {
   return (
     <ViewerContext.Provider value={{
@@ -111,6 +119,7 @@ export const RootViewerProvider = <T,>({
       thisPath: [],
       defaultIsExpanded,
       filterKeys,
+      useGetThisObject: useGetThisObjectProp,
     }}>
       {children}
     </ViewerContext.Provider>
