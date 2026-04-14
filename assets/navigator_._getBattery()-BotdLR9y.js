@@ -1,1 +1,0 @@
-import{j as o}from"./main-CutOdBoR.js";import{u as e}from"./useLocation-D3OkM_4q.js";import{O as a}from"./ObjectViewerPanel-BhA6u-7_.js";function m(){const{pathname:t}=e();return o.jsx(a,{id:t,heading:"navigator.getBattery()",initialValue:()=>navigator.getBattery()})}export{m as component};

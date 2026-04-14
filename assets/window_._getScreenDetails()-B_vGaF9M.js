@@ -1,1 +1,0 @@
-import{j as t}from"./main-CutOdBoR.js";import{u as o}from"./useLocation-D3OkM_4q.js";import{O as n}from"./ObjectViewerPanel-BhA6u-7_.js";function s(){const{pathname:e}=o();return t.jsx(n,{id:e,heading:"window.getScreenDetails()",initialValue:()=>window.getScreenDetails()})}export{s as component};

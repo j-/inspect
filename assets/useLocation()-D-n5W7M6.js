@@ -1,1 +1,0 @@
-import{j as e}from"./main-CutOdBoR.js";import{u as n}from"./useLocation-D3OkM_4q.js";import{O as a}from"./ObjectViewerPanel-BhA6u-7_.js";function u(){const o=n();return e.jsx(a,{id:o.pathname,heading:"useLocation()",name:"useLocation()",initialValue:()=>o,defaultIsExpanded:(i,t)=>t.length<3})}export{u as component};

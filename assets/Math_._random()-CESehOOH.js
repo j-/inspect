@@ -1,1 +1,0 @@
-import{j as t}from"./main-CutOdBoR.js";import{u as n}from"./useLocation-D3OkM_4q.js";import{O as a}from"./ObjectViewerPanel-BhA6u-7_.js";function m(){const{pathname:o}=n();return t.jsx(a,{id:o,heading:"Math.random()",initialValue:()=>Math.random()})}export{m as component};

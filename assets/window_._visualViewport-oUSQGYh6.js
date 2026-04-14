@@ -1,1 +1,0 @@
-import{j as i}from"./main-CutOdBoR.js";import{u as t}from"./useLocation-D3OkM_4q.js";import{O as e}from"./ObjectViewerPanel-BhA6u-7_.js";function s(){const{pathname:o}=t();return i.jsx(e,{id:o,heading:"window.visualViewport",name:"window.visualViewport",initialValue:()=>window.visualViewport})}export{s as component};
