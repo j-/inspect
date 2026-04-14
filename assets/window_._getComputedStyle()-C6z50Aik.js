@@ -1,0 +1,1 @@
+import{j as t}from"./main-CYAIb0Kh.js";import{u as e}from"./useLocation-DHwtsJm3.js";import{O as n}from"./ObjectViewerPanel-7RLzq8c3.js";function r(){const{pathname:o}=e();return t.jsx(n,{id:o,heading:"window.getComputedStyle(document.body)",initialValue:()=>window.getComputedStyle(document.body)})}export{r as component};

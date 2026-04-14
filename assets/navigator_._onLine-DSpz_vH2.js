@@ -1,1 +1,0 @@
-import{j as n}from"./main-uYLuinyN.js";import{u as t}from"./useLocation-C5gYjhJP.js";import{O as e}from"./ObjectViewerPanel-BQJoe26Q.js";function m(){const{pathname:o}=t();return n.jsx(e,{id:o,heading:"navigator.onLine",initialValue:()=>navigator.onLine})}export{m as component};

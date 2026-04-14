@@ -1,1 +1,0 @@
-import{j as n}from"./main-uYLuinyN.js";import{u as o}from"./useLocation-C5gYjhJP.js";import{O as t}from"./ObjectViewerPanel-BQJoe26Q.js";function s(){const{pathname:e}=o();return n.jsx(t,{id:e,heading:"window.screen",name:"window.screen",initialValue:()=>window.screen})}export{s as component};
