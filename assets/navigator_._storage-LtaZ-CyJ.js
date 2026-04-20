@@ -1,0 +1,1 @@
+import{j as t}from"./main-UDpC2iXW.js";import{u as a}from"./useLocation-DqYfV5_0.js";import{O as e}from"./ObjectViewerPanel-DQ2Lce3m.js";function s(){const{pathname:o}=a();return t.jsx(e,{id:o,heading:"navigator.storage",name:"navigator.storage",initialValue:()=>navigator.storage})}export{s as component};

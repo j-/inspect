@@ -1,0 +1,1 @@
+import{j as t}from"./main-UDpC2iXW.js";import{u as e}from"./useLocation-DqYfV5_0.js";import{O as i}from"./ObjectViewerPanel-DQ2Lce3m.js";function m(){const{pathname:o}=e();return t.jsx(i,{id:o,heading:"window.viewport",name:"window.viewport",initialValue:()=>window.viewport})}export{m as component};
