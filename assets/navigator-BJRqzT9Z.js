@@ -1,1 +1,0 @@
-import{j as t}from"./main-UDpC2iXW.js";import{u as a}from"./useLocation-DqYfV5_0.js";import{O as n}from"./ObjectViewerPanel-DQ2Lce3m.js";function m(){const{pathname:o}=a();return t.jsx(n,{id:o,heading:"navigator",name:"navigator",initialValue:()=>navigator})}export{m as component};
