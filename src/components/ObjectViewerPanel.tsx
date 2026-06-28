@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Paper, { type PaperProps } from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { ClientOnly } from '@tanstack/react-router';
 import {
@@ -14,6 +14,7 @@ import {
 } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ActionSection, type ActionSectionProps } from './ActionSection';
+import { codeTheme } from '#/theme';
 import type { FilterKeysPredicate, IsExpandedFunction } from '#/viewer/types';
 import { Viewer } from '#/viewer/Viewer';
 
@@ -29,13 +30,6 @@ export type ObjectViewerPanelProps = PaperProps & {
   filterKeys?: FilterKeysPredicate;
   useGetThisObject?: () => unknown;
 };
-
-const codeTheme = createTheme({
-  typography: {
-    htmlFontSize: 14,
-    body1: { fontSize: '0.75rem' },
-  },
-});
 
 const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   id,
