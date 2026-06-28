@@ -100,6 +100,21 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
             Log result to console
           </Button>
 
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={async () => {
+              try {
+                const json = JSON.stringify(object, null, 2);
+                await navigator.clipboard.writeText(json);
+              } catch {
+                // TODO: Show error
+              }
+            }}
+          >
+            Copy object to clipboard
+          </Button>
+
           {onClear && (
             <Button
               size="small"
