@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
+import { eager } from '#/resource';
 
 export const Route = createFileRoute('/Image()')({
   component: RouteComponent,
@@ -81,11 +82,11 @@ function RouteComponent() {
       <ObjectViewerPanel
         id={pathname}
         heading="Image()"
-        initialValue={() => {
+        resource={eager(() => {
           const img = new Image(100, 100);
           img.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAn8B9pXrHAAAAABJRU5ErkJggg==';
           return img;
-        }}
+        })}
         filterKeys={(_thisObject, _fullPath, key) => !(key in HTMLElement.prototype)}
       />
 
@@ -93,11 +94,11 @@ function RouteComponent() {
         <ObjectViewerPanel
           id={pathname + '#uploaded'}
           heading="Uploaded image"
-          initialValue={() => {
+          resource={eager(() => {
             const img = new Image(0, 0);
             img.src = uploadedSrc;
             return img;
-          }}
+          })}
           filterKeys={(_thisObject, _fullPath, key) => !(key in HTMLElement.prototype)}
         />
       ) : null}

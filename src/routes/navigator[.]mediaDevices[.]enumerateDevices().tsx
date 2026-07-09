@@ -1,5 +1,6 @@
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
+import { eager } from '#/resource';
 
 export const Route = createFileRoute(
   '/navigator.mediaDevices.enumerateDevices()',
@@ -14,7 +15,7 @@ function RouteComponent() {
     <ObjectViewerPanel
       id={pathname}
       heading="navigator.mediaDevices.enumerateDevices()"
-      initialValue={() => navigator.mediaDevices.enumerateDevices()}
+      resource={eager(() => navigator.mediaDevices.enumerateDevices())}
     />
   );
 }

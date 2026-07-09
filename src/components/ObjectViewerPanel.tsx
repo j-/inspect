@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 import Paper, { type PaperProps } from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { ThemeProvider } from '@mui/material/styles';
@@ -8,22 +9,23 @@ import { ClientOnly } from '@tanstack/react-router';
 import {
   useCallback,
   useEffect,
+  useRef,
   useState,
   type FC,
   type ReactNode,
 } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ActionSection, type ActionSectionProps } from './ActionSection';
+import type { Resource, ResourceState } from '#/resource';
 import { codeTheme } from '#/theme';
 import type { FilterKeysPredicate, IsExpandedFunction } from '#/viewer/types';
 import { Viewer } from '#/viewer/Viewer';
 
-export type ObjectViewerPanelProps = PaperProps & {
+export type ObjectViewerPanelProps = Omit<PaperProps, 'resource'> & {
   id: string;
   heading?: ReactNode;
   name?: string;
-  initialValue?: () => any;
-  reloadInterval?: number;
+  resource?: Resource;
   actions?: ActionSectionProps[];
   onClear?: () => void;
   defaultIsExpanded?: IsExpandedFunction;
@@ -34,80 +36,129 @@ export type ObjectViewerPanelProps = PaperProps & {
 const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   id,
   name,
-  initialValue,
-  reloadInterval,
+  resource,
   actions,
   onClear,
   defaultIsExpanded,
   filterKeys,
   useGetThisObject,
 }) => {
-  const hasInitialValue = typeof initialValue === 'function';
-  const [object, setObject] = useState(initialValue);
-  const [count, setCount] = useState(0);
+  const [state, setState] = useState<ResourceState>(() =>
+    resource?.autoEvaluate ? { status: 'pending' } : { status: 'idle' },
+  );
+  const [viewerKey, setViewerKey] = useState(0);
+  const valueCleanupRef = useRef<(() => void) | undefined>(undefined);
+  const doEvaluateRef = useRef<(() => Promise<void>) | undefined>(undefined);
 
-  const onClickReRender = useCallback(() => {
-    setCount((c) => c + 1);
+  // Core async evaluation — no synchronous setState. Safe to call from effects
+  // and subscription callbacks.
+  const doEvaluate = useCallback(async () => {
+    if (!resource) return;
+
+    // Tear down any subscription attached to the previous value.
+    valueCleanupRef.current?.();
+    valueCleanupRef.current = undefined;
+
+    try {
+      const value = await resource.evaluate();
+
+      if (resource.createValueSubscription) {
+        // Create a stable wrapper so removeEventListener can match the same ref.
+        const trigger = () => doEvaluateRef.current?.();
+        valueCleanupRef.current = resource.createValueSubscription(value, trigger);
+      }
+
+      setState({ status: 'success', value, evaluatedAt: Date.now() });
+      setViewerKey((k) => k + 1);
+    } catch (error) {
+      setState({ status: 'error', error, evaluatedAt: Date.now() });
+    }
+  }, [resource]);
+
+  // Keep the ref in sync so value-subscription triggers always call the latest
+  // version of doEvaluate (important if resource ever changes).
+  useEffect(() => {
+    doEvaluateRef.current = doEvaluate;
+  }, [doEvaluate]);
+
+  // Tear down the value subscription when the component unmounts.
+  useEffect(() => {
+    return () => {
+      valueCleanupRef.current?.();
+    };
   }, []);
 
-  const onClickReEvaluate = useCallback(() => {
-    setObject(initialValue);
-    setCount((c) => c + 1);
-  }, [initialValue]);
+  // Manual re-evaluation — shows the pending state first, then evaluates.
+  // Not called from effects.
+  const runEvaluate = useCallback(() => {
+    setState({ status: 'pending' });
+    void doEvaluate();
+  }, [doEvaluate]);
 
   useEffect(() => {
-    if (!reloadInterval || !hasInitialValue) return;
+    if (resource?.autoEvaluate) {
+      // State is already initialized to 'pending'. Schedule via queueMicrotask
+      // so setState isn't called synchronously within the effect body.
+      queueMicrotask(() => void doEvaluate());
+    }
+    return resource?.createSubscription?.(doEvaluate);
+  }, [doEvaluate, resource]);
 
-    const interval = setInterval(() => {
-      setObject(initialValue);
-      setCount((c) => c + 1);
-    }, reloadInterval);
-
-    return () => clearInterval(interval);
-  }, [hasInitialValue, initialValue, reloadInterval]);
+  const hasResource = resource != null;
+  const isIdle = state.status === 'idle';
+  const isPending = state.status === 'pending';
+  const isSuccess = state.status === 'success';
+  const isError = state.status === 'error';
 
   return (
     <Stack gap={2}>
-      {hasInitialValue && (
-        <Stack direction="row" gap={1} flexWrap="wrap">
-          <Button
-            size="small"
-            variant="outlined"
-            onClick={onClickReRender}
-          >
-            Re-render
-          </Button>
+      {hasResource && (
+        <Stack direction="row" gap={1} flexWrap="wrap" alignItems="center">
+          {isIdle ? (
+            <Button
+              size="small"
+              variant="outlined"
+              onClick={runEvaluate}
+            >
+              {resource.label ?? 'Evaluate'}
+            </Button>
+          ) : (
+            <Button
+              size="small"
+              variant="outlined"
+              onClick={runEvaluate}
+              disabled={isPending}
+            >
+              Re-evaluate
+            </Button>
+          )}
 
-          <Button
-            size="small"
-            variant="outlined"
-            onClick={onClickReEvaluate}
-          >
-            Re-evaluate
-          </Button>
+          {isSuccess && (
+            <>
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={() => console.log(state.value)}
+              >
+                Log to console
+              </Button>
 
-          <Button
-            size="small"
-            variant="outlined"
-            onClick={() => console.log(object)}
-          >
-            Log result to console
-          </Button>
-
-          <Button
-            size="small"
-            variant="outlined"
-            onClick={async () => {
-              try {
-                const json = JSON.stringify(object, null, 2);
-                await navigator.clipboard.writeText(json);
-              } catch {
-                // TODO: Show error
-              }
-            }}
-          >
-            Copy object to clipboard
-          </Button>
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={async () => {
+                  try {
+                    const json = JSON.stringify(state.value, null, 2);
+                    await navigator.clipboard.writeText(json);
+                  } catch {
+                    // TODO: Show error
+                  }
+                }}
+              >
+                Copy to clipboard
+              </Button>
+            </>
+          )}
 
           {onClear && (
             <Button
@@ -119,10 +170,21 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
               Clear
             </Button>
           )}
+
+          {isPending && <CircularProgress size={16} />}
         </Stack>
       )}
 
-      {hasInitialValue && (
+      {isError && (
+        <Box color="error.main">
+          <strong>Error:</strong>{' '}
+          {state.error instanceof Error
+            ? state.error.message
+            : String(state.error)}
+        </Box>
+      )}
+
+      {isSuccess && (
         <Box sx={{ lineHeight: '1.2em', fontFamily: 'monospace' }}>
           <ErrorBoundary
             fallbackRender={({ error }) => (
@@ -134,8 +196,8 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
             <ThemeProvider theme={codeTheme}>
               <Viewer
                 id={id}
-                key={count}
-                object={object}
+                key={viewerKey}
+                object={state.value}
                 name={name}
                 defaultIsExpanded={defaultIsExpanded}
                 filterKeys={filterKeys}
@@ -161,8 +223,7 @@ export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
   id,
   heading,
   name,
-  initialValue,
-  reloadInterval,
+  resource,
   actions,
   onClear,
   defaultIsExpanded,
@@ -203,8 +264,7 @@ export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
             <ObjectViewerPanelInner
               id={id}
               name={name}
-              initialValue={initialValue}
-              reloadInterval={reloadInterval}
+              resource={resource}
               actions={actions}
               onClear={onClear}
               defaultIsExpanded={defaultIsExpanded}

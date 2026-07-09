@@ -1,5 +1,6 @@
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
+import { lazy } from '#/resource';
 
 export const Route = createFileRoute('/window.getScreenDetails()')({
   component: RouteComponent,
@@ -12,7 +13,7 @@ function RouteComponent() {
     <ObjectViewerPanel
       id={pathname}
       heading="window.getScreenDetails()"
-      initialValue={() => (window as any).getScreenDetails()}
+      resource={lazy(() => (window as any).getScreenDetails())}
     />
   );
 }

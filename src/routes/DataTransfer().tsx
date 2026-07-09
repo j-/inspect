@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
+import { eager } from '#/resource';
 
 export const Route = createFileRoute('/DataTransfer()')({
   component: RouteComponent,
@@ -55,7 +56,7 @@ function RouteComponent() {
           key={count}
           id={pathname}
           heading="DataTransfer()"
-          initialValue={() => dataTransfer}
+          resource={eager(() => dataTransfer)}
         />
       ) : null}
     </Stack>

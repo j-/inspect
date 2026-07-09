@@ -3,6 +3,7 @@ import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { createIsomorphicFn } from '@tanstack/react-start';
 import { useEffect, useMemo, useState } from 'react';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
+import { eager } from '#/resource';
 
 export const Route = createFileRoute('/navigator.keyboard.getLayoutMap()')({
   component: RouteComponent,
@@ -40,14 +41,14 @@ function RouteComponent() {
       <ObjectViewerPanel
         id={pathname + '#layoutMap'}
         heading="navigator.keyboard.getLayoutMap()"
-        initialValue={() => promise}
+        resource={eager(() => promise)}
       />
 
       {entries && (
         <ObjectViewerPanel
           id={pathname + '#layoutMapEntries'}
           heading="Layout Map Entries"
-          initialValue={() => entries}
+          resource={eager(() => entries)}
         />
       )}
     </Stack>

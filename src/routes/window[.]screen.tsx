@@ -1,5 +1,6 @@
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
+import { eager } from '#/resource';
 
 export const Route = createFileRoute('/window.screen')({
   component: RouteComponent,
@@ -13,7 +14,7 @@ function RouteComponent() {
       id={pathname}
       heading="window.screen"
       name="window.screen"
-      initialValue={() => window.screen}
+      resource={eager(() => window.screen)}
     />
   );
 }

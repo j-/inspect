@@ -1,5 +1,6 @@
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
+import { polling } from '#/resource';
 
 export const Route = createFileRoute('/navigator.userActivation')({
   component: RouteComponent,
@@ -13,8 +14,7 @@ function RouteComponent() {
       id={pathname}
       heading="navigator.userActivation"
       name="navigator.userActivation"
-      initialValue={() => navigator.userActivation}
-      reloadInterval={100}
+      resource={polling(() => navigator.userActivation, 100)}
     />
   );
 }

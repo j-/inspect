@@ -1,5 +1,6 @@
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
+import { eager } from '#/resource';
 
 export const Route = createFileRoute('/navigator.mediaDevices')({
   component: RouteComponent,
@@ -13,7 +14,7 @@ function RouteComponent() {
       id={pathname}
       heading="navigator.mediaDevices"
       name="navigator.mediaDevices"
-      initialValue={() => navigator.mediaDevices}
+      resource={eager(() => navigator.mediaDevices)}
       actions={[
         {
           buttonProps: {

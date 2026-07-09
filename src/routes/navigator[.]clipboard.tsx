@@ -1,6 +1,7 @@
 import Stack from '@mui/material/Stack';
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
+import { eager } from '#/resource';
 
 export const Route = createFileRoute('/navigator.clipboard')({
   component: RouteComponent,
@@ -14,18 +15,18 @@ function RouteComponent() {
       <ObjectViewerPanel
         id={pathname + '#queryPermission'}
         heading="clipboard-read permission"
-        initialValue={() => (
+        resource={eager(() => (
           navigator.permissions.query({
             name: 'clipboard-read' as PermissionName,
           })
-        )}
+        ))}
       />
 
       <ObjectViewerPanel
         id={pathname}
         heading="navigator.clipboard"
         name="navigator.clipboard"
-        initialValue={() => navigator.clipboard}
+        resource={eager(() => navigator.clipboard)}
         actions={[
           {
             buttonProps: {

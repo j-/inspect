@@ -1,5 +1,6 @@
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
+import { lazy } from '#/resource';
 
 export const Route = createFileRoute('/window.queryLocalFonts()')({
   component: RouteComponent,
@@ -12,7 +13,7 @@ function RouteComponent() {
     <ObjectViewerPanel
       id={pathname}
       heading="window.queryLocalFonts()"
-      initialValue={() => (window as any).queryLocalFonts()}
+      resource={lazy(() => (window as any).queryLocalFonts())}
     />
   );
 }

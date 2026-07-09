@@ -1,5 +1,6 @@
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
+import { eager } from '#/resource';
 
 export const Route = createFileRoute('/useLocation()')({
   component: RouteComponent,
@@ -13,7 +14,7 @@ function RouteComponent() {
       id={location.pathname}
       heading="useLocation()"
       name="useLocation()"
-      initialValue={() => location}
+      resource={eager(() => location)}
       defaultIsExpanded={(_, thisPath) => thisPath.length < 3}
     />
   );

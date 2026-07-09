@@ -2,6 +2,7 @@ import Stack from '@mui/material/Stack';
 import { createFileRoute } from '@tanstack/react-router';
 import type { FC } from 'react';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
+import { eager } from '#/resource';
 
 const App: FC = () => {
   return (
@@ -9,7 +10,7 @@ const App: FC = () => {
       <ObjectViewerPanel
         id="kitchen-sink"
         heading="Kitchen sink"
-        initialValue={() => ({
+        resource={eager(() => ({
           sample: [
             true,
             null,
@@ -55,40 +56,40 @@ const App: FC = () => {
           regex: new RegExp('\\x68ttp\\x3a\\/\\/localhost\\x3a3000\\/', 'gi'),
           dateValid: new Date(),
           dateInvalid: new Date('invalid'),
-        })}
+        }))}
       />
 
       <ObjectViewerPanel
         id="circular-reference"
         heading="Circular reference example"
-        initialValue={() => {
+        resource={eager(() => {
           const a: Record<string, any> = {};
           const b: Record<string, any> = { a };
           a.b = b; // Create a circular reference
 
           return b;
-        }}
+        })}
       />
 
       <ObjectViewerPanel
         id="get-and-set"
         heading="Get and set example"
-        initialValue={() => ({
+        resource={eager(() => ({
           get value() {
             return 'This value is from a getter';
           },
           set value(newValue) {
             console.log('Setter called with:', newValue);
           },
-        })}
+        }))}
       />
 
       <ObjectViewerPanel
         id="error-example"
         heading="Error example"
-        initialValue={() => {
+        resource={eager(() => {
           throw new Error('This example error is thrown immediately when the component renders');
-        }}
+        })}
       />
     </Stack>
   );

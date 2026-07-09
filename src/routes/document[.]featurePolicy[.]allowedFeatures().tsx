@@ -1,5 +1,6 @@
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
+import { eager } from '#/resource';
 
 export const Route = createFileRoute(
   '/document.featurePolicy.allowedFeatures()',
@@ -15,7 +16,7 @@ function RouteComponent() {
       id={pathname}
       heading="document.featurePolicy.allowedFeatures()"
       name="document.featurePolicy.allowedFeatures()"
-      initialValue={() => document.featurePolicy!.allowedFeatures()}
+      resource={eager(() => document.featurePolicy!.allowedFeatures())}
     />
   );
 }
