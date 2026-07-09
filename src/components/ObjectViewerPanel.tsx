@@ -208,10 +208,14 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
         </Box>
       )}
 
-      {actions && (
+      {actions && (resource == null || state.status === 'success') && (
         <Stack gap={1}>
           {actions.map((action, index) => (
-            <ActionSection key={index} {...action} />
+            <ActionSection
+              key={index}
+              {...action}
+              resourceValue={state.status === 'success' ? state.value : undefined}
+            />
           ))}
         </Stack>
       )}

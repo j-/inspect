@@ -3,21 +3,25 @@ import type { ButtonProps } from '@mui/material/Button';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { useId, useMemo, useState, type FC } from 'react';
+import type { Resource } from '../resource';
 import { ObjectViewerPanel } from './ObjectViewerPanel';
-import { eager } from '../resource';
 
 export type ActionSectionProps = {
   buttonProps: ButtonProps;
-  initialData: () => any;
+  resource: (value: unknown) => Resource;
 };
 
-export const ActionSection: FC<ActionSectionProps> = ({
+export const ActionSection: FC<ActionSectionProps & { resourceValue?: unknown }> = ({
   buttonProps,
-  initialData,
+  resource,
+  resourceValue,
 }) => {
   const id = useId();
   const [show, setShow] = useState(false);
-  const resource = useMemo(() => eager(initialData), [initialData]);
+  const resolvedResource = useMemo(
+    () => resource(resourceValue),
+    [resource, resourceValue],
+  );
 
   return (
     <Stack gap={1} width="100%">
@@ -37,7 +41,7 @@ export const ActionSection: FC<ActionSectionProps> = ({
       {show && (
         <ObjectViewerPanel
           id={id}
-          resource={resource}
+          resource={resolvedResource}
           elevation={0}
           sx={{
             p: 1,

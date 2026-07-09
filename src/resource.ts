@@ -105,16 +105,41 @@ export function reactive<T extends EventTarget>(
   return {
     autoEvaluate: true,
     evaluate: fn,
-    createValueSubscription: (value, trigger) => {
-      const target = value as T; // evaluate() always resolves to T
+    createValueSubscription: makeValueSubscription<T>(...eventTypes),
+  };
+}
+
+/**
+ * Only evaluate when the user explicitly triggers it, then re-evaluate
+ * automatically whenever any of the specified DOM events fire on the resolved
+ * value itself.
+ * Use this for APIs that require a permission prompt but then expose a live
+ * object whose events should drive re-renders (e.g. window.getScreenDetails()).
+ */
+export function lazyReactive<T extends EventTarget>(
+  fn: () => T | Promise<T>,
+  ...eventTypes: string[]
+): Resource<T> {
+  return {
+    autoEvaluate: false,
+    evaluate: fn,
+    label: 'Evaluate',
+    createValueSubscription: makeValueSubscription<T>(...eventTypes),
+  };
+}
+
+function makeValueSubscription<T extends EventTarget>(
+  ...eventTypes: string[]
+): (value: unknown, trigger: () => void) => () => void {
+  return (value, trigger) => {
+    const target = value as T; // evaluate() always resolves to T
+    for (const type of eventTypes) {
+      target.addEventListener(type, trigger);
+    }
+    return () => {
       for (const type of eventTypes) {
-        target.addEventListener(type, trigger);
+        target.removeEventListener(type, trigger);
       }
-      return () => {
-        for (const type of eventTypes) {
-          target.removeEventListener(type, trigger);
-        }
-      };
-    },
+    };
   };
 }

@@ -20,20 +20,20 @@ function RouteComponent() {
           buttonProps: {
             children: <code>navigator.wakeLock.request()</code>,
           },
-          initialData: () => navigator.wakeLock.request(),
+          resource: () => eager(() => navigator.wakeLock.request()),
         },
         {
           buttonProps: {
             children: <code>navigator.wakeLock.request('screen')</code>,
           },
-          initialData: () => navigator.wakeLock.request('screen'),
+          resource: () => eager(() => navigator.wakeLock.request('screen')),
         },
         {
           buttonProps: {
             children: <code>navigator.wakeLock.request('foobar')</code>,
           },
           // @ts-expect-error Only accepts "screen"
-          initialData: () => navigator.wakeLock.request('foobar'),
+          resource: () => eager(() => navigator.wakeLock.request('foobar')),
         },
       ]}
     />

@@ -27,6 +27,7 @@ import { Route as NavigatorDotstorageDotestimateRouteImport } from './routes/nav
 import { Route as NavigatorDotstorageRouteImport } from './routes/navigator[.]storage'
 import { Route as NavigatorDotshareRouteImport } from './routes/navigator[.]share()'
 import { Route as NavigatorDotonLineRouteImport } from './routes/navigator[.]onLine'
+import { Route as NavigatorDotmediaDevicesDotgetUserMediaRouteImport } from './routes/navigator[.]mediaDevices[.]getUserMedia()'
 import { Route as NavigatorDotmediaDevicesDotgetSupportedConstraintsRouteImport } from './routes/navigator[.]mediaDevices[.]getSupportedConstraints()'
 import { Route as NavigatorDotmediaDevicesDotenumerateDevicesRouteImport } from './routes/navigator[.]mediaDevices[.]enumerateDevices()'
 import { Route as NavigatorDotmediaDevicesRouteImport } from './routes/navigator[.]mediaDevices'
@@ -142,6 +143,12 @@ const NavigatorDotonLineRoute = NavigatorDotonLineRouteImport.update({
   path: '/navigator.onLine',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NavigatorDotmediaDevicesDotgetUserMediaRoute =
+  NavigatorDotmediaDevicesDotgetUserMediaRouteImport.update({
+    id: '/navigator.mediaDevices.getUserMedia()',
+    path: '/navigator.mediaDevices.getUserMedia()',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute =
   NavigatorDotmediaDevicesDotgetSupportedConstraintsRouteImport.update({
     id: '/navigator.mediaDevices.getSupportedConstraints()',
@@ -260,6 +267,7 @@ export interface FileRoutesByFullPath {
   '/navigator.mediaDevices': typeof NavigatorDotmediaDevicesRoute
   '/navigator.mediaDevices.enumerateDevices()': typeof NavigatorDotmediaDevicesDotenumerateDevicesRoute
   '/navigator.mediaDevices.getSupportedConstraints()': typeof NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute
+  '/navigator.mediaDevices.getUserMedia()': typeof NavigatorDotmediaDevicesDotgetUserMediaRoute
   '/navigator.onLine': typeof NavigatorDotonLineRoute
   '/navigator.share()': typeof NavigatorDotshareRoute
   '/navigator.storage': typeof NavigatorDotstorageRoute
@@ -298,6 +306,7 @@ export interface FileRoutesByTo {
   '/navigator.mediaDevices': typeof NavigatorDotmediaDevicesRoute
   '/navigator.mediaDevices.enumerateDevices()': typeof NavigatorDotmediaDevicesDotenumerateDevicesRoute
   '/navigator.mediaDevices.getSupportedConstraints()': typeof NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute
+  '/navigator.mediaDevices.getUserMedia()': typeof NavigatorDotmediaDevicesDotgetUserMediaRoute
   '/navigator.onLine': typeof NavigatorDotonLineRoute
   '/navigator.share()': typeof NavigatorDotshareRoute
   '/navigator.storage': typeof NavigatorDotstorageRoute
@@ -337,6 +346,7 @@ export interface FileRoutesById {
   '/navigator.mediaDevices': typeof NavigatorDotmediaDevicesRoute
   '/navigator.mediaDevices.enumerateDevices()': typeof NavigatorDotmediaDevicesDotenumerateDevicesRoute
   '/navigator.mediaDevices.getSupportedConstraints()': typeof NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute
+  '/navigator.mediaDevices.getUserMedia()': typeof NavigatorDotmediaDevicesDotgetUserMediaRoute
   '/navigator.onLine': typeof NavigatorDotonLineRoute
   '/navigator.share()': typeof NavigatorDotshareRoute
   '/navigator.storage': typeof NavigatorDotstorageRoute
@@ -377,6 +387,7 @@ export interface FileRouteTypes {
     | '/navigator.mediaDevices'
     | '/navigator.mediaDevices.enumerateDevices()'
     | '/navigator.mediaDevices.getSupportedConstraints()'
+    | '/navigator.mediaDevices.getUserMedia()'
     | '/navigator.onLine'
     | '/navigator.share()'
     | '/navigator.storage'
@@ -415,6 +426,7 @@ export interface FileRouteTypes {
     | '/navigator.mediaDevices'
     | '/navigator.mediaDevices.enumerateDevices()'
     | '/navigator.mediaDevices.getSupportedConstraints()'
+    | '/navigator.mediaDevices.getUserMedia()'
     | '/navigator.onLine'
     | '/navigator.share()'
     | '/navigator.storage'
@@ -453,6 +465,7 @@ export interface FileRouteTypes {
     | '/navigator.mediaDevices'
     | '/navigator.mediaDevices.enumerateDevices()'
     | '/navigator.mediaDevices.getSupportedConstraints()'
+    | '/navigator.mediaDevices.getUserMedia()'
     | '/navigator.onLine'
     | '/navigator.share()'
     | '/navigator.storage'
@@ -492,6 +505,7 @@ export interface RootRouteChildren {
   NavigatorDotmediaDevicesRoute: typeof NavigatorDotmediaDevicesRoute
   NavigatorDotmediaDevicesDotenumerateDevicesRoute: typeof NavigatorDotmediaDevicesDotenumerateDevicesRoute
   NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute: typeof NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute
+  NavigatorDotmediaDevicesDotgetUserMediaRoute: typeof NavigatorDotmediaDevicesDotgetUserMediaRoute
   NavigatorDotonLineRoute: typeof NavigatorDotonLineRoute
   NavigatorDotshareRoute: typeof NavigatorDotshareRoute
   NavigatorDotstorageRoute: typeof NavigatorDotstorageRoute
@@ -638,6 +652,13 @@ declare module '@tanstack/react-router' {
       path: '/navigator.onLine'
       fullPath: '/navigator.onLine'
       preLoaderRoute: typeof NavigatorDotonLineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/navigator.mediaDevices.getUserMedia()': {
+      id: '/navigator.mediaDevices.getUserMedia()'
+      path: '/navigator.mediaDevices.getUserMedia()'
+      fullPath: '/navigator.mediaDevices.getUserMedia()'
+      preLoaderRoute: typeof NavigatorDotmediaDevicesDotgetUserMediaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/navigator.mediaDevices.getSupportedConstraints()': {
@@ -794,6 +815,8 @@ const rootRouteChildren: RootRouteChildren = {
     NavigatorDotmediaDevicesDotenumerateDevicesRoute,
   NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute:
     NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute,
+  NavigatorDotmediaDevicesDotgetUserMediaRoute:
+    NavigatorDotmediaDevicesDotgetUserMediaRoute,
   NavigatorDotonLineRoute: NavigatorDotonLineRoute,
   NavigatorDotshareRoute: NavigatorDotshareRoute,
   NavigatorDotstorageRoute: NavigatorDotstorageRoute,

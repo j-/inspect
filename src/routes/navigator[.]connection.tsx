@@ -1,6 +1,6 @@
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
-import { onEvent } from '#/resource';
+import { reactive } from '#/resource';
 
 export const Route = createFileRoute('/navigator.connection')({
   component: RouteComponent,
@@ -14,7 +14,7 @@ function RouteComponent() {
       id={pathname}
       heading="navigator.connection"
       name="navigator.connection"
-      resource={onEvent(() => navigator.connection, () => navigator.connection as EventTarget | undefined, 'change')}
+      resource={reactive(() => navigator.connection, 'change')}
     />
   );
 }

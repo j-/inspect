@@ -2,6 +2,7 @@ import Stack from '@mui/material/Stack';
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { createIsomorphicFn } from '@tanstack/react-start';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
+import { eager } from '#/resource';
 
 export const Route = createFileRoute('/navigator.share()')({
   component: RouteComponent,
@@ -57,13 +58,13 @@ function RouteComponent() {
             buttonProps: {
               children: <code>navigator.canShare()</code>,
             },
-            initialData: () => navigator.canShare(),
+            resource: () => eager(() => navigator.canShare()),
           },
           {
             buttonProps: {
               children: <code>navigator.share()</code>,
             },
-            initialData: () => navigator.share(),
+            resource: () => eager(() => navigator.share()),
           },
         ]}
       />
@@ -76,17 +77,17 @@ function RouteComponent() {
             buttonProps: {
               children: <code>{'navigator.canShare({ title: \'Share data title\' })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.canShare({ title: 'Share data title' })
-            ),
+            )),
           },
           {
             buttonProps: {
               children: <code>{'navigator.share({ title: \'Share data title\' })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.share({ title: 'Share data title' })
-            ),
+            )),
           },
         ]}
       />
@@ -99,17 +100,17 @@ function RouteComponent() {
             buttonProps: {
               children: <code>{'navigator.canShare({ text: \'Share data text\' })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.canShare({ text: 'Share data text' })
-            ),
+            )),
           },
           {
             buttonProps: {
               children: <code>{'navigator.share({ text: \'Share data text\' })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.share({ text: 'Share data text' })
-            ),
+            )),
           },
         ]}
       />
@@ -122,23 +123,23 @@ function RouteComponent() {
             buttonProps: {
               children: <code>{'navigator.canShare({ title: \'Share data title\', text: \'Share data text\' })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.canShare({
                 title: 'Share data title',
                 text: 'Share data text',
               })
-            ),
+            )),
           },
           {
             buttonProps: {
               children: <code>{'navigator.share({ title: \'Share data title\', text: \'Share data text\' })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.share({
                 title: 'Share data title',
                 text: 'Share data text',
               })
-            ),
+            )),
           },
         ]}
       />
@@ -151,17 +152,17 @@ function RouteComponent() {
             buttonProps: {
               children: <code>{'navigator.canShare({ url: \'https://example.com\' })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.canShare({ url: 'https://example.com' })
-            ),
+            )),
           },
           {
             buttonProps: {
               children: <code>{'navigator.share({ url: \'https://example.com\' })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.share({ url: 'https://example.com' })
-            ),
+            )),
           },
         ]}
       />
@@ -174,23 +175,23 @@ function RouteComponent() {
             buttonProps: {
               children: <code>{'navigator.canShare({ url: \'https://example.com\', title: \'Share data title\' })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.canShare({
                 url: 'https://example.com',
                 title: 'Share data title',
               })
-            ),
+            )),
           },
           {
             buttonProps: {
               children: <code>{'navigator.share({ url: \'https://example.com\', title: \'Share data title\' })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.share({
                 url: 'https://example.com',
                 title: 'Share data title',
               })
-            ),
+            )),
           },
         ]}
       />
@@ -203,23 +204,23 @@ function RouteComponent() {
             buttonProps: {
               children: <code>{'navigator.canShare({ url: \'https://example.com\', text: \'Share data text\' })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.canShare({
                 url: 'https://example.com',
                 text: 'Share data text',
               })
-            ),
+            )),
           },
           {
             buttonProps: {
               children: <code>{'navigator.share({ url: \'https://example.com\', text: \'Share data text\' })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.share({
                 url: 'https://example.com',
                 text: 'Share data text',
               })
-            ),
+            )),
           },
         ]}
       />
@@ -232,25 +233,25 @@ function RouteComponent() {
             buttonProps: {
               children: <code>{'navigator.canShare({ url: \'https://example.com\', title: \'Share data title\', text: \'Share data text\' })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.canShare({
                 url: 'https://example.com',
                 title: 'Share data title',
                 text: 'Share data text',
               })
-            ),
+            )),
           },
           {
             buttonProps: {
               children: <code>{'navigator.share({ url: \'https://example.com\', title: \'Share data title\', text: \'Share data text\' })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.share({
                 url: 'https://example.com',
                 title: 'Share data title',
                 text: 'Share data text',
               })
-            ),
+            )),
           },
         ]}
       />
@@ -263,21 +264,21 @@ function RouteComponent() {
             buttonProps: {
               children: <code>{'navigator.canShare({ files: getExampleFile() })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.canShare({
                 files: getExampleFile(),
               })
-            ),
+            )),
           },
           {
             buttonProps: {
               children: <code>{'navigator.share({ files: getExampleFile() })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.share({
                 files: getExampleFile(),
               })
-            ),
+            )),
           },
         ]}
       />
@@ -290,21 +291,21 @@ function RouteComponent() {
             buttonProps: {
               children: <code>{'navigator.canShare({ files: getExampleFiles() })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.canShare({
                 files: getExampleFiles(),
               })
-            ),
+            )),
           },
           {
             buttonProps: {
               children: <code>{'navigator.share({ files: getExampleFiles() })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.share({
                 files: getExampleFiles(),
               })
-            ),
+            )),
           },
         ]}
       />
@@ -317,27 +318,27 @@ function RouteComponent() {
             buttonProps: {
               children: <code>{'navigator.canShare({ url: \'https://example.com\', title: \'Share data title\', text: \'Share data text\', files: getExampleFile() })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.canShare({
                 url: 'https://example.com',
                 title: 'Share data title',
                 text: 'Share data text',
                 files: getExampleFile(),
               })
-            ),
+            )),
           },
           {
             buttonProps: {
               children: <code>{'navigator.share({ url: \'https://example.com\', title: \'Share data title\', text: \'Share data text\', files: getExampleFile() })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.share({
                 url: 'https://example.com',
                 title: 'Share data title',
                 text: 'Share data text',
                 files: getExampleFile(),
               })
-            ),
+            )),
           },
         ]}
       />
@@ -350,27 +351,27 @@ function RouteComponent() {
             buttonProps: {
               children: <code>{'navigator.canShare({ url: \'https://example.com\', title: \'Share data title\', text: \'Share data text\', files: getExampleFiles() })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.canShare({
                 url: 'https://example.com',
                 title: 'Share data title',
                 text: 'Share data text',
                 files: getExampleFiles(),
               })
-            ),
+            )),
           },
           {
             buttonProps: {
               children: <code>{'navigator.share({ url: \'https://example.com\', title: \'Share data title\', text: \'Share data text\', files: getExampleFiles() })'}</code>,
             },
-            initialData: () => (
+            resource: () => eager(() => (
               navigator.share({
                 url: 'https://example.com',
                 title: 'Share data title',
                 text: 'Share data text',
                 files: getExampleFiles(),
               })
-            ),
+            )),
           },
         ]}
       />
