@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WindowDotvisualViewportRouteImport } from './routes/window[.]visualViewport'
 import { Route as WindowDotviewportRouteImport } from './routes/window[.]viewport'
+import { Route as WindowDotshowOpenFilePickerRouteImport } from './routes/window[.]showOpenFilePicker()'
 import { Route as WindowDotscreenRouteImport } from './routes/window[.]screen'
 import { Route as WindowDotqueryLocalFontsRouteImport } from './routes/window[.]queryLocalFonts()'
 import { Route as WindowDotperformanceRouteImport } from './routes/window[.]performance'
@@ -55,6 +56,12 @@ const WindowDotviewportRoute = WindowDotviewportRouteImport.update({
   path: '/window.viewport',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WindowDotshowOpenFilePickerRoute =
+  WindowDotshowOpenFilePickerRouteImport.update({
+    id: '/window.showOpenFilePicker()',
+    path: '/window.showOpenFilePicker()',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const WindowDotscreenRoute = WindowDotscreenRouteImport.update({
   id: '/window.screen',
   path: '/window.screen',
@@ -268,6 +275,7 @@ export interface FileRoutesByFullPath {
   '/window.performance': typeof WindowDotperformanceRoute
   '/window.queryLocalFonts()': typeof WindowDotqueryLocalFontsRoute
   '/window.screen': typeof WindowDotscreenRoute
+  '/window.showOpenFilePicker()': typeof WindowDotshowOpenFilePickerRoute
   '/window.viewport': typeof WindowDotviewportRoute
   '/window.visualViewport': typeof WindowDotvisualViewportRoute
 }
@@ -305,6 +313,7 @@ export interface FileRoutesByTo {
   '/window.performance': typeof WindowDotperformanceRoute
   '/window.queryLocalFonts()': typeof WindowDotqueryLocalFontsRoute
   '/window.screen': typeof WindowDotscreenRoute
+  '/window.showOpenFilePicker()': typeof WindowDotshowOpenFilePickerRoute
   '/window.viewport': typeof WindowDotviewportRoute
   '/window.visualViewport': typeof WindowDotvisualViewportRoute
 }
@@ -343,6 +352,7 @@ export interface FileRoutesById {
   '/window.performance': typeof WindowDotperformanceRoute
   '/window.queryLocalFonts()': typeof WindowDotqueryLocalFontsRoute
   '/window.screen': typeof WindowDotscreenRoute
+  '/window.showOpenFilePicker()': typeof WindowDotshowOpenFilePickerRoute
   '/window.viewport': typeof WindowDotviewportRoute
   '/window.visualViewport': typeof WindowDotvisualViewportRoute
 }
@@ -382,6 +392,7 @@ export interface FileRouteTypes {
     | '/window.performance'
     | '/window.queryLocalFonts()'
     | '/window.screen'
+    | '/window.showOpenFilePicker()'
     | '/window.viewport'
     | '/window.visualViewport'
   fileRoutesByTo: FileRoutesByTo
@@ -419,6 +430,7 @@ export interface FileRouteTypes {
     | '/window.performance'
     | '/window.queryLocalFonts()'
     | '/window.screen'
+    | '/window.showOpenFilePicker()'
     | '/window.viewport'
     | '/window.visualViewport'
   id:
@@ -456,6 +468,7 @@ export interface FileRouteTypes {
     | '/window.performance'
     | '/window.queryLocalFonts()'
     | '/window.screen'
+    | '/window.showOpenFilePicker()'
     | '/window.viewport'
     | '/window.visualViewport'
   fileRoutesById: FileRoutesById
@@ -494,6 +507,7 @@ export interface RootRouteChildren {
   WindowDotperformanceRoute: typeof WindowDotperformanceRoute
   WindowDotqueryLocalFontsRoute: typeof WindowDotqueryLocalFontsRoute
   WindowDotscreenRoute: typeof WindowDotscreenRoute
+  WindowDotshowOpenFilePickerRoute: typeof WindowDotshowOpenFilePickerRoute
   WindowDotviewportRoute: typeof WindowDotviewportRoute
   WindowDotvisualViewportRoute: typeof WindowDotvisualViewportRoute
 }
@@ -512,6 +526,13 @@ declare module '@tanstack/react-router' {
       path: '/window.viewport'
       fullPath: '/window.viewport'
       preLoaderRoute: typeof WindowDotviewportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/window.showOpenFilePicker()': {
+      id: '/window.showOpenFilePicker()'
+      path: '/window.showOpenFilePicker()'
+      fullPath: '/window.showOpenFilePicker()'
+      preLoaderRoute: typeof WindowDotshowOpenFilePickerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/window.screen': {
@@ -788,6 +809,7 @@ const rootRouteChildren: RootRouteChildren = {
   WindowDotperformanceRoute: WindowDotperformanceRoute,
   WindowDotqueryLocalFontsRoute: WindowDotqueryLocalFontsRoute,
   WindowDotscreenRoute: WindowDotscreenRoute,
+  WindowDotshowOpenFilePickerRoute: WindowDotshowOpenFilePickerRoute,
   WindowDotviewportRoute: WindowDotviewportRoute,
   WindowDotvisualViewportRoute: WindowDotvisualViewportRoute,
 }
