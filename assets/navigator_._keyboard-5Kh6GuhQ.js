@@ -1,0 +1,1 @@
+import{j as e}from"./main-XGekCWtE.js";import{u as a}from"./useLocation-DCPYpkL0.js";import{O as r,e as t}from"./resource-Ci_E2XVD.js";function s(){const{pathname:o}=a();return e.jsx(r,{id:o,heading:"navigator.keyboard",name:"navigator.keyboard",resource:t(()=>navigator.keyboard)})}export{s as component};

@@ -1,0 +1,1 @@
+import{j as t}from"./main-XGekCWtE.js";import{u as n}from"./useLocation-DCPYpkL0.js";import{O as a,e as m}from"./resource-Ci_E2XVD.js";function i(){const{pathname:e}=n();return t.jsx(a,{id:e,heading:"document",name:"document",resource:m(()=>document),defaultIsExpanded:(r,o)=>o.length<5})}export{i as component};

@@ -1,0 +1,1 @@
+import{j as e}from"./main-XGekCWtE.js";import{u as i}from"./useLocation-DCPYpkL0.js";import{O as t,e as n}from"./resource-Ci_E2XVD.js";function m(){const{pathname:o}=i();return e.jsx(t,{id:o,heading:"window.visualViewport",name:"window.visualViewport",resource:n(()=>window.visualViewport)})}export{m as component};

@@ -1,0 +1,1 @@
+import{j as t}from"./main-XGekCWtE.js";import{u as n}from"./useLocation-DCPYpkL0.js";import{O as a,p as e}from"./resource-Ci_E2XVD.js";function m(){const{pathname:o}=n();return t.jsx(a,{id:o,heading:"navigator.userActivation",name:"navigator.userActivation",resource:e(()=>navigator.userActivation,100)})}export{m as component};

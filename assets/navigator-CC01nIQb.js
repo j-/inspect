@@ -1,0 +1,1 @@
+import{j as e}from"./main-XGekCWtE.js";import{u as a}from"./useLocation-DCPYpkL0.js";import{O as t,e as n}from"./resource-Ci_E2XVD.js";function s(){const{pathname:o}=a();return e.jsx(t,{id:o,heading:"navigator",name:"navigator",resource:n(()=>navigator)})}export{s as component};
