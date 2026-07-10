@@ -79,7 +79,9 @@ export function onEvent<T>(
     evaluate: fn,
     createSubscription: (trigger) => {
       const target = getTarget();
-      if (!target) return () => {};
+      if (!target || typeof target.addEventListener !== 'function') {
+        return () => {};
+      }
       for (const type of eventTypes) {
         target.addEventListener(type, trigger);
       }
@@ -133,6 +135,9 @@ function makeValueSubscription<T extends EventTarget>(
 ): (value: unknown, trigger: () => void) => () => void {
   return (value, trigger) => {
     const target = value as T; // evaluate() always resolves to T
+    if (typeof target.addEventListener !== 'function') {
+      return () => {};
+    }
     for (const type of eventTypes) {
       target.addEventListener(type, trigger);
     }
