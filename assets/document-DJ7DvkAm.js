@@ -1,1 +1,0 @@
-import{j as t}from"./main-BAmuQLpY.js";import{u as n}from"./useLocation-CQxUmfT7.js";import{O as a,e as m}from"./resource-BwuuK_HV.js";function i(){const{pathname:e}=n();return t.jsx(a,{id:e,heading:"document",name:"document",resource:m(()=>document),defaultIsExpanded:(r,o)=>o.length<5})}export{i as component};

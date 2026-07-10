@@ -1,0 +1,1 @@
+import{j as o}from"./main-BYy5NXE3.js";import{u as a}from"./useLocation-DscELM7Y.js";import{O as i,o as n}from"./resource-xbSlFpNF.js";function m(){const{pathname:e}=a();return o.jsx(i,{id:e,heading:"navigator.mediaDevices.enumerateDevices()",resource:n(()=>navigator.mediaDevices.enumerateDevices(),()=>navigator.mediaDevices,"devicechange")})}export{m as component};

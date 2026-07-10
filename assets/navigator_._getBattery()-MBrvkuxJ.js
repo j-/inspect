@@ -1,0 +1,1 @@
+import{j as t}from"./main-BYy5NXE3.js";import{u as a}from"./useLocation-DscELM7Y.js";import{O as n,r}from"./resource-xbSlFpNF.js";function c(){const{pathname:e}=a();return t.jsx(n,{id:e,heading:"navigator.getBattery()",resource:r(()=>navigator.getBattery(),"chargingchange","levelchange","chargingtimechange","dischargingtimechange")})}export{c as component};

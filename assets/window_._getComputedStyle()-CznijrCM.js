@@ -1,1 +1,0 @@
-import{j as o}from"./main-BAmuQLpY.js";import{u as t}from"./useLocation-CQxUmfT7.js";import{O as n,e as m}from"./resource-BwuuK_HV.js";function s(){const{pathname:e}=t();return o.jsx(n,{id:e,heading:"window.getComputedStyle(document.body)",resource:m(()=>window.getComputedStyle(document.body))})}export{s as component};

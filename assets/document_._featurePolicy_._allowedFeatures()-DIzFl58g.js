@@ -1,1 +1,0 @@
-import{j as o}from"./main-BAmuQLpY.js";import{u as t}from"./useLocation-CQxUmfT7.js";import{O as a,e as r}from"./resource-BwuuK_HV.js";function s(){const{pathname:e}=t();return o.jsx(a,{id:e,heading:"document.featurePolicy.allowedFeatures()",name:"document.featurePolicy.allowedFeatures()",resource:r(()=>document.featurePolicy.allowedFeatures())})}export{s as component};

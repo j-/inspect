@@ -1,1 +1,0 @@
-import{j as o}from"./main-BAmuQLpY.js";import{u as a}from"./useLocation-CQxUmfT7.js";import{O as i,o as n}from"./resource-BwuuK_HV.js";function m(){const{pathname:e}=a();return o.jsx(i,{id:e,heading:"navigator.mediaDevices.enumerateDevices()",resource:n(()=>navigator.mediaDevices.enumerateDevices(),()=>navigator.mediaDevices,"devicechange")})}export{m as component};

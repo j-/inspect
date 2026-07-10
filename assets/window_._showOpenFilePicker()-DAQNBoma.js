@@ -1,0 +1,1 @@
+import{j as e}from"./main-BYy5NXE3.js";import{u as n}from"./useLocation-DscELM7Y.js";import{O as i,l as r}from"./resource-xbSlFpNF.js";function m(){const{pathname:o}=n();return e.jsx(i,{id:o,heading:"window.showOpenFilePicker()",resource:r(()=>window.showOpenFilePicker())})}export{m as component};

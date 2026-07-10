@@ -1,1 +1,0 @@
-import{j as e}from"./main-BAmuQLpY.js";import{u as n}from"./useLocation-CQxUmfT7.js";import{O as t,l as r}from"./resource-BwuuK_HV.js";function m(){const{pathname:o}=n();return e.jsx(t,{id:o,heading:"window.queryLocalFonts()",resource:r(()=>window.queryLocalFonts())})}export{m as component};
