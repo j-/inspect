@@ -1,0 +1,1 @@
+import{j as t}from"./main-BAmuQLpY.js";import{u as a}from"./useLocation-CQxUmfT7.js";import{O as n,r}from"./resource-BwuuK_HV.js";function c(){const{pathname:e}=a();return t.jsx(n,{id:e,heading:"navigator.getBattery()",resource:r(()=>navigator.getBattery(),"chargingchange","levelchange","chargingtimechange","dischargingtimechange")})}export{c as component};

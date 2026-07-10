@@ -1,0 +1,1 @@
+import{j as n}from"./main-BAmuQLpY.js";import{u as t}from"./useLocation-CQxUmfT7.js";import{O as o,a as r}from"./resource-BwuuK_HV.js";function i(){const{pathname:e}=t();return n.jsx(o,{id:e,heading:"window.getScreenDetails()",resource:r(()=>window.getScreenDetails(),"screenschange","currentscreenchange")})}export{i as component};

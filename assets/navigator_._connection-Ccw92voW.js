@@ -1,0 +1,1 @@
+import{j as o}from"./main-BAmuQLpY.js";import{u as e}from"./useLocation-CQxUmfT7.js";import{O as t,r as a}from"./resource-BwuuK_HV.js";function m(){const{pathname:n}=e();return o.jsx(t,{id:n,heading:"navigator.connection",name:"navigator.connection",resource:a(()=>navigator.connection,"change")})}export{m as component};

@@ -1,1 +1,0 @@
-import{j as n}from"./main-C6YyBS2y.js";import{u as i}from"./useLocation-De-nccJP.js";import{O as r}from"./ObjectViewerPanel-DeIH0bvJ.js";function u(){const{pathname:o}=i();return n.jsx(r,{id:o,heading:"navigator.geolocation.getCurrentPosition(resolve)",initialValue:()=>new Promise((t,e)=>{navigator.geolocation.getCurrentPosition(t,e)})})}export{u as component};

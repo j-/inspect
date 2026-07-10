@@ -1,0 +1,1 @@
+import{j as t}from"./main-BAmuQLpY.js";import{u as n}from"./useLocation-CQxUmfT7.js";import{O as a,p as e}from"./resource-BwuuK_HV.js";function m(){const{pathname:o}=n();return t.jsx(a,{id:o,heading:"navigator.userActivation",name:"navigator.userActivation",resource:e(()=>navigator.userActivation,100)})}export{m as component};

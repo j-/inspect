@@ -1,0 +1,1 @@
+import{j as o}from"./main-BAmuQLpY.js";import{u as n}from"./useLocation-CQxUmfT7.js";import{O as r,e as a}from"./resource-BwuuK_HV.js";function p(){const{pathname:e}=n();return o.jsx(r,{id:e,heading:"window.performance",name:"window.performance",resource:a(()=>window.performance)})}export{p as component};
