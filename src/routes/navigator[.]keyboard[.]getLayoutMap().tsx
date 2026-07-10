@@ -21,11 +21,9 @@ function RouteComponent() {
       <ObjectViewerPanel
         id={pathname + '#layoutMapEntries'}
         heading="Layout Map Entries"
-        resource={eager(() => {
-          const promise = navigator.keyboard.getLayoutMap();
-          return promise.then((layoutMap) => {
-            return Array.from(layoutMap.entries());
-          });
+        resource={eager(async () => {
+          const layoutMap = await navigator.keyboard.getLayoutMap();
+          return Array.from(layoutMap.entries());
         })}
       />
     </Stack>
