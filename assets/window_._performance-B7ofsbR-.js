@@ -1,0 +1,1 @@
+import{j as o}from"./main-CiN6jzQs.js";import{u as n}from"./useLocation-BaOqr41U.js";import{O as r,e as a}from"./resource-D6JawrL3.js";function p(){const{pathname:e}=n();return o.jsx(r,{id:e,heading:"window.performance",name:"window.performance",resource:a(()=>window.performance)})}export{p as component};

@@ -1,0 +1,1 @@
+import{j as n}from"./main-CiN6jzQs.js";import{u as t}from"./useLocation-BaOqr41U.js";import{O as o,a as r}from"./resource-D6JawrL3.js";function i(){const{pathname:e}=t();return n.jsx(o,{id:e,heading:"window.getScreenDetails()",resource:r(()=>window.getScreenDetails(),"screenschange","currentscreenchange")})}export{i as component};

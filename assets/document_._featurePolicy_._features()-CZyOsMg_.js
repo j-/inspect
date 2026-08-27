@@ -1,0 +1,1 @@
+import{j as o}from"./main-CiN6jzQs.js";import{u as t}from"./useLocation-BaOqr41U.js";import{O as r,e as a}from"./resource-D6JawrL3.js";function s(){const{pathname:e}=t();return o.jsx(r,{id:e,heading:"document.featurePolicy.features()",name:"document.featurePolicy.features()",resource:a(()=>document.featurePolicy.features())})}export{s as component};
