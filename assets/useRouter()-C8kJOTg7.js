@@ -1,0 +1,1 @@
+import{u as r,j as n}from"./main-yUummlBg.js";import{u as s}from"./useLocation-w2H7ZLvA.js";import{O as u}from"./ObjectViewerPanel-BiV1Mg5-.js";import{e as a}from"./resource-gklTq-dQ.js";function d(){const e=r(),{pathname:o}=s();return n.jsx(u,{id:o,heading:"useRouter()",name:"useRouter()",resource:a(()=>e),defaultIsExpanded:(m,t)=>t.length<3})}export{d as component};

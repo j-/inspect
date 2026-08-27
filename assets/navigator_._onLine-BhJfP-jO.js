@@ -1,1 +1,0 @@
-import{j as n}from"./main-CiN6jzQs.js";import{u as e}from"./useLocation-BaOqr41U.js";import{O as t,o as i}from"./resource-D6JawrL3.js";function m(){const{pathname:o}=e();return n.jsx(t,{id:o,heading:"navigator.onLine",resource:i(()=>navigator.onLine,()=>window,"online","offline")})}export{m as component};
