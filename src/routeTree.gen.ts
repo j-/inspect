@@ -33,6 +33,7 @@ import { Route as NavigatorDotmediaDevicesDotenumerateDevicesRouteImport } from 
 import { Route as NavigatorDotmediaDevicesRouteImport } from './routes/navigator[.]mediaDevices'
 import { Route as NavigatorDotkeyboardDotgetLayoutMapRouteImport } from './routes/navigator[.]keyboard[.]getLayoutMap()'
 import { Route as NavigatorDotkeyboardRouteImport } from './routes/navigator[.]keyboard'
+import { Route as NavigatorDotgetGamepadsRouteImport } from './routes/navigator[.]getGamepads()'
 import { Route as NavigatorDotgetBatteryRouteImport } from './routes/navigator[.]getBattery()'
 import { Route as NavigatorDotgeolocationDotgetCurrentPositionRouteImport } from './routes/navigator[.]geolocation[.]getCurrentPosition()'
 import { Route as NavigatorDotconnectionRouteImport } from './routes/navigator[.]connection'
@@ -183,6 +184,11 @@ const NavigatorDotkeyboardRoute = NavigatorDotkeyboardRouteImport.update({
   path: '/navigator.keyboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NavigatorDotgetGamepadsRoute = NavigatorDotgetGamepadsRouteImport.update({
+  id: '/navigator.getGamepads()',
+  path: '/navigator.getGamepads()',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NavigatorDotgetBatteryRoute = NavigatorDotgetBatteryRouteImport.update({
   id: '/navigator.getBattery()',
   path: '/navigator.getBattery()',
@@ -302,6 +308,7 @@ export interface FileRoutesByFullPath {
   '/navigator.connection': typeof NavigatorDotconnectionRoute
   '/navigator.geolocation.getCurrentPosition()': typeof NavigatorDotgeolocationDotgetCurrentPositionRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
+  '/navigator.getGamepads()': typeof NavigatorDotgetGamepadsRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
   '/navigator.mediaDevices': typeof NavigatorDotmediaDevicesRoute
@@ -346,6 +353,7 @@ export interface FileRoutesByTo {
   '/navigator.connection': typeof NavigatorDotconnectionRoute
   '/navigator.geolocation.getCurrentPosition()': typeof NavigatorDotgeolocationDotgetCurrentPositionRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
+  '/navigator.getGamepads()': typeof NavigatorDotgetGamepadsRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
   '/navigator.mediaDevices': typeof NavigatorDotmediaDevicesRoute
@@ -391,6 +399,7 @@ export interface FileRoutesById {
   '/navigator.connection': typeof NavigatorDotconnectionRoute
   '/navigator.geolocation.getCurrentPosition()': typeof NavigatorDotgeolocationDotgetCurrentPositionRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
+  '/navigator.getGamepads()': typeof NavigatorDotgetGamepadsRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
   '/navigator.mediaDevices': typeof NavigatorDotmediaDevicesRoute
@@ -437,6 +446,7 @@ export interface FileRouteTypes {
     | '/navigator.connection'
     | '/navigator.geolocation.getCurrentPosition()'
     | '/navigator.getBattery()'
+    | '/navigator.getGamepads()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
     | '/navigator.mediaDevices'
@@ -481,6 +491,7 @@ export interface FileRouteTypes {
     | '/navigator.connection'
     | '/navigator.geolocation.getCurrentPosition()'
     | '/navigator.getBattery()'
+    | '/navigator.getGamepads()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
     | '/navigator.mediaDevices'
@@ -525,6 +536,7 @@ export interface FileRouteTypes {
     | '/navigator.connection'
     | '/navigator.geolocation.getCurrentPosition()'
     | '/navigator.getBattery()'
+    | '/navigator.getGamepads()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
     | '/navigator.mediaDevices'
@@ -570,6 +582,7 @@ export interface RootRouteChildren {
   NavigatorDotconnectionRoute: typeof NavigatorDotconnectionRoute
   NavigatorDotgeolocationDotgetCurrentPositionRoute: typeof NavigatorDotgeolocationDotgetCurrentPositionRoute
   NavigatorDotgetBatteryRoute: typeof NavigatorDotgetBatteryRoute
+  NavigatorDotgetGamepadsRoute: typeof NavigatorDotgetGamepadsRoute
   NavigatorDotkeyboardRoute: typeof NavigatorDotkeyboardRoute
   NavigatorDotkeyboardDotgetLayoutMapRoute: typeof NavigatorDotkeyboardDotgetLayoutMapRoute
   NavigatorDotmediaDevicesRoute: typeof NavigatorDotmediaDevicesRoute
@@ -766,6 +779,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NavigatorDotkeyboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/navigator.getGamepads()': {
+      id: '/navigator.getGamepads()'
+      path: '/navigator.getGamepads()'
+      fullPath: '/navigator.getGamepads()'
+      preLoaderRoute: typeof NavigatorDotgetGamepadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/navigator.getBattery()': {
       id: '/navigator.getBattery()'
       path: '/navigator.getBattery()'
@@ -920,6 +940,7 @@ const rootRouteChildren: RootRouteChildren = {
   NavigatorDotgeolocationDotgetCurrentPositionRoute:
     NavigatorDotgeolocationDotgetCurrentPositionRoute,
   NavigatorDotgetBatteryRoute: NavigatorDotgetBatteryRoute,
+  NavigatorDotgetGamepadsRoute: NavigatorDotgetGamepadsRoute,
   NavigatorDotkeyboardRoute: NavigatorDotkeyboardRoute,
   NavigatorDotkeyboardDotgetLayoutMapRoute:
     NavigatorDotkeyboardDotgetLayoutMapRoute,

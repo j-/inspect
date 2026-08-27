@@ -9,6 +9,7 @@ import useStorageState from 'use-storage-state';
 import type {
   FilterKeysPredicate,
   IsExpandedFunction,
+  PathCommentFunction,
   ViewerPathStep,
 } from './types';
 import { getStorageNS } from './utils';
@@ -20,6 +21,7 @@ export type ViewerContextType<T, U = T> = {
   thisPath: ViewerPathStep[];
   defaultIsExpanded?: IsExpandedFunction;
   filterKeys?: FilterKeysPredicate;
+  getComment?: PathCommentFunction;
   useGetThisObject: () => U;
 } & (
   | { root: true; thisObject: T; thisKey: undefined; }
@@ -96,6 +98,7 @@ export type RootViewerProviderProps<T> = PropsWithChildren<{
   name?: string;
   defaultIsExpanded?: IsExpandedFunction;
   filterKeys?: FilterKeysPredicate;
+  getComment?: PathCommentFunction;
   useGetThisObject?: typeof useGetThisObject;
 }>;
 
@@ -106,6 +109,7 @@ export const RootViewerProvider = <T,>({
   name = 'result',
   defaultIsExpanded,
   filterKeys,
+  getComment,
   useGetThisObject: useGetThisObjectProp = useGetThisObject,
 }: RootViewerProviderProps<T>) => {
   return (
@@ -119,6 +123,7 @@ export const RootViewerProvider = <T,>({
       thisPath: [],
       defaultIsExpanded,
       filterKeys,
+      getComment,
       useGetThisObject: useGetThisObjectProp,
     }}>
       {children}

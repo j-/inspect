@@ -19,6 +19,7 @@ import { ActionSection, type ActionSectionProps } from './ActionSection';
 import type { Resource, ResourceState } from '#/resource';
 import { codeTheme } from '#/theme';
 import type { FilterKeysPredicate, IsExpandedFunction } from '#/viewer/types';
+import type { PathCommentFunction } from '#/viewer/types';
 import { Viewer } from '#/viewer/Viewer';
 
 export type ObjectViewerPanelProps = Omit<PaperProps, 'resource'> & {
@@ -30,6 +31,7 @@ export type ObjectViewerPanelProps = Omit<PaperProps, 'resource'> & {
   onClear?: () => void;
   defaultIsExpanded?: IsExpandedFunction;
   filterKeys?: FilterKeysPredicate;
+  getComment?: PathCommentFunction;
   useGetThisObject?: () => unknown;
 };
 
@@ -41,6 +43,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   onClear,
   defaultIsExpanded,
   filterKeys,
+  getComment,
   useGetThisObject,
 }) => {
   const [state, setState] = useState<ResourceState>(() =>
@@ -201,6 +204,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
                 name={name}
                 defaultIsExpanded={defaultIsExpanded}
                 filterKeys={filterKeys}
+                getComment={getComment}
                 useGetThisObject={useGetThisObject}
               />
             </ThemeProvider>
@@ -232,6 +236,7 @@ export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
   onClear,
   defaultIsExpanded,
   filterKeys,
+  getComment,
   useGetThisObject,
   ...props
 }) => {
@@ -273,6 +278,7 @@ export const ObjectViewerPanel: FC<ObjectViewerPanelProps> = ({
               onClear={onClear}
               defaultIsExpanded={defaultIsExpanded}
               filterKeys={filterKeys}
+              getComment={getComment}
               useGetThisObject={useGetThisObject}
             />
           </ClientOnly>

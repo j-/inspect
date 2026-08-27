@@ -1,9 +1,10 @@
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { type FC } from 'react';
 import { ObjectCollapseToggleButton } from './ObjectCollapseToggleButton';
 import { ObjectLabel } from './ObjectLabel';
 import { ObjectSymbol } from './ObjectSymbol';
-import { useCanCollapse, useIsCollapsed } from './providers';
+import { useCanCollapse, useIsCollapsed, useViewerContext } from './providers';
 import type { RenderValueFunction } from './types';
 import { getArrayName } from './utils';
 
@@ -15,6 +16,7 @@ export type ObjectViewArrayProps = {
 export const ObjectViewArray: FC<ObjectViewArrayProps> = ({ value, renderValue }) => {
   const [isCollapsed, setIsCollapsed] = useIsCollapsed();
   const canCollapse = useCanCollapse();
+  const { thisPath, getComment } = useViewerContext();
 
   if (value.length === 0) {
     return (
@@ -50,23 +52,37 @@ export const ObjectViewArray: FC<ObjectViewArrayProps> = ({ value, renderValue }
 
       {isCollapsed ? null : (
         <Box component="ul" p={0} m={0} ml="2ch">
-          {value.map((item, i, arr) => [
-            <Box
-              key={i}
-              component="li"
-              display="inline"
-              value={i}
-              sx={{ listStyle: 'none' }}
-            >
-              {renderValue(item, i)}
-            </Box>,
+          {value.map((item, i, arr) => {
+            const comment = getComment?.(thisPath.map(({ key }) => key), i, item) ?? null;
+            return [
+              comment ? (
+                <Typography
+                  key={i + '//'}
+                  component="div"
+                  color="hsl(150, 40%, 40%)"
+                  fontFamily="monospace"
+                >
+                  {'// '}{comment}
+                </Typography>
+              ) : null,
 
-            i < arr.length - 1 ? (
-              <ObjectSymbol key={i + ','}>
-                {', '}<wbr />
-              </ObjectSymbol>
-            ) : null,
-          ])}
+              <Box
+                key={i}
+                component="li"
+                display="inline"
+                value={i}
+                sx={{ listStyle: 'none' }}
+              >
+                {renderValue(item, i)}
+              </Box>,
+
+              i < arr.length - 1 ? (
+                <ObjectSymbol key={i + ','}>
+                  {', '}<wbr />
+                </ObjectSymbol>
+              ) : null,
+            ];
+          })}
         </Box>
       )}
 

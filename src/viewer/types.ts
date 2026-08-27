@@ -2,6 +2,12 @@ import type { ReactNode } from 'react';
 
 export type KeyType = string | number | symbol;
 
+export type PathCommentFunction = (
+  path: ReadonlyArray<KeyType>,
+  key: KeyType,
+  value: unknown,
+) => ReactNode | null;
+
 export type ViewerPathStepType = 'object' | 'array' | 'set' | 'map';
 
 export type ViewerPathStep = {

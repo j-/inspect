@@ -37,7 +37,7 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
 
   renderValue,
 }) => {
-  const { rootName, thisPath, filterKeys } = useViewerContext();
+  const { rootName, thisPath, filterKeys, getComment } = useViewerContext();
   const [isCollapsed, setIsCollapsed] = useIsCollapsed();
   const canCollapse = useCanCollapse();
 
@@ -104,9 +104,9 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
 
               (() => {
                 const commentFn = comments.get(key);
-                if (!commentFn) return null;
-
-                const comment = commentFn(parent[key]);
+                const comment = commentFn
+                  ? commentFn(parent[key])
+                  : getComment?.(thisPath.map(({ key }) => key), key, parent[key]) ?? null;
                 if (!comment) return null;
 
                 return (
