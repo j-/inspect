@@ -36,6 +36,7 @@ import { Route as NavigatorDotkeyboardRouteImport } from './routes/navigator[.]k
 import { Route as NavigatorDotgetBatteryRouteImport } from './routes/navigator[.]getBattery()'
 import { Route as NavigatorDotgeolocationDotgetCurrentPositionRouteImport } from './routes/navigator[.]geolocation[.]getCurrentPosition()'
 import { Route as NavigatorDotconnectionRouteImport } from './routes/navigator[.]connection'
+import { Route as NavigatorDotclipboardDotonclipboardchangeRouteImport } from './routes/navigator[.]clipboard[.]onclipboardchange'
 import { Route as NavigatorDotclipboardRouteImport } from './routes/navigator[.]clipboard'
 import { Route as NavigatorRouteImport } from './routes/navigator'
 import { Route as DocumentDotfeaturePolicyDotfeaturesRouteImport } from './routes/document[.]featurePolicy[.]features()'
@@ -194,6 +195,12 @@ const NavigatorDotconnectionRoute = NavigatorDotconnectionRouteImport.update({
   path: '/navigator.connection',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NavigatorDotclipboardDotonclipboardchangeRoute =
+  NavigatorDotclipboardDotonclipboardchangeRouteImport.update({
+    id: '/navigator.clipboard.onclipboardchange',
+    path: '/navigator.clipboard.onclipboardchange',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const NavigatorDotclipboardRoute = NavigatorDotclipboardRouteImport.update({
   id: '/navigator.clipboard',
   path: '/navigator.clipboard',
@@ -259,6 +266,7 @@ export interface FileRoutesByFullPath {
   '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
   '/navigator': typeof NavigatorRoute
   '/navigator.clipboard': typeof NavigatorDotclipboardRoute
+  '/navigator.clipboard.onclipboardchange': typeof NavigatorDotclipboardDotonclipboardchangeRoute
   '/navigator.connection': typeof NavigatorDotconnectionRoute
   '/navigator.geolocation.getCurrentPosition()': typeof NavigatorDotgeolocationDotgetCurrentPositionRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
@@ -298,6 +306,7 @@ export interface FileRoutesByTo {
   '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
   '/navigator': typeof NavigatorRoute
   '/navigator.clipboard': typeof NavigatorDotclipboardRoute
+  '/navigator.clipboard.onclipboardchange': typeof NavigatorDotclipboardDotonclipboardchangeRoute
   '/navigator.connection': typeof NavigatorDotconnectionRoute
   '/navigator.geolocation.getCurrentPosition()': typeof NavigatorDotgeolocationDotgetCurrentPositionRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
@@ -338,6 +347,7 @@ export interface FileRoutesById {
   '/document.featurePolicy.features()': typeof DocumentDotfeaturePolicyDotfeaturesRoute
   '/navigator': typeof NavigatorRoute
   '/navigator.clipboard': typeof NavigatorDotclipboardRoute
+  '/navigator.clipboard.onclipboardchange': typeof NavigatorDotclipboardDotonclipboardchangeRoute
   '/navigator.connection': typeof NavigatorDotconnectionRoute
   '/navigator.geolocation.getCurrentPosition()': typeof NavigatorDotgeolocationDotgetCurrentPositionRoute
   '/navigator.getBattery()': typeof NavigatorDotgetBatteryRoute
@@ -379,6 +389,7 @@ export interface FileRouteTypes {
     | '/document.featurePolicy.features()'
     | '/navigator'
     | '/navigator.clipboard'
+    | '/navigator.clipboard.onclipboardchange'
     | '/navigator.connection'
     | '/navigator.geolocation.getCurrentPosition()'
     | '/navigator.getBattery()'
@@ -418,6 +429,7 @@ export interface FileRouteTypes {
     | '/document.featurePolicy.features()'
     | '/navigator'
     | '/navigator.clipboard'
+    | '/navigator.clipboard.onclipboardchange'
     | '/navigator.connection'
     | '/navigator.geolocation.getCurrentPosition()'
     | '/navigator.getBattery()'
@@ -457,6 +469,7 @@ export interface FileRouteTypes {
     | '/document.featurePolicy.features()'
     | '/navigator'
     | '/navigator.clipboard'
+    | '/navigator.clipboard.onclipboardchange'
     | '/navigator.connection'
     | '/navigator.geolocation.getCurrentPosition()'
     | '/navigator.getBattery()'
@@ -497,6 +510,7 @@ export interface RootRouteChildren {
   DocumentDotfeaturePolicyDotfeaturesRoute: typeof DocumentDotfeaturePolicyDotfeaturesRoute
   NavigatorRoute: typeof NavigatorRoute
   NavigatorDotclipboardRoute: typeof NavigatorDotclipboardRoute
+  NavigatorDotclipboardDotonclipboardchangeRoute: typeof NavigatorDotclipboardDotonclipboardchangeRoute
   NavigatorDotconnectionRoute: typeof NavigatorDotconnectionRoute
   NavigatorDotgeolocationDotgetCurrentPositionRoute: typeof NavigatorDotgeolocationDotgetCurrentPositionRoute
   NavigatorDotgetBatteryRoute: typeof NavigatorDotgetBatteryRoute
@@ -717,6 +731,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NavigatorDotconnectionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/navigator.clipboard.onclipboardchange': {
+      id: '/navigator.clipboard.onclipboardchange'
+      path: '/navigator.clipboard.onclipboardchange'
+      fullPath: '/navigator.clipboard.onclipboardchange'
+      preLoaderRoute: typeof NavigatorDotclipboardDotonclipboardchangeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/navigator.clipboard': {
       id: '/navigator.clipboard'
       path: '/navigator.clipboard'
@@ -803,6 +824,8 @@ const rootRouteChildren: RootRouteChildren = {
     DocumentDotfeaturePolicyDotfeaturesRoute,
   NavigatorRoute: NavigatorRoute,
   NavigatorDotclipboardRoute: NavigatorDotclipboardRoute,
+  NavigatorDotclipboardDotonclipboardchangeRoute:
+    NavigatorDotclipboardDotonclipboardchangeRoute,
   NavigatorDotconnectionRoute: NavigatorDotconnectionRoute,
   NavigatorDotgeolocationDotgetCurrentPositionRoute:
     NavigatorDotgeolocationDotgetCurrentPositionRoute,
