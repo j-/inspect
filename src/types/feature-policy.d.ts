@@ -7,4 +7,5 @@ interface FeaturePolicy {
 
 interface Document {
   featurePolicy?: FeaturePolicy;
+  permissionsPolicy?: FeaturePolicy;
 }
