@@ -43,6 +43,7 @@ import { Route as DocumentDotfeaturePolicyDotfeaturesRouteImport } from './route
 import { Route as DocumentDotfeaturePolicyDotallowedFeaturesRouteImport } from './routes/document[.]featurePolicy[.]allowedFeatures()'
 import { Route as DocumentDotfeaturePolicyRouteImport } from './routes/document[.]featurePolicy'
 import { Route as DocumentRouteImport } from './routes/document'
+import { Route as NotificationDotrequestPermissionRouteImport } from './routes/Notification[.]requestPermission()'
 import { Route as MathDotrandomRouteImport } from './routes/Math[.]random()'
 import { Route as ImageRouteImport } from './routes/Image()'
 import { Route as DataTransferRouteImport } from './routes/DataTransfer()'
@@ -234,6 +235,12 @@ const DocumentRoute = DocumentRouteImport.update({
   path: '/document',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NotificationDotrequestPermissionRoute =
+  NotificationDotrequestPermissionRouteImport.update({
+    id: '/Notification.requestPermission()',
+    path: '/Notification.requestPermission()',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const MathDotrandomRoute = MathDotrandomRouteImport.update({
   id: '/Math.random()',
   path: '/Math.random()',
@@ -260,6 +267,7 @@ export interface FileRoutesByFullPath {
   '/DataTransfer()': typeof DataTransferRoute
   '/Image()': typeof ImageRoute
   '/Math.random()': typeof MathDotrandomRoute
+  '/Notification.requestPermission()': typeof NotificationDotrequestPermissionRoute
   '/document': typeof DocumentRoute
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
@@ -300,6 +308,7 @@ export interface FileRoutesByTo {
   '/DataTransfer()': typeof DataTransferRoute
   '/Image()': typeof ImageRoute
   '/Math.random()': typeof MathDotrandomRoute
+  '/Notification.requestPermission()': typeof NotificationDotrequestPermissionRoute
   '/document': typeof DocumentRoute
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
@@ -341,6 +350,7 @@ export interface FileRoutesById {
   '/DataTransfer()': typeof DataTransferRoute
   '/Image()': typeof ImageRoute
   '/Math.random()': typeof MathDotrandomRoute
+  '/Notification.requestPermission()': typeof NotificationDotrequestPermissionRoute
   '/document': typeof DocumentRoute
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
@@ -383,6 +393,7 @@ export interface FileRouteTypes {
     | '/DataTransfer()'
     | '/Image()'
     | '/Math.random()'
+    | '/Notification.requestPermission()'
     | '/document'
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
@@ -423,6 +434,7 @@ export interface FileRouteTypes {
     | '/DataTransfer()'
     | '/Image()'
     | '/Math.random()'
+    | '/Notification.requestPermission()'
     | '/document'
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
@@ -463,6 +475,7 @@ export interface FileRouteTypes {
     | '/DataTransfer()'
     | '/Image()'
     | '/Math.random()'
+    | '/Notification.requestPermission()'
     | '/document'
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
@@ -504,6 +517,7 @@ export interface RootRouteChildren {
   DataTransferRoute: typeof DataTransferRoute
   ImageRoute: typeof ImageRoute
   MathDotrandomRoute: typeof MathDotrandomRoute
+  NotificationDotrequestPermissionRoute: typeof NotificationDotrequestPermissionRoute
   DocumentRoute: typeof DocumentRoute
   DocumentDotfeaturePolicyRoute: typeof DocumentDotfeaturePolicyRoute
   DocumentDotfeaturePolicyDotallowedFeaturesRoute: typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
@@ -780,6 +794,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocumentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/Notification.requestPermission()': {
+      id: '/Notification.requestPermission()'
+      path: '/Notification.requestPermission()'
+      fullPath: '/Notification.requestPermission()'
+      preLoaderRoute: typeof NotificationDotrequestPermissionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/Math.random()': {
       id: '/Math.random()'
       path: '/Math.random()'
@@ -816,6 +837,7 @@ const rootRouteChildren: RootRouteChildren = {
   DataTransferRoute: DataTransferRoute,
   ImageRoute: ImageRoute,
   MathDotrandomRoute: MathDotrandomRoute,
+  NotificationDotrequestPermissionRoute: NotificationDotrequestPermissionRoute,
   DocumentRoute: DocumentRoute,
   DocumentDotfeaturePolicyRoute: DocumentDotfeaturePolicyRoute,
   DocumentDotfeaturePolicyDotallowedFeaturesRoute:
