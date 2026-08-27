@@ -1,0 +1,1 @@
+import{j as n}from"./main-CuYk2pme.js";import{u as e}from"./useLocation-CptEOvQW.js";import{O as t}from"./ObjectViewerPanel-FebxBzGx.js";import{o as i}from"./resource-gklTq-dQ.js";function p(){const{pathname:o}=e();return n.jsx(t,{id:o,heading:"navigator.onLine",resource:i(()=>navigator.onLine,()=>window,"online","offline")})}export{p as component};
