@@ -47,6 +47,7 @@ import { Route as DocumentDotfeaturePolicyDotfeaturesRouteImport } from './route
 import { Route as DocumentDotfeaturePolicyDotallowedFeaturesRouteImport } from './routes/document[.]featurePolicy[.]allowedFeatures()'
 import { Route as DocumentDotfeaturePolicyRouteImport } from './routes/document[.]featurePolicy'
 import { Route as DocumentRouteImport } from './routes/document'
+import { Route as TemporalRouteImport } from './routes/Temporal'
 import { Route as NotificationDotrequestPermissionRouteImport } from './routes/Notification[.]requestPermission()'
 import { Route as MathDotrandomRouteImport } from './routes/Math[.]random()'
 import { Route as ImageRouteImport } from './routes/Image()'
@@ -262,6 +263,11 @@ const DocumentRoute = DocumentRouteImport.update({
   path: '/document',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TemporalRoute = TemporalRouteImport.update({
+  id: '/Temporal',
+  path: '/Temporal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NotificationDotrequestPermissionRoute =
   NotificationDotrequestPermissionRouteImport.update({
     id: '/Notification.requestPermission()',
@@ -295,6 +301,7 @@ export interface FileRoutesByFullPath {
   '/Image()': typeof ImageRoute
   '/Math.random()': typeof MathDotrandomRoute
   '/Notification.requestPermission()': typeof NotificationDotrequestPermissionRoute
+  '/Temporal': typeof TemporalRoute
   '/document': typeof DocumentRoute
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
@@ -340,6 +347,7 @@ export interface FileRoutesByTo {
   '/Image()': typeof ImageRoute
   '/Math.random()': typeof MathDotrandomRoute
   '/Notification.requestPermission()': typeof NotificationDotrequestPermissionRoute
+  '/Temporal': typeof TemporalRoute
   '/document': typeof DocumentRoute
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
@@ -386,6 +394,7 @@ export interface FileRoutesById {
   '/Image()': typeof ImageRoute
   '/Math.random()': typeof MathDotrandomRoute
   '/Notification.requestPermission()': typeof NotificationDotrequestPermissionRoute
+  '/Temporal': typeof TemporalRoute
   '/document': typeof DocumentRoute
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
@@ -433,6 +442,7 @@ export interface FileRouteTypes {
     | '/Image()'
     | '/Math.random()'
     | '/Notification.requestPermission()'
+    | '/Temporal'
     | '/document'
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
@@ -478,6 +488,7 @@ export interface FileRouteTypes {
     | '/Image()'
     | '/Math.random()'
     | '/Notification.requestPermission()'
+    | '/Temporal'
     | '/document'
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
@@ -523,6 +534,7 @@ export interface FileRouteTypes {
     | '/Image()'
     | '/Math.random()'
     | '/Notification.requestPermission()'
+    | '/Temporal'
     | '/document'
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
@@ -569,6 +581,7 @@ export interface RootRouteChildren {
   ImageRoute: typeof ImageRoute
   MathDotrandomRoute: typeof MathDotrandomRoute
   NotificationDotrequestPermissionRoute: typeof NotificationDotrequestPermissionRoute
+  TemporalRoute: typeof TemporalRoute
   DocumentRoute: typeof DocumentRoute
   DocumentDotfeaturePolicyRoute: typeof DocumentDotfeaturePolicyRoute
   DocumentDotfeaturePolicyDotallowedFeaturesRoute: typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
@@ -877,6 +890,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocumentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/Temporal': {
+      id: '/Temporal'
+      path: '/Temporal'
+      fullPath: '/Temporal'
+      preLoaderRoute: typeof TemporalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/Notification.requestPermission()': {
       id: '/Notification.requestPermission()'
       path: '/Notification.requestPermission()'
@@ -921,6 +941,7 @@ const rootRouteChildren: RootRouteChildren = {
   ImageRoute: ImageRoute,
   MathDotrandomRoute: MathDotrandomRoute,
   NotificationDotrequestPermissionRoute: NotificationDotrequestPermissionRoute,
+  TemporalRoute: TemporalRoute,
   DocumentRoute: DocumentRoute,
   DocumentDotfeaturePolicyRoute: DocumentDotfeaturePolicyRoute,
   DocumentDotfeaturePolicyDotallowedFeaturesRoute:

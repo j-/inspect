@@ -1,6 +1,7 @@
 import { type FC } from 'react';
 import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewArray } from './ObjectViewArray';
+import { ObjectViewBigInt } from './ObjectViewBigInt';
 import { ObjectViewBoolean } from './ObjectViewBoolean';
 import { ObjectViewComplex } from './ObjectViewComplex';
 import { ObjectViewDate } from './ObjectViewDate';
@@ -26,6 +27,7 @@ import {
 } from './providers';
 import {
   isArray,
+  isBigInt,
   isBoolean,
   isComplex,
   isDate,
@@ -89,6 +91,10 @@ export const ObjectView: FC = () => {
 
   if (isBoolean(value)) {
     return <ObjectViewBoolean value={value} />;
+  }
+
+  if (isBigInt(value)) {
+    return <ObjectViewBigInt value={value} />;
   }
 
   if (isNaN(value)) {

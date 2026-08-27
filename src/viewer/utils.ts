@@ -13,6 +13,9 @@ export const isNumber = (value: unknown): value is number =>
 export const isBoolean = (value: unknown): value is boolean =>
   typeof value === 'boolean';
 
+export const isBigInt = (value: unknown): value is bigint =>
+  typeof value === 'bigint';
+
 export const isArray = (value: unknown): value is unknown[] =>
   Array.isArray(value);
 
@@ -92,6 +95,25 @@ export const ownKeys = <T>(obj: T): (keyof T)[] => {
   return Object.getOwnPropertyNames(obj) as (keyof T)[];
 };
 
+export const ownKeysProto = <T>(obj: T): (keyof T)[] => {
+  try {
+    const keys = Object.getOwnPropertyNames((obj as any).__proto__) as (keyof T)[];
+    return keys.filter((key) => ![
+      '__proto__',
+      '__defineGetter__',
+      '__defineSetter__',
+      '__lookupGetter__',
+      '__lookupSetter__',
+      'constructor',
+      'hasOwnProperty',
+      'isPrototypeOf',
+      'propertyIsEnumerable',
+    ].includes(key as any));
+  } catch {
+    return [];
+  }
+};
+
 export const allKeys = <T extends object>(obj: T): (keyof T)[] => {
   const maybeKeys = [
     'name',
@@ -110,6 +132,7 @@ export const allKeys = <T extends object>(obj: T): (keyof T)[] => {
   const keys = new Set<keyof T>();
   for (const key of forInKeys(obj)) keys.add(key);
   for (const key of ownKeys(obj)) keys.add(key);
+  for (const key of ownKeysProto(obj)) keys.add(key);
   for (const key of maybeKeys) if (key in obj) keys.add(key);
   return [...keys.values()];
 };
