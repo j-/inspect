@@ -1,1 +1,0 @@
-import{j as o}from"./main-CuYk2pme.js";import{u as n}from"./useLocation-CptEOvQW.js";import{O as r}from"./ObjectViewerPanel-FebxBzGx.js";import{e as t}from"./resource-gklTq-dQ.js";function c(){const{pathname:e}=n();return o.jsx(r,{id:e,heading:"window.screen",name:"window.screen",resource:t(()=>window.screen)})}export{c as component};
