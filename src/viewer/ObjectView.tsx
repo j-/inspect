@@ -114,7 +114,22 @@ export const ObjectView: FC = () => {
   }
 
   if (isFunction(value)) {
-    return <ObjectViewFunction value={value} />;
+    return (
+      <ObjectViewFunction
+        value={value}
+        renderValue={(_, thisKey) => (
+          <PartViewerProvider
+            thisType="object"
+            thisKey={thisKey}
+            selector={(prevObject) => (
+              prevObject as Record<string | number | symbol, unknown>
+            )[thisKey as keyof typeof prevObject]}
+          >
+            <ObjectView />
+          </PartViewerProvider>
+        )}
+      />
+    );
   }
 
   if (isDate(value)) {

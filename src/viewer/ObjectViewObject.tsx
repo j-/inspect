@@ -17,6 +17,7 @@ const isComplex = (value: unknown, types: Function[]) => (
 
 type ObjectViewObjectProps = {
   name?: string;
+  label?: ReactNode;
   value: Record<string, any>;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   complexTypes?: Function[];
@@ -29,6 +30,7 @@ type ObjectViewObjectProps = {
 
 export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
   value: parent,
+  label,
   name = getName(parent),
   complexTypes = [],
   customViews = new Map(),
@@ -51,9 +53,11 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
 
   return (
     <>
-      <ObjectLabel>
-        {'length' in parent ? `${name}(${parent.length})` : name}{' '}
-      </ObjectLabel>
+      {label != null ? <>{label}{' '}</> : (
+        <ObjectLabel>
+          {'length' in parent ? `${name}(${parent.length})` : name}{' '}
+        </ObjectLabel>
+      )}
 
       <ObjectSymbol>
         {'{'}
@@ -79,6 +83,7 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
                 sx={{ display: 'inline', listStyle: 'none', whiteSpace: 'nowrap' }}
               >
                 <a id={renderFullPath([rootName, ...thisPath.map(({ key }) => key), key])} />
+
                 <ObjectProperty
                   name={key}
                   rootName={rootName}

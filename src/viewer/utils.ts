@@ -96,6 +96,7 @@ export const ownKeys = <T>(obj: T): (keyof T)[] => {
 };
 
 export const ownKeysProto = <T>(obj: T): (keyof T)[] => {
+  if (obj instanceof Function) return [];
   try {
     const keys = Object.getOwnPropertyNames((obj as any).__proto__) as (keyof T)[];
     return keys.filter((key) => ![
