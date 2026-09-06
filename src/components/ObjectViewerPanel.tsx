@@ -51,11 +51,13 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   );
   const [viewerKey, setViewerKey] = useState(0);
   const valueCleanupRef = useRef<(() => void) | undefined>(undefined);
-  const doEvaluateRef = useRef<(() => Promise<void>) | undefined>(undefined);
+  const doEvaluateRef = useRef<((remount?: boolean) => Promise<void>) | undefined>(undefined);
 
   // Core async evaluation — no synchronous setState. Safe to call from effects
-  // and subscription callbacks.
-  const doEvaluate = useCallback(async () => {
+  // and subscription callbacks. `remount` forces the Viewer subtree to
+  // remount; skip it for background/live updates (e.g. polling) so hovering
+  // state (like open tooltips) isn't disrupted every time a value refreshes.
+  const doEvaluate = useCallback(async (remount = true) => {
     if (!resource) return;
 
     // Tear down any subscription attached to the previous value.
@@ -67,12 +69,12 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
 
       if (resource.createValueSubscription) {
         // Create a stable wrapper so removeEventListener can match the same ref.
-        const trigger = () => doEvaluateRef.current?.();
+        const trigger = () => doEvaluateRef.current?.(false);
         valueCleanupRef.current = resource.createValueSubscription(value, trigger);
       }
 
       setState({ status: 'success', value, evaluatedAt: Date.now() });
-      setViewerKey((k) => k + 1);
+      if (remount) setViewerKey((k) => k + 1);
     } catch (error) {
       setState({ status: 'error', error, evaluatedAt: Date.now() });
     }
@@ -104,7 +106,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
       // so setState isn't called synchronously within the effect body.
       queueMicrotask(() => void doEvaluate());
     }
-    return resource?.createSubscription?.(doEvaluate);
+    return resource?.createSubscription?.(() => void doEvaluate(false));
   }, [doEvaluate, resource]);
 
   const hasResource = resource != null;
