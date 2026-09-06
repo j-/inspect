@@ -1,1 +1,0 @@
-import{j as e}from"./main-BUjTDLIX.js";import{u as r}from"./useLocation-B-JwZM9l.js";import{O as t}from"./ObjectViewerPanel-BtgzZ7wV.js";import{e as a}from"./resource-gklTq-dQ.js";function p(){const{pathname:o}=r();return e.jsx(t,{id:o,heading:"Math.random()",resource:a(()=>Math.random())})}export{p as component};
