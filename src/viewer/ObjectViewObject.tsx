@@ -8,7 +8,7 @@ import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewComplex } from './ObjectViewComplex';
 import { useCanCollapse, useIsCollapsed, useViewerContext } from './providers';
 import type { RenderValueFunction } from './types';
-import { getName, isFunction, orderedKeys, renderFullPath } from './utils';
+import { getName, isFunction, type KeyDescriptor, orderedKeys, renderFullPath } from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 const isComplex = (value: unknown, types: Function[]) => (
@@ -22,7 +22,7 @@ type ObjectViewObjectProps = {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   complexTypes?: Function[];
   customViews?: Map<string, FC<{ name?: string; value: Record<string, unknown> }>>;
-  keys?: string[];
+  keys?: KeyDescriptor<any>[];
   comments?: Map<string, (value: unknown) => ReactNode>;
 
   renderValue: RenderValueFunction;
@@ -69,8 +69,12 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
 
       {isCollapsed ? null : (
         <Box component="ul" p={0} m={0} ml="2ch">
-          {keys.map((key, i, arr) => {
-            const CustomView = customViews.get(key);
+          {keys.map(({ key, kind }, i, arr) => {
+            const keyName = String(key);
+            const CustomView = customViews.get(keyName);
+            // Getter/setter descriptors are never treated as functions, since
+            // classifying them as such would require invoking the accessor.
+            const isAccessor = kind !== 'value';
 
             if (filterKeys && !filterKeys(parent, thisPath, key)) {
               return null;
@@ -78,22 +82,26 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
 
             return [
               <Box
-                key={key}
+                key={`${keyName}:${kind}`}
                 component="li"
                 sx={{ display: 'inline', listStyle: 'none', whiteSpace: 'nowrap' }}
               >
                 <a id={renderFullPath([rootName, ...thisPath.map(({ key }) => key), key])} />
 
                 <ObjectProperty
-                  name={key}
+                  name={keyName}
+                  kind={kind}
                   rootName={rootName}
                   fullPath={[...thisPath.map(({ key }) => key), key]}
-                  isFunction={isFunction(parent[key])}
+                  isFunction={!isAccessor && isFunction(parent[key])}
                 />
 
                 {
+                  // Setters have no meaningful value to read, so show a
+                  // function stand-in named after the property instead.
+                  kind === 'set' ? <ObjectSymbol>{`[function ${keyName}()]`}</ObjectSymbol> :
                   // Is a custom view defined?
-                  customViews.has(key) ? <CustomView name={key} value={parent[key]} /> :
+                  customViews.has(keyName) ? <CustomView name={keyName} value={parent[key]} /> :
                   // Otherwise, is the value too complex to render?
                   isComplex(parent[key], complexTypes) ? <ObjectViewComplex value={parent[key]} /> :
                   // Otherwise just render it like any other value.
@@ -108,7 +116,7 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
               ) : null,
 
               (() => {
-                const commentFn = comments.get(key);
+                const commentFn = comments.get(keyName);
                 const comment = commentFn
                   ? commentFn(parent[key])
                   : getComment?.(thisPath.map(({ key }) => key), key, parent[key]) ?? null;

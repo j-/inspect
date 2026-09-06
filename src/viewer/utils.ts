@@ -95,21 +95,36 @@ export const ownKeys = <T>(obj: T): (keyof T)[] => {
   return Object.getOwnPropertyNames(obj) as (keyof T)[];
 };
 
+// Always uninteresting, even if overridden (e.g. every class's own constructor).
+const ALWAYS_NOISE_KEYS = ['constructor'];
+
+// Members every plain object inherits from Object.prototype; uninteresting
+// unless a more specific prototype has overridden them with its own value.
+const OBJECT_PROTOTYPE_NOISE_KEYS = [
+  '__proto__',
+  '__defineGetter__',
+  '__defineSetter__',
+  '__lookupGetter__',
+  '__lookupSetter__',
+  'hasOwnProperty',
+  'isPrototypeOf',
+  'propertyIsEnumerable',
+  'toLocaleString',
+  'toString',
+  'valueOf',
+];
+
 export const ownKeysProto = <T>(obj: T): (keyof T)[] => {
   if (obj instanceof Function) return [];
   try {
-    const keys = Object.getOwnPropertyNames((obj as any).__proto__) as (keyof T)[];
-    return keys.filter((key) => ![
-      '__proto__',
-      '__defineGetter__',
-      '__defineSetter__',
-      '__lookupGetter__',
-      '__lookupSetter__',
-      'constructor',
-      'hasOwnProperty',
-      'isPrototypeOf',
-      'propertyIsEnumerable',
-    ].includes(key as any));
+    const proto = (obj as any).__proto__;
+    const keys = Object.getOwnPropertyNames(proto) as (keyof T)[];
+    return keys.filter((key) => (
+      !ALWAYS_NOISE_KEYS.includes(key as any) && (
+        !OBJECT_PROTOTYPE_NOISE_KEYS.includes(key as any) ||
+        proto[key as any] !== (Object.prototype as any)[key]
+      )
+    ));
   } catch {
     return [];
   }
@@ -148,15 +163,53 @@ const keyCompare = (
   b: string | number | symbol,
 ) => collator.compare(String(a), String(b));
 
-export const orderedKeys = <T extends object>(obj: T): (keyof T)[] => {
-  const all = allKeys(obj);
-  const fnKeys = all.filter((key) => typeof obj[key] === 'function');
+export type PropertyKind = 'value' | 'get' | 'set';
+
+export type KeyDescriptor<T extends object = object> = {
+  key: keyof T;
+  kind: PropertyKind;
+};
+
+// Walks the prototype chain to find where a key is actually defined, so accessor
+// properties (get/set) can be detected without invoking them.
+const findPropertyDescriptor = (obj: unknown, key: PropertyKey): PropertyDescriptor | undefined => {
+  for (let current = obj; current != null; current = Object.getPrototypeOf(current)) {
+    const descriptor = Object.getOwnPropertyDescriptor(current, key);
+    if (descriptor) return descriptor;
+  }
+  return undefined;
+};
+
+// A key backed by a getter and/or setter yields one descriptor per accessor.
+export const describeKey = <T extends object>(obj: T, key: keyof T): KeyDescriptor<T>[] => {
+  const descriptor = findPropertyDescriptor(obj, key as PropertyKey);
+  if (descriptor?.get || descriptor?.set) {
+    const descriptors: KeyDescriptor<T>[] = [];
+    if (descriptor.get) descriptors.push({ key, kind: 'get' });
+    if (descriptor.set) descriptors.push({ key, kind: 'set' });
+    return descriptors;
+  }
+  return [{ key, kind: 'value' }];
+};
+
+// Own keys every function carries that are rarely of interest when browsing one as an object.
+const EXCLUDED_FUNCTION_KEYS = new Set(['length', 'name', 'prototype', 'arguments', 'caller']);
+
+export const orderedKeys = <T extends object>(obj: T): KeyDescriptor<T>[] => {
+  const excludedKeys = obj instanceof Function ? EXCLUDED_FUNCTION_KEYS : null;
+  const all = allKeys(obj)
+    .filter((key) => !excludedKeys?.has(String(key)))
+    .flatMap((key) => describeKey(obj, key));
+  // Getters/setters are never classed as functions, since checking would require
+  // invoking (and potentially throwing) the accessor.
+  const fnKeys = all.filter((d) => d.kind === 'value' && typeof obj[d.key] === 'function');
   // Manually compute the difference
   const fnKeySet = new Set(fnKeys);
-  const rest = all.filter((key) => !fnKeySet.has(key));
+  const rest = all.filter((d) => !fnKeySet.has(d));
 
-  const restSorted = [...rest].sort(keyCompare);
-  const fnSorted = [...fnKeys].sort(keyCompare);
+  const byKey = (a: KeyDescriptor<T>, b: KeyDescriptor<T>) => keyCompare(a.key, b.key);
+  const restSorted = [...rest].sort(byKey);
+  const fnSorted = [...fnKeys].sort(byKey);
 
   return [...restSorted, ...fnSorted];
 };

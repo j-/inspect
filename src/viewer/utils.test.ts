@@ -2,11 +2,16 @@ import { describe, expect, it } from 'vitest';
 
 import {
   allKeys,
+  describeKey,
   forInKeys,
   orderedKeys,
   ownKeys,
   ownKeysProto,
 } from './utils';
+
+// Most keys resolve to a single 'value' descriptor; this shorthand keeps the
+// orderedKeys assertions below readable.
+const values = (...keys: (string | number)[]) => keys.map((key) => ({ key: String(key), kind: 'value' }));
 
 describe('forInKeys', () => {
   it('returns an empty array for an empty object', () => {
@@ -75,18 +80,26 @@ describe('ownKeysProto', () => {
     expect(ownKeysProto(Object.create(null))).toEqual([]);
   });
 
-  it('returns the filtered own property names of Object.prototype for a plain object', () => {
-    const result = ownKeysProto({});
-    expect(result).not.toContain('constructor');
-    expect(result).not.toContain('hasOwnProperty');
-    expect(result).not.toContain('isPrototypeOf');
-    expect(result).not.toContain('propertyIsEnumerable');
-    expect(result).not.toContain('__proto__');
-    expect(result).not.toContain('__defineGetter__');
-    expect(result).not.toContain('__defineSetter__');
-    expect(result).not.toContain('__lookupGetter__');
-    expect(result).not.toContain('__lookupSetter__');
-    expect(result).toEqual(expect.arrayContaining(['toString', 'toLocaleString', 'valueOf']));
+  it('returns [] for a plain object, since every Object.prototype member is unmodified noise', () => {
+    expect(ownKeysProto({})).toEqual([]);
+  });
+
+  it('keeps Object.prototype members that a more specific prototype overrides', () => {
+    // Array.prototype defines its own toString/toLocaleString, distinct from
+    // Object.prototype's, so they're kept rather than hidden.
+    const result = ownKeysProto([]);
+    expect(result).toEqual(expect.arrayContaining(['toString', 'toLocaleString']));
+  });
+
+  it('always omits constructor, even when overridden', () => {
+    expect(ownKeysProto([])).not.toContain('constructor');
+  });
+
+  it('keeps a custom class override of an Object.prototype member', () => {
+    class Foo {
+      toString() { return 'foo'; }
+    }
+    expect(ownKeysProto(new Foo())).toContain('toString');
   });
 
   it('returns the own method names of a class prototype for a class instance', () => {
@@ -111,11 +124,12 @@ describe('allKeys', () => {
   });
 
   it('merges for-in, own, and prototype keys with no duplicates', () => {
-    const obj = { a: 1 };
+    class Foo { method() {} }
+    const obj = Object.assign(new Foo(), { a: 1 });
     const keys = allKeys(obj) as string[];
     expect(new Set(keys).size).toBe(keys.length);
     expect(keys).toContain('a');
-    expect(keys).toContain('toString');
+    expect(keys).toContain('method');
   });
 
   it('places for-in keys before own keys before prototype keys', () => {
@@ -151,17 +165,17 @@ describe('orderedKeys', () => {
 
   it('sorts non-function keys case-insensitively', () => {
     const obj = Object.assign(Object.create(null), { banana: 1, Apple: 2, cherry: 3 });
-    expect(orderedKeys(obj)).toEqual(['Apple', 'banana', 'cherry']);
+    expect(orderedKeys(obj)).toEqual(values('Apple', 'banana', 'cherry'));
   });
 
   it('sorts numeric string keys numerically rather than lexicographically', () => {
     const obj = Object.assign(Object.create(null), { 10: 'a', 2: 'b', 1: 'c' });
-    expect(orderedKeys(obj)).toEqual(['1', '2', '10']);
+    expect(orderedKeys(obj)).toEqual(values('1', '2', '10'));
   });
 
   it('places function-valued keys after non-function keys', () => {
     const obj = Object.assign(Object.create(null), { b: () => {}, a: 1 });
-    expect(orderedKeys(obj)).toEqual(['a', 'b']);
+    expect(orderedKeys(obj)).toEqual(values('a', 'b'));
   });
 
   it('sorts function keys separately from, and after, data keys', () => {
@@ -171,22 +185,21 @@ describe('orderedKeys', () => {
       b: 1,
       a: 2,
     });
-    expect(orderedKeys(obj)).toEqual(['a', 'b', 'alpha', 'zeta']);
+    expect(orderedKeys(obj)).toEqual(values('a', 'b', 'alpha', 'zeta'));
   });
 
-  it('reflects the current behaviour for a plain object (including Object.prototype keys)', () => {
+  it('omits unmodified Object.prototype keys for a plain object', () => {
     const obj = { b: 1, a: 2 };
-    expect(orderedKeys(obj)).toEqual([
-      'a', 'b',
-      'toLocaleString', 'toString', 'valueOf',
-    ]);
+    expect(orderedKeys(obj)).toEqual(values('a', 'b'));
   });
 
   it('reflects the current behaviour for an array (data keys, then sorted Array.prototype methods)', () => {
     // Locks in today's exact output (indices + 'length', followed by every
-    // enumerable-or-not own function on Array.prototype, alphabetically sorted)
-    // so a generator refactor can be checked against it.
-    expect(orderedKeys(['x', 'y', 'z'])).toEqual([
+    // enumerable-or-not own function on Array.prototype, alphabetically sorted;
+    // 'toString'/'toLocaleString' are kept since Array overrides them, unlike
+    // the unmodified Object.prototype versions; 'constructor' is always omitted)
+    // so future refactors can be checked against it.
+    expect(orderedKeys(['x', 'y', 'z'])).toEqual(values(
       '0', '1', '2', 'length',
       'at', 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter',
       'find', 'findIndex', 'findLast', 'findLastIndex', 'flat', 'flatMap',
@@ -194,6 +207,101 @@ describe('orderedKeys', () => {
       'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice',
       'some', 'sort', 'splice', 'toLocaleString', 'toReversed', 'toSorted',
       'toSpliced', 'toString', 'unshift', 'values', 'with',
+    ));
+  });
+
+  it('omits uninteresting own keys (length/name/prototype/arguments/caller) for a function', () => {
+    function namedFn() {}
+    const keys = (orderedKeys(namedFn) as { key: string }[]).map(({ key }) => key);
+    expect(keys).not.toContain('length');
+    expect(keys).not.toContain('name');
+    expect(keys).not.toContain('prototype');
+    expect(keys).not.toContain('arguments');
+    expect(keys).not.toContain('caller');
+  });
+
+  it('keeps a custom own key on a function', () => {
+    const fn = Object.assign(() => {}, { customProp: 1 });
+    expect(orderedKeys(fn)).toEqual(values('customProp'));
+  });
+
+  it('emits a getter descriptor for a getter-only accessor', () => {
+    const obj = Object.create(null, {
+      value: { get() { return 1; }, enumerable: true },
+    });
+    expect(orderedKeys(obj)).toEqual([{ key: 'value', kind: 'get' }]);
+  });
+
+  it('emits a setter descriptor for a setter-only accessor', () => {
+    const obj = Object.create(null, {
+      value: { set(_v) {}, enumerable: true },
+    });
+    expect(orderedKeys(obj)).toEqual([{ key: 'value', kind: 'set' }]);
+  });
+
+  it('emits both a getter and a setter descriptor for the same key when both are defined', () => {
+    const obj = Object.create(null, {
+      value: { get() { return 1; }, set(_v) {}, enumerable: true },
+    });
+    expect(orderedKeys(obj)).toEqual([
+      { key: 'value', kind: 'get' },
+      { key: 'value', kind: 'set' },
     ]);
   });
+
+  it('does not invoke a getter to classify it as a function', () => {
+    const obj = Object.create(null, {
+      value: {
+        get() { throw new Error('should not be invoked'); },
+        enumerable: true,
+      },
+    });
+    // A getter is never classed as a "function" key, so it stays with the
+    // (empty, here) rest group rather than requiring the accessor to be called.
+    expect(() => orderedKeys(obj)).not.toThrow();
+    expect(orderedKeys(obj)).toEqual([{ key: 'value', kind: 'get' }]);
+  });
+
+  it('sorts getter/setter descriptors amongst plain value keys by key name', () => {
+    const obj = Object.assign(Object.create(null, {
+      b: { get() { return 1; }, enumerable: true },
+    }), { a: 1, c: 2 });
+    expect(orderedKeys(obj)).toEqual(values('a').concat(
+      { key: 'b', kind: 'get' },
+      values('c'),
+    ));
+  });
 });
+
+describe('describeKey', () => {
+  it('returns a single value descriptor for a plain data property', () => {
+    expect(describeKey({ a: 1 }, 'a')).toEqual([{ key: 'a', kind: 'value' }]);
+  });
+
+  it('returns a single get descriptor for a getter-only accessor', () => {
+    const obj = Object.create(null, { a: { get() { return 1; }, enumerable: true } });
+    expect(describeKey(obj, 'a')).toEqual([{ key: 'a', kind: 'get' }]);
+  });
+
+  it('returns a single set descriptor for a setter-only accessor', () => {
+    const obj = Object.create(null, { a: { set(_v) {}, enumerable: true } });
+    expect(describeKey(obj, 'a')).toEqual([{ key: 'a', kind: 'set' }]);
+  });
+
+  it('returns both descriptors, get first, when both accessors are defined', () => {
+    const obj = Object.create(null, { a: { get() { return 1; }, set(_v) {}, enumerable: true } });
+    expect(describeKey(obj, 'a')).toEqual([
+      { key: 'a', kind: 'get' },
+      { key: 'a', kind: 'set' },
+    ]);
+  });
+
+  it('resolves accessors defined on the prototype chain', () => {
+    class Base {
+      get inherited() { return 1; }
+    }
+    const instance = new Base();
+    expect(describeKey(instance, 'inherited')).toEqual([{ key: 'inherited', kind: 'get' }]);
+  });
+});
+

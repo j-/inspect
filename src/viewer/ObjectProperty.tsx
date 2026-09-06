@@ -4,10 +4,15 @@ import Typography from '@mui/material/Typography';
 import { type FC } from 'react';
 import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewString } from './ObjectViewString';
-import { canRenderUnquotedPropertyKey, renderFullPath } from './utils';
+import {
+  canRenderUnquotedPropertyKey,
+  renderFullPath,
+  type PropertyKind,
+} from './utils';
 
 type ObjectPropertyProps = {
   name?: string;
+  kind?: PropertyKind;
   rootName?: string;
   fullPath: (string | number | symbol)[];
   isFunction?: boolean;
@@ -15,6 +20,7 @@ type ObjectPropertyProps = {
 
 export const ObjectProperty: FC<ObjectPropertyProps> = ({
   name,
+  kind = 'value',
   rootName = 'result',
   fullPath,
   isFunction,
@@ -22,6 +28,26 @@ export const ObjectProperty: FC<ObjectPropertyProps> = ({
   return (
     <Tooltip title={renderFullPath([rootName, ...fullPath])} followCursor>
       <Box component="span">
+        {kind === 'get' ? (
+          <Typography
+            component="span"
+            color="primary"
+            fontFamily="monospace"
+          >
+            {'get '}
+          </Typography>
+        ) : null}
+
+        {kind === 'set' ? (
+          <Typography
+            component="span"
+            color="primary"
+            fontFamily="monospace"
+          >
+            {'set '}
+          </Typography>
+        ) : null}
+
         {canRenderUnquotedPropertyKey(String(name)) ? (
           <Typography
             component="span"
