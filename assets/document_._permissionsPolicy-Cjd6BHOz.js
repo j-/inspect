@@ -1,1 +1,0 @@
-import{j as e}from"./main-CSRWDtpi.js";import{u as n}from"./useLocation-CmqEfVs1.js";import{O as s}from"./ObjectViewerPanel-DMUd4RPx.js";import{e as i}from"./resource-gklTq-dQ.js";function c(){const{pathname:o}=n();return e.jsx(s,{id:o,heading:"document.permissionsPolicy",name:"document.permissionsPolicy",resource:i(()=>document.permissionsPolicy)})}export{c as component};

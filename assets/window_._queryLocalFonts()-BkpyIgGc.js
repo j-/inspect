@@ -1,0 +1,1 @@
+import{j as t}from"./main-CtYgfdwh.js";import{u as e}from"./useLocation--xM3BO0S.js";import{O as n}from"./ObjectViewerPanel-D3c-nHzc.js";import{l as r}from"./resource-gklTq-dQ.js";function p(){const{pathname:o}=e();return t.jsx(n,{id:o,heading:"window.queryLocalFonts()",resource:r(()=>window.queryLocalFonts())})}export{p as component};
