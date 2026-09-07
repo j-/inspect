@@ -168,6 +168,11 @@ export type PropertyKind = 'value' | 'get' | 'set';
 export type KeyDescriptor<T extends object = object> = {
   key: keyof T;
   kind: PropertyKind;
+  // Whether the key is defined directly on the object, vs inherited from the prototype chain.
+  own: boolean;
+  // Whether the key is enumerable where it's defined (e.g. true for most Web
+  // platform getters like Event.prototype.type, even though those are inherited).
+  enumerable: boolean;
 };
 
 // Walks the prototype chain to find where a key is actually defined, so accessor
@@ -183,35 +188,54 @@ const findPropertyDescriptor = (obj: unknown, key: PropertyKey): PropertyDescrip
 // A key backed by a getter and/or setter yields one descriptor per accessor.
 export const describeKey = <T extends object>(obj: T, key: keyof T): KeyDescriptor<T>[] => {
   const descriptor = findPropertyDescriptor(obj, key as PropertyKey);
+  const own = Object.prototype.hasOwnProperty.call(obj, key as PropertyKey);
+  const enumerable = descriptor?.enumerable ?? false;
   if (descriptor?.get || descriptor?.set) {
     const descriptors: KeyDescriptor<T>[] = [];
-    if (descriptor.get) descriptors.push({ key, kind: 'get' });
-    if (descriptor.set) descriptors.push({ key, kind: 'set' });
+    if (descriptor.get) descriptors.push({ key, kind: 'get', own, enumerable });
+    if (descriptor.set) descriptors.push({ key, kind: 'set', own, enumerable });
     return descriptors;
   }
-  return [{ key, kind: 'value' }];
+  return [{ key, kind: 'value', own, enumerable }];
 };
 
 // Own keys every function carries that are rarely of interest when browsing one as an object.
 const EXCLUDED_FUNCTION_KEYS = new Set(['length', 'name', 'prototype', 'arguments', 'caller']);
+
+// Own properties, accessors (get/set — they expose meaningful computed data
+// regardless of where they're defined, e.g. Temporal.Instant.prototype's
+// non-enumerable getters), and inherited-but-enumerable properties (e.g. Web
+// platform getters like Event.prototype.type) are "primary" — everything else
+// (typically non-enumerable prototype methods/noise) is secondary.
+export const isPrimaryKey = (descriptor: KeyDescriptor<any>): boolean => (
+  descriptor.own || descriptor.enumerable || descriptor.kind !== 'value'
+);
 
 export const orderedKeys = <T extends object>(obj: T): KeyDescriptor<T>[] => {
   const excludedKeys = obj instanceof Function ? EXCLUDED_FUNCTION_KEYS : null;
   const all = allKeys(obj)
     .filter((key) => !excludedKeys?.has(String(key)))
     .flatMap((key) => describeKey(obj, key));
-  // Getters/setters are never classed as functions, since checking would require
-  // invoking (and potentially throwing) the accessor.
-  const fnKeys = all.filter((d) => d.kind === 'value' && typeof obj[d.key] === 'function');
-  // Manually compute the difference
-  const fnKeySet = new Set(fnKeys);
-  const rest = all.filter((d) => !fnKeySet.has(d));
 
   const byKey = (a: KeyDescriptor<T>, b: KeyDescriptor<T>) => keyCompare(a.key, b.key);
-  const restSorted = [...rest].sort(byKey);
-  const fnSorted = [...fnKeys].sort(byKey);
 
-  return [...restSorted, ...fnSorted];
+  // Sorts a group by data-vs-function, then alphabetically within each.
+  const sortGroup = (group: KeyDescriptor<T>[]) => {
+    // Getters/setters are never classed as functions, since checking would require
+    // invoking (and potentially throwing) the accessor.
+    const fnKeys = group.filter((d) => d.kind === 'value' && typeof obj[d.key] === 'function');
+    const fnKeySet = new Set(fnKeys);
+    const rest = group.filter((d) => !fnKeySet.has(d));
+    return [...rest.sort(byKey), ...fnKeys.sort(byKey)];
+  };
+
+  // Primary (own, or inherited-but-enumerable) properties are grouped before
+  // secondary (inherited, non-enumerable) ones, mirroring how browser devtools
+  // consoles distinguish an object's own data from uninteresting prototype noise.
+  const primary = all.filter(isPrimaryKey);
+  const secondary = all.filter((d) => !isPrimaryKey(d));
+
+  return [...sortGroup(primary), ...sortGroup(secondary)];
 };
 
 // Matches ECMAScript IdentifierName, so keys like "default" are allowed unquoted.

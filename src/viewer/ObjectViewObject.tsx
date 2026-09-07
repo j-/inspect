@@ -8,7 +8,14 @@ import { ObjectSymbol } from './ObjectSymbol';
 import { ObjectViewComplex } from './ObjectViewComplex';
 import { useCanCollapse, useIsCollapsed, useViewerContext } from './providers';
 import type { RenderValueFunction } from './types';
-import { getName, isFunction, type KeyDescriptor, orderedKeys, renderFullPath } from './utils';
+import {
+  getName,
+  isFunction,
+  isPrimaryKey,
+  type KeyDescriptor,
+  orderedKeys,
+  renderFullPath,
+} from './utils';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 const isComplex = (value: unknown, types: Function[]) => (
@@ -69,7 +76,8 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
 
       {isCollapsed ? null : (
         <Box component="ul" p={0} m={0} ml="2ch">
-          {keys.map(({ key, kind }, i, arr) => {
+          {keys.map((descriptor, i, arr) => {
+            const { key, kind } = descriptor;
             const keyName = String(key);
             const CustomView = customViews.get(keyName);
             // Getter/setter descriptors are never treated as functions, since
@@ -80,11 +88,20 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
               return null;
             }
 
+
             return [
               <Box
                 key={`${keyName}:${kind}`}
                 component="li"
-                sx={{ display: 'inline', listStyle: 'none', whiteSpace: 'nowrap' }}
+                sx={{
+                  display: 'inline',
+                  listStyle: 'none',
+                  whiteSpace: 'nowrap',
+                  // Secondary (inherited, non-enumerable) properties are dimmed,
+                  // matching how browser devtools consoles distinguish them from
+                  // own/enumerable ones.
+                  opacity: isPrimaryKey(descriptor) ? 1 : 0.6,
+                }}
               >
                 <a id={renderFullPath([rootName, ...thisPath.map(({ key }) => key), key])} />
 

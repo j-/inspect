@@ -4,14 +4,17 @@ import {
   allKeys,
   describeKey,
   forInKeys,
+  isPrimaryKey,
   orderedKeys,
   ownKeys,
   ownKeysProto,
 } from './utils';
 
-// Most keys resolve to a single 'value' descriptor; this shorthand keeps the
-// orderedKeys assertions below readable.
-const values = (...keys: (string | number)[]) => keys.map((key) => ({ key: String(key), kind: 'value' }));
+// Most keys resolve to a single own, enumerable 'value' descriptor; this
+// shorthand keeps the orderedKeys assertions below readable.
+const values = (...keys: (string | number)[]) => keys.map((key) => (
+  { key: String(key), kind: 'value', own: true, enumerable: true }
+));
 
 describe('forInKeys', () => {
   it('returns an empty array for an empty object', () => {
@@ -193,21 +196,26 @@ describe('orderedKeys', () => {
     expect(orderedKeys(obj)).toEqual(values('a', 'b'));
   });
 
-  it('reflects the current behaviour for an array (data keys, then sorted Array.prototype methods)', () => {
-    // Locks in today's exact output (indices + 'length', followed by every
-    // enumerable-or-not own function on Array.prototype, alphabetically sorted;
-    // 'toString'/'toLocaleString' are kept since Array overrides them, unlike
-    // the unmodified Object.prototype versions; 'constructor' is always omitted)
-    // so future refactors can be checked against it.
-    expect(orderedKeys(['x', 'y', 'z'])).toEqual(values(
-      '0', '1', '2', 'length',
+  it('reflects the current behaviour for an array (own data keys, then inherited Array.prototype methods)', () => {
+    // Locks in today's exact output: own indices + 'length' first, followed by
+    // every enumerable-or-not Array.prototype function (inherited, not own),
+    // alphabetically sorted; 'toString'/'toLocaleString' are kept since Array
+    // overrides them, unlike the unmodified Object.prototype versions;
+    // 'constructor' is always omitted. So future refactors can be checked
+    // against it.
+    const protoMethods = [
       'at', 'concat', 'copyWithin', 'entries', 'every', 'fill', 'filter',
       'find', 'findIndex', 'findLast', 'findLastIndex', 'flat', 'flatMap',
       'forEach', 'includes', 'indexOf', 'join', 'keys', 'lastIndexOf', 'map',
       'pop', 'push', 'reduce', 'reduceRight', 'reverse', 'shift', 'slice',
       'some', 'sort', 'splice', 'toLocaleString', 'toReversed', 'toSorted',
       'toSpliced', 'toString', 'unshift', 'values', 'with',
-    ));
+    ];
+    expect(orderedKeys(['x', 'y', 'z'])).toEqual([
+      ...values('0', '1', '2'),
+      { key: 'length', kind: 'value', own: true, enumerable: false },
+      ...protoMethods.map((key) => ({ key, kind: 'value', own: false, enumerable: false })),
+    ]);
   });
 
   it('omits uninteresting own keys (length/name/prototype/arguments/caller) for a function', () => {
@@ -229,14 +237,14 @@ describe('orderedKeys', () => {
     const obj = Object.create(null, {
       value: { get() { return 1; }, enumerable: true },
     });
-    expect(orderedKeys(obj)).toEqual([{ key: 'value', kind: 'get' }]);
+    expect(orderedKeys(obj)).toEqual([{ key: 'value', kind: 'get', own: true, enumerable: true }]);
   });
 
   it('emits a setter descriptor for a setter-only accessor', () => {
     const obj = Object.create(null, {
       value: { set(_v) {}, enumerable: true },
     });
-    expect(orderedKeys(obj)).toEqual([{ key: 'value', kind: 'set' }]);
+    expect(orderedKeys(obj)).toEqual([{ key: 'value', kind: 'set', own: true, enumerable: true }]);
   });
 
   it('emits both a getter and a setter descriptor for the same key when both are defined', () => {
@@ -244,8 +252,8 @@ describe('orderedKeys', () => {
       value: { get() { return 1; }, set(_v) {}, enumerable: true },
     });
     expect(orderedKeys(obj)).toEqual([
-      { key: 'value', kind: 'get' },
-      { key: 'value', kind: 'set' },
+      { key: 'value', kind: 'get', own: true, enumerable: true },
+      { key: 'value', kind: 'set', own: true, enumerable: true },
     ]);
   });
 
@@ -259,7 +267,7 @@ describe('orderedKeys', () => {
     // A getter is never classed as a "function" key, so it stays with the
     // (empty, here) rest group rather than requiring the accessor to be called.
     expect(() => orderedKeys(obj)).not.toThrow();
-    expect(orderedKeys(obj)).toEqual([{ key: 'value', kind: 'get' }]);
+    expect(orderedKeys(obj)).toEqual([{ key: 'value', kind: 'get', own: true, enumerable: true }]);
   });
 
   it('sorts getter/setter descriptors amongst plain value keys by key name', () => {
@@ -267,41 +275,115 @@ describe('orderedKeys', () => {
       b: { get() { return 1; }, enumerable: true },
     }), { a: 1, c: 2 });
     expect(orderedKeys(obj)).toEqual(values('a').concat(
-      { key: 'b', kind: 'get' },
+      { key: 'b', kind: 'get', own: true, enumerable: true },
       values('c'),
     ));
+  });
+
+  it('groups own properties before inherited, non-enumerable prototype properties', () => {
+    class Foo { method() {} }
+    const instance = Object.assign(new Foo(), { z: 1, a: 2 });
+    expect(orderedKeys(instance)).toEqual([
+      { key: 'a', kind: 'value', own: true, enumerable: true },
+      { key: 'z', kind: 'value', own: true, enumerable: true },
+      { key: 'method', kind: 'value', own: false, enumerable: false },
+    ]);
+  });
+
+  it('treats an own data property and an inherited getter as equally primary, sorted by name', () => {
+    class Base {
+      get computed() { return 1; }
+    }
+    const instance = Object.assign(new Base(), { a: 1 });
+    expect(orderedKeys(instance)).toEqual([
+      { key: 'a', kind: 'value', own: true, enumerable: true },
+      { key: 'computed', kind: 'get', own: false, enumerable: false },
+    ]);
+  });
+
+  it('treats an inherited, non-enumerable getter as primary (e.g. Temporal.Instant-style computed properties)', () => {
+    // Temporal.Instant.prototype.epochMilliseconds is inherited and, like most
+    // ECMAScript built-in accessors, non-enumerable — but it's still
+    // meaningful computed data, not prototype noise, so it must not be dimmed.
+    class Base {
+      get computed() { return 42; }
+    }
+    expect(orderedKeys(new Base())).toEqual([
+      { key: 'computed', kind: 'get', own: false, enumerable: false },
+    ]);
+  });
+
+  it('treats an inherited-but-enumerable getter as primary, like Web platform Event getters', () => {
+    // e.g. Event.prototype.type: inherited, yet enumerable, so devtools (and
+    // this app) show it alongside own properties rather than as prototype noise.
+    const proto = {};
+    Object.defineProperty(proto, 'type', { get() { return 'click'; }, enumerable: true, configurable: true });
+    const instance = Object.assign(Object.create(proto), { isTrusted: true });
+    expect(orderedKeys(instance)).toEqual([
+      { key: 'isTrusted', kind: 'value', own: true, enumerable: true },
+      { key: 'type', kind: 'get', own: false, enumerable: true },
+    ]);
   });
 });
 
 describe('describeKey', () => {
   it('returns a single value descriptor for a plain data property', () => {
-    expect(describeKey({ a: 1 }, 'a')).toEqual([{ key: 'a', kind: 'value' }]);
+    expect(describeKey({ a: 1 }, 'a')).toEqual([{ key: 'a', kind: 'value', own: true, enumerable: true }]);
   });
 
   it('returns a single get descriptor for a getter-only accessor', () => {
     const obj = Object.create(null, { a: { get() { return 1; }, enumerable: true } });
-    expect(describeKey(obj, 'a')).toEqual([{ key: 'a', kind: 'get' }]);
+    expect(describeKey(obj, 'a')).toEqual([{ key: 'a', kind: 'get', own: true, enumerable: true }]);
   });
 
   it('returns a single set descriptor for a setter-only accessor', () => {
     const obj = Object.create(null, { a: { set(_v) {}, enumerable: true } });
-    expect(describeKey(obj, 'a')).toEqual([{ key: 'a', kind: 'set' }]);
+    expect(describeKey(obj, 'a')).toEqual([{ key: 'a', kind: 'set', own: true, enumerable: true }]);
   });
 
   it('returns both descriptors, get first, when both accessors are defined', () => {
     const obj = Object.create(null, { a: { get() { return 1; }, set(_v) {}, enumerable: true } });
     expect(describeKey(obj, 'a')).toEqual([
-      { key: 'a', kind: 'get' },
-      { key: 'a', kind: 'set' },
+      { key: 'a', kind: 'get', own: true, enumerable: true },
+      { key: 'a', kind: 'set', own: true, enumerable: true },
     ]);
   });
 
-  it('resolves accessors defined on the prototype chain', () => {
+  it('resolves accessors defined on the prototype chain, marked as not own', () => {
     class Base {
       get inherited() { return 1; }
     }
     const instance = new Base();
-    expect(describeKey(instance, 'inherited')).toEqual([{ key: 'inherited', kind: 'get' }]);
+    expect(describeKey(instance, 'inherited')).toEqual([{ key: 'inherited', kind: 'get', own: false, enumerable: false }]);
+  });
+
+  it('reports enumerable: true for an inherited-but-enumerable accessor', () => {
+    const proto = {};
+    Object.defineProperty(proto, 'type', { get() { return 'click'; }, enumerable: true, configurable: true });
+    const instance = Object.create(proto);
+    expect(describeKey(instance, 'type')).toEqual([{ key: 'type', kind: 'get', own: false, enumerable: true }]);
+  });
+});
+
+describe('isPrimaryKey', () => {
+  it('is true when own', () => {
+    expect(isPrimaryKey({ key: 'a', kind: 'value', own: true, enumerable: false })).toBe(true);
+  });
+
+  it('is true when enumerable but not own', () => {
+    expect(isPrimaryKey({ key: 'a', kind: 'value', own: false, enumerable: true })).toBe(true);
+  });
+
+  it('is false when neither own nor enumerable, and kind is value', () => {
+    expect(isPrimaryKey({ key: 'a', kind: 'value', own: false, enumerable: false })).toBe(false);
+  });
+
+  it('is true for a get accessor, even when neither own nor enumerable', () => {
+    expect(isPrimaryKey({ key: 'a', kind: 'get', own: false, enumerable: false })).toBe(true);
+  });
+
+  it('is true for a set accessor, even when neither own nor enumerable', () => {
+    expect(isPrimaryKey({ key: 'a', kind: 'set', own: false, enumerable: false })).toBe(true);
   });
 });
 
