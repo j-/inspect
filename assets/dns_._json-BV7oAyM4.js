@@ -1,0 +1,1 @@
+import{j as o}from"./main-DbS9ATYM.js";import{u as t}from"./useLocation-DuzzCo-T.js";import{O as n}from"./ObjectViewerPanel-CG_fCTBt.js";import{e as r}from"./resource-gklTq-dQ.js";const s=async()=>(await fetch("https://data.iana.org/rdap/dns.json")).json();function p(){const{pathname:e}=t();return o.jsx(n,{id:e,heading:"dns.json",name:"res",resource:r(s)})}export{p as component};

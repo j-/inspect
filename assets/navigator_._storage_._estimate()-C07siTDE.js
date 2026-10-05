@@ -1,0 +1,1 @@
+import{j as o}from"./main-DbS9ATYM.js";import{u as t}from"./useLocation-DuzzCo-T.js";import{O as r}from"./ObjectViewerPanel-CG_fCTBt.js";import{e as a}from"./resource-gklTq-dQ.js";function p(){const{pathname:e}=t();return o.jsx(r,{id:e,heading:"navigator.storage.estimate()",resource:a(()=>navigator.storage.estimate())})}export{p as component};
