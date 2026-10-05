@@ -8,8 +8,8 @@ export type ObjectViewStringProps = {
 
 const isURL = (maybeURL: string): boolean => {
   try {
-    new URL(maybeURL);
-    return true;
+    const url = new URL(maybeURL);
+    return maybeURL === url.href;
   } catch {
     return false;
   }
