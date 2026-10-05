@@ -47,6 +47,7 @@ import { Route as DocumentDotfeaturePolicyDotfeaturesRouteImport } from './route
 import { Route as DocumentDotfeaturePolicyDotallowedFeaturesRouteImport } from './routes/document[.]featurePolicy[.]allowedFeatures()'
 import { Route as DocumentDotfeaturePolicyRouteImport } from './routes/document[.]featurePolicy'
 import { Route as DocumentRouteImport } from './routes/document'
+import { Route as DnsDotjsonRouteImport } from './routes/dns[.]json'
 import { Route as TemporalRouteImport } from './routes/Temporal'
 import { Route as NotificationDotrequestPermissionRouteImport } from './routes/Notification[.]requestPermission()'
 import { Route as MathDotrandomRouteImport } from './routes/Math[.]random()'
@@ -263,6 +264,11 @@ const DocumentRoute = DocumentRouteImport.update({
   path: '/document',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DnsDotjsonRoute = DnsDotjsonRouteImport.update({
+  id: '/dns.json',
+  path: '/dns.json',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TemporalRoute = TemporalRouteImport.update({
   id: '/Temporal',
   path: '/Temporal',
@@ -302,6 +308,7 @@ export interface FileRoutesByFullPath {
   '/Math.random()': typeof MathDotrandomRoute
   '/Notification.requestPermission()': typeof NotificationDotrequestPermissionRoute
   '/Temporal': typeof TemporalRoute
+  '/dns.json': typeof DnsDotjsonRoute
   '/document': typeof DocumentRoute
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
@@ -348,6 +355,7 @@ export interface FileRoutesByTo {
   '/Math.random()': typeof MathDotrandomRoute
   '/Notification.requestPermission()': typeof NotificationDotrequestPermissionRoute
   '/Temporal': typeof TemporalRoute
+  '/dns.json': typeof DnsDotjsonRoute
   '/document': typeof DocumentRoute
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
@@ -395,6 +403,7 @@ export interface FileRoutesById {
   '/Math.random()': typeof MathDotrandomRoute
   '/Notification.requestPermission()': typeof NotificationDotrequestPermissionRoute
   '/Temporal': typeof TemporalRoute
+  '/dns.json': typeof DnsDotjsonRoute
   '/document': typeof DocumentRoute
   '/document.featurePolicy': typeof DocumentDotfeaturePolicyRoute
   '/document.featurePolicy.allowedFeatures()': typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
@@ -443,6 +452,7 @@ export interface FileRouteTypes {
     | '/Math.random()'
     | '/Notification.requestPermission()'
     | '/Temporal'
+    | '/dns.json'
     | '/document'
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
@@ -489,6 +499,7 @@ export interface FileRouteTypes {
     | '/Math.random()'
     | '/Notification.requestPermission()'
     | '/Temporal'
+    | '/dns.json'
     | '/document'
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
@@ -535,6 +546,7 @@ export interface FileRouteTypes {
     | '/Math.random()'
     | '/Notification.requestPermission()'
     | '/Temporal'
+    | '/dns.json'
     | '/document'
     | '/document.featurePolicy'
     | '/document.featurePolicy.allowedFeatures()'
@@ -582,6 +594,7 @@ export interface RootRouteChildren {
   MathDotrandomRoute: typeof MathDotrandomRoute
   NotificationDotrequestPermissionRoute: typeof NotificationDotrequestPermissionRoute
   TemporalRoute: typeof TemporalRoute
+  DnsDotjsonRoute: typeof DnsDotjsonRoute
   DocumentRoute: typeof DocumentRoute
   DocumentDotfeaturePolicyRoute: typeof DocumentDotfeaturePolicyRoute
   DocumentDotfeaturePolicyDotallowedFeaturesRoute: typeof DocumentDotfeaturePolicyDotallowedFeaturesRoute
@@ -890,6 +903,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocumentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dns.json': {
+      id: '/dns.json'
+      path: '/dns.json'
+      fullPath: '/dns.json'
+      preLoaderRoute: typeof DnsDotjsonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/Temporal': {
       id: '/Temporal'
       path: '/Temporal'
@@ -942,6 +962,7 @@ const rootRouteChildren: RootRouteChildren = {
   MathDotrandomRoute: MathDotrandomRoute,
   NotificationDotrequestPermissionRoute: NotificationDotrequestPermissionRoute,
   TemporalRoute: TemporalRoute,
+  DnsDotjsonRoute: DnsDotjsonRoute,
   DocumentRoute: DocumentRoute,
   DocumentDotfeaturePolicyRoute: DocumentDotfeaturePolicyRoute,
   DocumentDotfeaturePolicyDotallowedFeaturesRoute:
