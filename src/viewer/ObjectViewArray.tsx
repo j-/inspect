@@ -73,6 +73,8 @@ export const ObjectViewArray: FC<ObjectViewArrayProps> = ({ value, renderValue }
                 value={i}
                 sx={{ listStyle: 'none' }}
               >
+                <ObjectLabel>{String(i)}</ObjectLabel>
+                <ObjectSymbol noSelect>{': '}</ObjectSymbol>
                 {renderValue(item, i)}
               </Box>,
 
