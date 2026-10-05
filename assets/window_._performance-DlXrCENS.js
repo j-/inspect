@@ -1,0 +1,1 @@
+import{j as e}from"./main-DY_-VyTT.js";import{u as r}from"./useLocation-BAEwv07G.js";import{O as n}from"./ObjectViewerPanel-8u_-frGx.js";import{e as m}from"./resource-gklTq-dQ.js";function s(){const{pathname:o}=r();return e.jsx(n,{id:o,heading:"window.performance",name:"window.performance",resource:m(()=>window.performance)})}export{s as component};

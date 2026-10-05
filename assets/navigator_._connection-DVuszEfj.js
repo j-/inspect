@@ -1,0 +1,1 @@
+import{j as n}from"./main-DY_-VyTT.js";import{u as t}from"./useLocation-BAEwv07G.js";import{O as e}from"./ObjectViewerPanel-8u_-frGx.js";import{r}from"./resource-gklTq-dQ.js";function s(){const{pathname:o}=t();return n.jsx(e,{id:o,heading:"navigator.connection",name:"navigator.connection",resource:r(()=>navigator.connection,"change")})}export{s as component};
