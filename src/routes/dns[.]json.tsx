@@ -17,7 +17,7 @@ function RouteComponent() {
   return (
     <ObjectViewerPanel
       id={pathname}
-      heading="dns.json"
+      heading="https://data.iana.org/rdap/dns.json"
       name="res"
       resource={eager(fetcher)}
     />
