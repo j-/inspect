@@ -40,6 +40,7 @@ import { Route as NavigatorDotconnectionRouteImport } from './routes/navigator[.
 import { Route as NavigatorDotclipboardDotonclipboardchangeRouteImport } from './routes/navigator[.]clipboard[.]onclipboardchange'
 import { Route as NavigatorDotclipboardRouteImport } from './routes/navigator[.]clipboard'
 import { Route as NavigatorRouteImport } from './routes/navigator'
+import { Route as NavigationRouteImport } from './routes/navigation'
 import { Route as DocumentDotpermissionsPolicyDotfeaturesRouteImport } from './routes/document[.]permissionsPolicy[.]features()'
 import { Route as DocumentDotpermissionsPolicyDotallowedFeaturesRouteImport } from './routes/document[.]permissionsPolicy[.]allowedFeatures()'
 import { Route as DocumentDotpermissionsPolicyRouteImport } from './routes/document[.]permissionsPolicy'
@@ -223,6 +224,11 @@ const NavigatorRoute = NavigatorRouteImport.update({
   path: '/navigator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NavigationRoute = NavigationRouteImport.update({
+  id: '/navigation',
+  path: '/navigation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DocumentDotpermissionsPolicyDotfeaturesRoute =
   DocumentDotpermissionsPolicyDotfeaturesRouteImport.update({
     id: '/document.permissionsPolicy.features()',
@@ -316,6 +322,7 @@ export interface FileRoutesByFullPath {
   '/document.permissionsPolicy': typeof DocumentDotpermissionsPolicyRoute
   '/document.permissionsPolicy.allowedFeatures()': typeof DocumentDotpermissionsPolicyDotallowedFeaturesRoute
   '/document.permissionsPolicy.features()': typeof DocumentDotpermissionsPolicyDotfeaturesRoute
+  '/navigation': typeof NavigationRoute
   '/navigator': typeof NavigatorRoute
   '/navigator.clipboard': typeof NavigatorDotclipboardRoute
   '/navigator.clipboard.onclipboardchange': typeof NavigatorDotclipboardDotonclipboardchangeRoute
@@ -363,6 +370,7 @@ export interface FileRoutesByTo {
   '/document.permissionsPolicy': typeof DocumentDotpermissionsPolicyRoute
   '/document.permissionsPolicy.allowedFeatures()': typeof DocumentDotpermissionsPolicyDotallowedFeaturesRoute
   '/document.permissionsPolicy.features()': typeof DocumentDotpermissionsPolicyDotfeaturesRoute
+  '/navigation': typeof NavigationRoute
   '/navigator': typeof NavigatorRoute
   '/navigator.clipboard': typeof NavigatorDotclipboardRoute
   '/navigator.clipboard.onclipboardchange': typeof NavigatorDotclipboardDotonclipboardchangeRoute
@@ -411,6 +419,7 @@ export interface FileRoutesById {
   '/document.permissionsPolicy': typeof DocumentDotpermissionsPolicyRoute
   '/document.permissionsPolicy.allowedFeatures()': typeof DocumentDotpermissionsPolicyDotallowedFeaturesRoute
   '/document.permissionsPolicy.features()': typeof DocumentDotpermissionsPolicyDotfeaturesRoute
+  '/navigation': typeof NavigationRoute
   '/navigator': typeof NavigatorRoute
   '/navigator.clipboard': typeof NavigatorDotclipboardRoute
   '/navigator.clipboard.onclipboardchange': typeof NavigatorDotclipboardDotonclipboardchangeRoute
@@ -460,6 +469,7 @@ export interface FileRouteTypes {
     | '/document.permissionsPolicy'
     | '/document.permissionsPolicy.allowedFeatures()'
     | '/document.permissionsPolicy.features()'
+    | '/navigation'
     | '/navigator'
     | '/navigator.clipboard'
     | '/navigator.clipboard.onclipboardchange'
@@ -507,6 +517,7 @@ export interface FileRouteTypes {
     | '/document.permissionsPolicy'
     | '/document.permissionsPolicy.allowedFeatures()'
     | '/document.permissionsPolicy.features()'
+    | '/navigation'
     | '/navigator'
     | '/navigator.clipboard'
     | '/navigator.clipboard.onclipboardchange'
@@ -554,6 +565,7 @@ export interface FileRouteTypes {
     | '/document.permissionsPolicy'
     | '/document.permissionsPolicy.allowedFeatures()'
     | '/document.permissionsPolicy.features()'
+    | '/navigation'
     | '/navigator'
     | '/navigator.clipboard'
     | '/navigator.clipboard.onclipboardchange'
@@ -602,6 +614,7 @@ export interface RootRouteChildren {
   DocumentDotpermissionsPolicyRoute: typeof DocumentDotpermissionsPolicyRoute
   DocumentDotpermissionsPolicyDotallowedFeaturesRoute: typeof DocumentDotpermissionsPolicyDotallowedFeaturesRoute
   DocumentDotpermissionsPolicyDotfeaturesRoute: typeof DocumentDotpermissionsPolicyDotfeaturesRoute
+  NavigationRoute: typeof NavigationRoute
   NavigatorRoute: typeof NavigatorRoute
   NavigatorDotclipboardRoute: typeof NavigatorDotclipboardRoute
   NavigatorDotclipboardDotonclipboardchangeRoute: typeof NavigatorDotclipboardDotonclipboardchangeRoute
@@ -854,6 +867,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NavigatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/navigation': {
+      id: '/navigation'
+      path: '/navigation'
+      fullPath: '/navigation'
+      preLoaderRoute: typeof NavigationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/document.permissionsPolicy.features()': {
       id: '/document.permissionsPolicy.features()'
       path: '/document.permissionsPolicy.features()'
@@ -974,6 +994,7 @@ const rootRouteChildren: RootRouteChildren = {
     DocumentDotpermissionsPolicyDotallowedFeaturesRoute,
   DocumentDotpermissionsPolicyDotfeaturesRoute:
     DocumentDotpermissionsPolicyDotfeaturesRoute,
+  NavigationRoute: NavigationRoute,
   NavigatorRoute: NavigatorRoute,
   NavigatorDotclipboardRoute: NavigatorDotclipboardRoute,
   NavigatorDotclipboardDotonclipboardchangeRoute:
