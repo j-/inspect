@@ -31,6 +31,7 @@ import { Route as NavigatorDotmediaDevicesDotgetUserMediaRouteImport } from './r
 import { Route as NavigatorDotmediaDevicesDotgetSupportedConstraintsRouteImport } from './routes/navigator[.]mediaDevices[.]getSupportedConstraints()'
 import { Route as NavigatorDotmediaDevicesDotenumerateDevicesRouteImport } from './routes/navigator[.]mediaDevices[.]enumerateDevices()'
 import { Route as NavigatorDotmediaDevicesRouteImport } from './routes/navigator[.]mediaDevices'
+import { Route as NavigatorDotlocksRouteImport } from './routes/navigator[.]locks'
 import { Route as NavigatorDotkeyboardDotgetLayoutMapRouteImport } from './routes/navigator[.]keyboard[.]getLayoutMap()'
 import { Route as NavigatorDotkeyboardRouteImport } from './routes/navigator[.]keyboard'
 import { Route as NavigatorDotgetGamepadsRouteImport } from './routes/navigator[.]getGamepads()'
@@ -176,6 +177,11 @@ const NavigatorDotmediaDevicesRoute =
     path: '/navigator.mediaDevices',
     getParentRoute: () => rootRouteImport,
   } as any)
+const NavigatorDotlocksRoute = NavigatorDotlocksRouteImport.update({
+  id: '/navigator.locks',
+  path: '/navigator.locks',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NavigatorDotkeyboardDotgetLayoutMapRoute =
   NavigatorDotkeyboardDotgetLayoutMapRouteImport.update({
     id: '/navigator.keyboard.getLayoutMap()',
@@ -332,6 +338,7 @@ export interface FileRoutesByFullPath {
   '/navigator.getGamepads()': typeof NavigatorDotgetGamepadsRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
+  '/navigator.locks': typeof NavigatorDotlocksRoute
   '/navigator.mediaDevices': typeof NavigatorDotmediaDevicesRoute
   '/navigator.mediaDevices.enumerateDevices()': typeof NavigatorDotmediaDevicesDotenumerateDevicesRoute
   '/navigator.mediaDevices.getSupportedConstraints()': typeof NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute
@@ -380,6 +387,7 @@ export interface FileRoutesByTo {
   '/navigator.getGamepads()': typeof NavigatorDotgetGamepadsRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
+  '/navigator.locks': typeof NavigatorDotlocksRoute
   '/navigator.mediaDevices': typeof NavigatorDotmediaDevicesRoute
   '/navigator.mediaDevices.enumerateDevices()': typeof NavigatorDotmediaDevicesDotenumerateDevicesRoute
   '/navigator.mediaDevices.getSupportedConstraints()': typeof NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute
@@ -429,6 +437,7 @@ export interface FileRoutesById {
   '/navigator.getGamepads()': typeof NavigatorDotgetGamepadsRoute
   '/navigator.keyboard': typeof NavigatorDotkeyboardRoute
   '/navigator.keyboard.getLayoutMap()': typeof NavigatorDotkeyboardDotgetLayoutMapRoute
+  '/navigator.locks': typeof NavigatorDotlocksRoute
   '/navigator.mediaDevices': typeof NavigatorDotmediaDevicesRoute
   '/navigator.mediaDevices.enumerateDevices()': typeof NavigatorDotmediaDevicesDotenumerateDevicesRoute
   '/navigator.mediaDevices.getSupportedConstraints()': typeof NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute
@@ -479,6 +488,7 @@ export interface FileRouteTypes {
     | '/navigator.getGamepads()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
+    | '/navigator.locks'
     | '/navigator.mediaDevices'
     | '/navigator.mediaDevices.enumerateDevices()'
     | '/navigator.mediaDevices.getSupportedConstraints()'
@@ -527,6 +537,7 @@ export interface FileRouteTypes {
     | '/navigator.getGamepads()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
+    | '/navigator.locks'
     | '/navigator.mediaDevices'
     | '/navigator.mediaDevices.enumerateDevices()'
     | '/navigator.mediaDevices.getSupportedConstraints()'
@@ -575,6 +586,7 @@ export interface FileRouteTypes {
     | '/navigator.getGamepads()'
     | '/navigator.keyboard'
     | '/navigator.keyboard.getLayoutMap()'
+    | '/navigator.locks'
     | '/navigator.mediaDevices'
     | '/navigator.mediaDevices.enumerateDevices()'
     | '/navigator.mediaDevices.getSupportedConstraints()'
@@ -624,6 +636,7 @@ export interface RootRouteChildren {
   NavigatorDotgetGamepadsRoute: typeof NavigatorDotgetGamepadsRoute
   NavigatorDotkeyboardRoute: typeof NavigatorDotkeyboardRoute
   NavigatorDotkeyboardDotgetLayoutMapRoute: typeof NavigatorDotkeyboardDotgetLayoutMapRoute
+  NavigatorDotlocksRoute: typeof NavigatorDotlocksRoute
   NavigatorDotmediaDevicesRoute: typeof NavigatorDotmediaDevicesRoute
   NavigatorDotmediaDevicesDotenumerateDevicesRoute: typeof NavigatorDotmediaDevicesDotenumerateDevicesRoute
   NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute: typeof NavigatorDotmediaDevicesDotgetSupportedConstraintsRoute
@@ -802,6 +815,13 @@ declare module '@tanstack/react-router' {
       path: '/navigator.mediaDevices'
       fullPath: '/navigator.mediaDevices'
       preLoaderRoute: typeof NavigatorDotmediaDevicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/navigator.locks': {
+      id: '/navigator.locks'
+      path: '/navigator.locks'
+      fullPath: '/navigator.locks'
+      preLoaderRoute: typeof NavigatorDotlocksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/navigator.keyboard.getLayoutMap()': {
@@ -1007,6 +1027,7 @@ const rootRouteChildren: RootRouteChildren = {
   NavigatorDotkeyboardRoute: NavigatorDotkeyboardRoute,
   NavigatorDotkeyboardDotgetLayoutMapRoute:
     NavigatorDotkeyboardDotgetLayoutMapRoute,
+  NavigatorDotlocksRoute: NavigatorDotlocksRoute,
   NavigatorDotmediaDevicesRoute: NavigatorDotmediaDevicesRoute,
   NavigatorDotmediaDevicesDotenumerateDevicesRoute:
     NavigatorDotmediaDevicesDotenumerateDevicesRoute,
