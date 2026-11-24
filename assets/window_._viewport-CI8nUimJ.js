@@ -1,0 +1,1 @@
+import{j as e}from"./main-BH-LLekn.js";import{u as r}from"./useLocation-H4GxvTj9.js";import{O as t}from"./ObjectViewerPanel-5AQlxHLy.js";import{e as n}from"./resource-gklTq-dQ.js";function s(){const{pathname:o}=r();return e.jsx(t,{id:o,heading:"window.viewport",name:"window.viewport",resource:n(()=>window.viewport)})}export{s as component};

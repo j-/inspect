@@ -1,0 +1,1 @@
+import{j as n}from"./main-BH-LLekn.js";import{u as e}from"./useLocation-H4GxvTj9.js";import{O as t}from"./ObjectViewerPanel-5AQlxHLy.js";import{e as a}from"./resource-gklTq-dQ.js";function p(){const{pathname:o}=e();return n.jsx(t,{id:o,heading:"navigation",name:"navigation",resource:a(()=>navigation)})}export{p as component};
