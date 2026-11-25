@@ -130,7 +130,7 @@ export function lazyReactive<T extends EventTarget>(
   };
 }
 
-function makeValueSubscription<T extends EventTarget>(
+export function makeValueSubscription<T extends EventTarget>(
   ...eventTypes: string[]
 ): (value: unknown, trigger: () => void) => () => void {
   return (value, trigger) => {
