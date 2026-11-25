@@ -1,0 +1,1 @@
+import{j as e}from"./main-Dcv7qk-d.js";import{u as n}from"./useLocation-Df4K_Pm4.js";import{O as r}from"./ObjectViewerPanel-Kl451a1J.js";import{l as i}from"./resource-BY3fC2wy.js";function p(){const{pathname:o}=n();return e.jsx(r,{id:o,heading:"window.showOpenFilePicker()",resource:i(()=>window.showOpenFilePicker())})}export{p as component};

@@ -1,1 +1,0 @@
-import{u as r,j as n}from"./main-BH-LLekn.js";import{u as s}from"./useLocation-H4GxvTj9.js";import{O as u}from"./ObjectViewerPanel-5AQlxHLy.js";import{e as a}from"./resource-gklTq-dQ.js";function d(){const e=r(),{pathname:o}=s();return n.jsx(u,{id:o,heading:"useRouter()",name:"useRouter()",resource:a(()=>e),defaultIsExpanded:(m,t)=>t.length<3})}export{d as component};

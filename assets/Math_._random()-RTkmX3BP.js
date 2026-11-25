@@ -1,0 +1,1 @@
+import{j as e}from"./main-Dcv7qk-d.js";import{u as r}from"./useLocation-Df4K_Pm4.js";import{O as t}from"./ObjectViewerPanel-Kl451a1J.js";import{e as a}from"./resource-BY3fC2wy.js";function p(){const{pathname:o}=r();return e.jsx(t,{id:o,heading:"Math.random()",resource:a(()=>Math.random())})}export{p as component};

@@ -1,0 +1,1 @@
+import{j as t}from"./main-Dcv7qk-d.js";import{u as n}from"./useLocation-Df4K_Pm4.js";import{O as r}from"./ObjectViewerPanel-Kl451a1J.js";import{p as a}from"./resource-BY3fC2wy.js";function p(){const{pathname:o}=n();return t.jsx(r,{id:o,heading:"navigator.userActivation",name:"navigator.userActivation",resource:a(()=>navigator.userActivation,100)})}export{p as component};
