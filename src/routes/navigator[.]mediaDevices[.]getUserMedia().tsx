@@ -6,25 +6,35 @@ import { ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { useEffect, useRef, useState, type FC } from 'react';
+import { MediaConstraintsBuilder, parseMediaConstraints, type MediaOption } from '#/components/MediaConstraintsBuilder';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
 import { makeValueSubscription, polling } from '#/resource';
 import { codeTheme } from '#/theme';
 import { ObjectSymbol } from '#/viewer/ObjectSymbol';
 import { ObjectViewBoolean } from '#/viewer/ObjectViewBoolean';
+import { ObjectViewNull } from '#/viewer/ObjectViewNull';
+import { ObjectViewNumber } from '#/viewer/ObjectViewNumber';
+import { ObjectViewString } from '#/viewer/ObjectViewString';
 import { ObjectViewUndefined } from '#/viewer/ObjectViewUndefined';
+import { canRenderUnquotedPropertyKey } from '#/viewer/utils';
 
-type MediaOption = 'audio' | 'video';
-type MediaOptionValue = 'undefined' | 'false' | 'true';
-type MediaOptions = Partial<Record<MediaOption, boolean>>;
+type MediaOptionValue = 'undefined' | 'false' | 'true' | 'custom';
+type MediaOptions = Partial<Record<MediaOption, boolean | Record<string, unknown>>>;
 
 const RouteComponent: FC = () => {
   const { pathname } = useLocation();
   const [audio, setAudio] = useState<MediaOptionValue>('undefined');
   const [video, setVideo] = useState<MediaOptionValue>('undefined');
-  const options: MediaOptions = {};
-
-  if (audio !== 'undefined') options.audio = audio === 'true';
-  if (video !== 'undefined') options.video = video === 'true';
+  const [audioJson, setAudioJson] = useState('{}');
+  const [videoJson, setVideoJson] = useState('{}');
+  const audioConstraints = parseMediaConstraints(audioJson);
+  const videoConstraints = parseMediaConstraints(videoJson);
+  const audioValue = audio === 'custom' ? audioConstraints : audio === 'undefined' ? undefined : audio === 'true';
+  const videoValue = video === 'custom' ? videoConstraints : video === 'undefined' ? undefined : video === 'true';
+  const options: MediaOptions | null = audioValue === null || videoValue === null ? null : {
+    ...(audioValue === undefined ? {} : { audio: audioValue }),
+    ...(videoValue === undefined ? {} : { video: videoValue }),
+  };
 
   return (
     <Stack gap={1}>
@@ -32,7 +42,13 @@ const RouteComponent: FC = () => {
         <MediaOptionSelect id={pathname} name="audio" value={audio} onChange={setAudio} />
         <MediaOptionSelect id={pathname} name="video" value={video} onChange={setVideo} />
       </Stack>
-      <MediaRequestPanel key={`${audio}/${video}`} id={pathname} options={options} />
+      {audio === 'custom' && (
+        <MediaConstraintsBuilder track="audio" json={audioJson} constraints={audioConstraints} onChange={setAudioJson} />
+      )}
+      {video === 'custom' && (
+        <MediaConstraintsBuilder track="video" json={videoJson} constraints={videoConstraints} onChange={setVideoJson} />
+      )}
+      <MediaRequestPanel key={JSON.stringify(options)} id={pathname} options={options} />
     </Stack>
   );
 };
@@ -75,13 +91,14 @@ const MediaOptionSelect: FC<MediaOptionSelectProps> = ({ id, name, value, onChan
       <MenuItem value="undefined"><ObjectViewUndefined /></MenuItem>
       <MenuItem value="false"><ObjectViewBoolean value={false} /></MenuItem>
       <MenuItem value="true"><ObjectViewBoolean value={true} /></MenuItem>
+      <MenuItem value="custom">Custom…</MenuItem>
     </TextField>
   </ThemeProvider>
 );
 
 type MediaRequestPanelProps = {
   id: string;
-  options: MediaOptions;
+  options: MediaOptions | null;
 };
 
 const subscribeToStream = makeValueSubscription<MediaStream>('active', 'addtrack', 'inactive', 'removetrack');
@@ -105,6 +122,8 @@ const MediaRequestPanel: FC<MediaRequestPanelProps> = ({ id, options }) => {
   useEffect(() => stopCapture, []);
 
   const requestMedia = async () => {
+    if (!options) throw new TypeError('Enter valid media constraints');
+
     stopCapture();
     const request: MediaRequest = {};
     activeRequest.current = request;
@@ -135,15 +154,15 @@ const MediaRequestPanel: FC<MediaRequestPanelProps> = ({ id, options }) => {
         id={id}
         heading={<MediaRequestHeading options={options} />}
         name="navigator.mediaDevices.getUserMedia()"
-        resource={{
+        resource={options ? {
           autoEvaluate: false,
           evaluate: requestMedia,
           createValueSubscription: subscribeToActiveStream,
-        }}
-        actions={trackMethods.map((method) => ({
+        } : undefined}
+        actions={options ? trackMethods.map((method) => ({
           buttonProps: { children: <code>result.{method}()</code> },
           resource: (stream: unknown) => polling(() => (stream as MediaStream)[method](), 1000),
-        }))}
+        })) : undefined}
       />
       <Stack direction="row" gap={1} flexWrap="wrap">
         <Button
@@ -163,12 +182,10 @@ const MediaRequestPanel: FC<MediaRequestPanelProps> = ({ id, options }) => {
 };
 
 type MediaRequestHeadingProps = {
-  options: MediaOptions;
+  options: MediaOptions | null;
 };
 
 const MediaRequestHeading: FC<MediaRequestHeadingProps> = ({ options }) => {
-  const entries = Object.entries(options);
-
   return (
     <ThemeProvider theme={codeTheme}>
       <Box
@@ -185,24 +202,47 @@ const MediaRequestHeading: FC<MediaRequestHeadingProps> = ({ options }) => {
         }}
       >
         navigator.mediaDevices.<span className="method">getUserMedia</span>(
-        {entries.length === 0 ? null : (
-          <>
-            {'{\n'}
-            {entries.map(([name, value]) => (
-              <span key={name}>
-                {'  '}
-                <span className="property">{name}</span>
-                {': '}
-                <ObjectViewBoolean value={value} />
-                <ObjectSymbol>,</ObjectSymbol>
-                {'\n'}
-              </span>
-            ))}
-            {'}'}
-          </>
-        )}
-        {')'}
+        {options && Object.keys(options).length > 0 ? <MediaConstraintCode value={options} /> : null}
+        {options ? ')' : '…)'}
       </Box>
     </ThemeProvider>
+  );
+};
+
+type MediaConstraintCodeProps = {
+  value: unknown;
+  depth?: number;
+};
+
+const MediaConstraintCode: FC<MediaConstraintCodeProps> = ({ value, depth = 0 }) => {
+  if (value === null) return <ObjectViewNull />;
+  if (typeof value === 'boolean') return <ObjectViewBoolean value={value} />;
+  if (typeof value === 'number') return <ObjectViewNumber value={value} />;
+  if (typeof value === 'string') return <ObjectViewString value={value} />;
+  if (typeof value !== 'object') return <ObjectViewUndefined />;
+
+  const isArray = Array.isArray(value);
+  const entries = Object.entries(value);
+  return (
+    <>
+      {isArray ? '[' : '{'}
+      {entries.length > 0 && '\n'}
+      {entries.map(([name, item]) => (
+        <span key={name}>
+          {'  '.repeat(depth + 1)}
+          {!isArray && (
+            <>
+              <span className="property">{canRenderUnquotedPropertyKey(name) ? name : JSON.stringify(name)}</span>
+              {': '}
+            </>
+          )}
+          <MediaConstraintCode value={item} depth={depth + 1} />
+          <ObjectSymbol>,</ObjectSymbol>
+          {'\n'}
+        </span>
+      ))}
+      {entries.length > 0 && '  '.repeat(depth)}
+      {isArray ? ']' : '}'}
+    </>
   );
 };
