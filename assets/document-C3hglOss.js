@@ -1,1 +1,0 @@
-import{j as t}from"./main-BqE94auT.js";import{u as n}from"./useLocation-BcLT4Mdw.js";import{O as m}from"./ObjectViewerPanel-D5WU_II8.js";import{e as r}from"./resource-BY3fC2wy.js";function c(){const{pathname:e}=n();return t.jsx(m,{id:e,heading:"document",name:"document",resource:r(()=>document),defaultIsExpanded:(a,o)=>o.length<5})}export{c as component};

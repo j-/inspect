@@ -1,0 +1,1 @@
+import{j as t}from"./main-C_FWg0-a.js";import{u as n}from"./useLocation-CZJR2Zbn.js";import{O as r}from"./ObjectViewerPanel-CePF4f4I.js";import{p as a}from"./resource-BY3fC2wy.js";function p(){const{pathname:o}=n();return t.jsx(r,{id:o,heading:"navigator.userActivation",name:"navigator.userActivation",resource:a(()=>navigator.userActivation,100)})}export{p as component};
