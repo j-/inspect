@@ -1,1 +1,0 @@
-import{j as n}from"./main-Dcv7qk-d.js";import{u as e}from"./useLocation-Df4K_Pm4.js";import{O as t}from"./ObjectViewerPanel-Kl451a1J.js";import{e as a}from"./resource-BY3fC2wy.js";function p(){const{pathname:o}=e();return n.jsx(t,{id:o,heading:"navigation",name:"navigation",resource:a(()=>navigation)})}export{p as component};

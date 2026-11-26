@@ -1,1 +1,0 @@
-import{j as n}from"./main-Dcv7qk-d.js";import{u as o}from"./useLocation-Df4K_Pm4.js";import{O as t}from"./ObjectViewerPanel-Kl451a1J.js";import{a as r}from"./resource-BY3fC2wy.js";function m(){const{pathname:e}=o();return n.jsx(t,{id:e,heading:"window.getScreenDetails()",resource:r(()=>window.getScreenDetails(),"screenschange","currentscreenchange")})}export{m as component};
