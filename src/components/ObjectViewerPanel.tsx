@@ -18,8 +18,10 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { ActionSection, type ActionSectionProps } from './ActionSection';
 import type { Resource, ResourceState } from '#/resource';
 import { codeTheme } from '#/theme';
+import { ObjectViewPromiseStatus } from '#/viewer/ObjectViewPromise';
 import type { FilterKeysPredicate, IsExpandedFunction } from '#/viewer/types';
 import type { PathCommentFunction } from '#/viewer/types';
+import { isPromise } from '#/viewer/utils';
 import { Viewer } from '#/viewer/Viewer';
 
 export type ObjectViewerPanelProps = Omit<PaperProps, 'resource'> & {
@@ -50,22 +52,31 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
     resource?.autoEvaluate ? { status: 'pending' } : { status: 'idle' },
   );
   const [viewerKey, setViewerKey] = useState(0);
+  const evaluationRef = useRef<symbol | null>(null);
   const valueCleanupRef = useRef<(() => void) | undefined>(undefined);
   const doEvaluateRef = useRef<((remount?: boolean) => Promise<void>) | undefined>(undefined);
 
-  // Core async evaluation — no synchronous setState. Safe to call from effects
-  // and subscription callbacks. `remount` forces the Viewer subtree to
-  // remount; skip it for background/live updates (e.g. polling) so hovering
-  // state (like open tooltips) isn't disrupted every time a value refreshes.
+  // Keep the current viewer visible during background updates so its
+  // expansion and hover state survive refreshes.
   const doEvaluate = useCallback(async (remount = true) => {
     if (!resource) return;
+    const evaluation = Symbol();
+    evaluationRef.current = evaluation;
 
     // Tear down any subscription attached to the previous value.
     valueCleanupRef.current?.();
     valueCleanupRef.current = undefined;
 
+    let awaitingPromise = false;
     try {
-      const value = await resource.evaluate();
+      const result = resource.evaluate();
+      const fromPromise = isPromise(result);
+      awaitingPromise = fromPromise;
+      if (fromPromise && remount) setState({ status: 'pending', fromPromise });
+      const value = await result;
+      awaitingPromise = false;
+
+      if (evaluation !== evaluationRef.current) return;
 
       if (resource.createValueSubscription) {
         // Create a stable wrapper so removeEventListener can match the same ref.
@@ -73,10 +84,11 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
         valueCleanupRef.current = resource.createValueSubscription(value, trigger);
       }
 
-      setState({ status: 'success', value, evaluatedAt: Date.now() });
+      setState({ status: 'success', value, fromPromise, evaluatedAt: Date.now() });
       if (remount) setViewerKey((k) => k + 1);
     } catch (error) {
-      setState({ status: 'error', error, evaluatedAt: Date.now() });
+      if (evaluation !== evaluationRef.current) return;
+      setState({ status: 'error', error, fromPromise: awaitingPromise, evaluatedAt: Date.now() });
     }
   }, [resource]);
 
@@ -89,6 +101,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   // Tear down the value subscription when the component unmounts.
   useEffect(() => {
     return () => {
+      evaluationRef.current = null;
       valueCleanupRef.current?.();
     };
   }, []);
@@ -114,6 +127,21 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   const isPending = state.status === 'pending';
   const isSuccess = state.status === 'success';
   const isError = state.status === 'error';
+  const promiseStatus = state.status !== 'idle' && state.fromPromise
+    ? isPending ? 'pending' : isError ? 'rejected' : 'fulfilled'
+    : undefined;
+  const viewer = isSuccess || (isError && promiseStatus) ? (
+    <Viewer
+      id={id}
+      key={viewerKey}
+      object={isSuccess ? state.value : state.error}
+      name={isSuccess ? name : 'error'}
+      defaultIsExpanded={defaultIsExpanded}
+      filterKeys={filterKeys}
+      getComment={getComment}
+      useGetThisObject={useGetThisObject}
+    />
+  ) : null;
 
   return (
     <Stack gap={2}>
@@ -180,7 +208,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
         </Stack>
       )}
 
-      {isError && (
+      {isError && !promiseStatus && (
         <Box color="error.main">
           <strong>Error:</strong>{' '}
           {state.error instanceof Error
@@ -189,7 +217,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
         </Box>
       )}
 
-      {isSuccess && (
+      {(isSuccess || promiseStatus) && (
         <Box sx={{ lineHeight: '1.2em', fontFamily: 'monospace' }}>
           <ErrorBoundary
             fallbackRender={({ error }) => (
@@ -199,16 +227,9 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
             )}
           >
             <ThemeProvider theme={codeTheme}>
-              <Viewer
-                id={id}
-                key={viewerKey}
-                object={state.value}
-                name={name}
-                defaultIsExpanded={defaultIsExpanded}
-                filterKeys={filterKeys}
-                getComment={getComment}
-                useGetThisObject={useGetThisObject}
-              />
+              {promiseStatus ? (
+                <ObjectViewPromiseStatus status={promiseStatus}>{viewer}</ObjectViewPromiseStatus>
+              ) : viewer}
             </ThemeProvider>
           </ErrorBoundary>
         </Box>

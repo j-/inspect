@@ -1,8 +1,8 @@
 export type ResourceState<T = unknown> =
   | { status: 'idle' }
-  | { status: 'pending' }
-  | { status: 'success'; value: T; evaluatedAt: number }
-  | { status: 'error'; error: unknown; evaluatedAt: number };
+  | { status: 'pending'; fromPromise?: boolean }
+  | { status: 'success'; value: T; fromPromise?: boolean; evaluatedAt: number }
+  | { status: 'error'; error: unknown; fromPromise?: boolean; evaluatedAt: number };
 
 export interface Resource<T = unknown> {
   /** Whether to call evaluate() automatically on mount. */
