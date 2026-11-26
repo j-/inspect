@@ -1,7 +1,8 @@
 import Stack from '@mui/material/Stack';
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
-import { eager, reactive } from '#/resource';
+import { PermissionPanel } from '#/components/PermissionPanel';
+import { eager } from '#/resource';
 
 export const Route = createFileRoute('/navigator.mediaDevices')({
   component: RouteComponent,
@@ -12,35 +13,11 @@ function RouteComponent() {
 
   return (
     <Stack gap={4}>
-      <ObjectViewerPanel
-        id={pathname + '#queryPermissionCamera'}
-        heading={'"camera" permission'}
-        resource={reactive(() => (
-          navigator.permissions.query({
-            name: 'camera' as PermissionName,
-          })
-        ), 'change')}
-      />
+      <PermissionPanel id={pathname + '#queryPermissionCamera'} name="camera" />
 
-      <ObjectViewerPanel
-        id={pathname + '#queryPermissionMicrophone'}
-        heading={'"microphone" permission'}
-        resource={reactive(() => (
-          navigator.permissions.query({
-            name: 'microphone' as PermissionName,
-          })
-        ), 'change')}
-      />
+      <PermissionPanel id={pathname + '#queryPermissionMicrophone'} name="microphone" />
 
-      <ObjectViewerPanel
-        id={pathname + '#queryPermissionDisplayCapture'}
-        heading={'"display-capture" permission'}
-        resource={reactive(() => (
-          navigator.permissions.query({
-            name: 'display-capture' as PermissionName,
-          })
-        ), 'change')}
-      />
+      <PermissionPanel id={pathname + '#queryPermissionDisplayCapture'} name="display-capture" />
 
       <ObjectViewerPanel
         id={pathname}

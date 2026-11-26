@@ -1,7 +1,8 @@
 import Stack from '@mui/material/Stack';
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
-import { lazy, reactive } from '#/resource';
+import { PermissionPanel } from '#/components/PermissionPanel';
+import { lazy } from '#/resource';
 
 export const Route = createFileRoute(
   '/navigator.geolocation.getCurrentPosition()',
@@ -14,15 +15,7 @@ function RouteComponent() {
 
   return (
     <Stack gap={4}>
-      <ObjectViewerPanel
-        id={pathname + '#queryPermission'}
-        heading="geolocation permission"
-        resource={reactive(() => (
-          navigator.permissions.query({
-            name: 'geolocation' as PermissionName,
-          })
-        ), 'change')}
-      />
+      <PermissionPanel id={pathname + '#queryPermission'} name="geolocation" />
 
       <ObjectViewerPanel
         id={pathname}

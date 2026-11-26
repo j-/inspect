@@ -1,7 +1,8 @@
 import Stack from '@mui/material/Stack';
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
-import { lazy, reactive } from '#/resource';
+import { PermissionPanel } from '#/components/PermissionPanel';
+import { lazy } from '#/resource';
 
 export const Route = createFileRoute('/window.queryLocalFonts()')({
   component: RouteComponent,
@@ -12,15 +13,7 @@ function RouteComponent() {
 
   return (
     <Stack gap={4}>
-      <ObjectViewerPanel
-        id={pathname + '#queryPermission'}
-        heading="local-fonts permission"
-        resource={reactive(() => (
-          navigator.permissions.query({
-            name: 'local-fonts' as PermissionName,
-          })
-        ), 'change')}
-      />
+      <PermissionPanel id={pathname + '#queryPermission'} name="local-fonts" />
 
       <ObjectViewerPanel
         id={pathname}
