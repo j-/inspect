@@ -21,6 +21,7 @@ import { Route as WindowRouteImport } from './routes/window'
 import { Route as UseRouterStateRouteImport } from './routes/useRouterState()'
 import { Route as UseRouterRouteImport } from './routes/useRouter()'
 import { Route as UseLocationRouteImport } from './routes/useLocation()'
+import { Route as SensorsRouteImport } from './routes/sensors'
 import { Route as NavigatorDotwakeLockRouteImport } from './routes/navigator[.]wakeLock'
 import { Route as NavigatorDotuserActivationRouteImport } from './routes/navigator[.]userActivation'
 import { Route as NavigatorDotstorageDotestimateRouteImport } from './routes/navigator[.]storage[.]estimate()'
@@ -120,6 +121,11 @@ const UseRouterRoute = UseRouterRouteImport.update({
 const UseLocationRoute = UseLocationRouteImport.update({
   id: '/useLocation()',
   path: '/useLocation()',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SensorsRoute = SensorsRouteImport.update({
+  id: '/sensors',
+  path: '/sensors',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NavigatorDotwakeLockRoute = NavigatorDotwakeLockRouteImport.update({
@@ -356,6 +362,7 @@ export interface FileRoutesByFullPath {
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/navigator.userActivation': typeof NavigatorDotuserActivationRoute
   '/navigator.wakeLock': typeof NavigatorDotwakeLockRoute
+  '/sensors': typeof SensorsRoute
   '/useLocation()': typeof UseLocationRoute
   '/useRouter()': typeof UseRouterRoute
   '/useRouterState()': typeof UseRouterStateRoute
@@ -406,6 +413,7 @@ export interface FileRoutesByTo {
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/navigator.userActivation': typeof NavigatorDotuserActivationRoute
   '/navigator.wakeLock': typeof NavigatorDotwakeLockRoute
+  '/sensors': typeof SensorsRoute
   '/useLocation()': typeof UseLocationRoute
   '/useRouter()': typeof UseRouterRoute
   '/useRouterState()': typeof UseRouterStateRoute
@@ -457,6 +465,7 @@ export interface FileRoutesById {
   '/navigator.storage.estimate()': typeof NavigatorDotstorageDotestimateRoute
   '/navigator.userActivation': typeof NavigatorDotuserActivationRoute
   '/navigator.wakeLock': typeof NavigatorDotwakeLockRoute
+  '/sensors': typeof SensorsRoute
   '/useLocation()': typeof UseLocationRoute
   '/useRouter()': typeof UseRouterRoute
   '/useRouterState()': typeof UseRouterStateRoute
@@ -509,6 +518,7 @@ export interface FileRouteTypes {
     | '/navigator.storage.estimate()'
     | '/navigator.userActivation'
     | '/navigator.wakeLock'
+    | '/sensors'
     | '/useLocation()'
     | '/useRouter()'
     | '/useRouterState()'
@@ -559,6 +569,7 @@ export interface FileRouteTypes {
     | '/navigator.storage.estimate()'
     | '/navigator.userActivation'
     | '/navigator.wakeLock'
+    | '/sensors'
     | '/useLocation()'
     | '/useRouter()'
     | '/useRouterState()'
@@ -609,6 +620,7 @@ export interface FileRouteTypes {
     | '/navigator.storage.estimate()'
     | '/navigator.userActivation'
     | '/navigator.wakeLock'
+    | '/sensors'
     | '/useLocation()'
     | '/useRouter()'
     | '/useRouterState()'
@@ -660,6 +672,7 @@ export interface RootRouteChildren {
   NavigatorDotstorageDotestimateRoute: typeof NavigatorDotstorageDotestimateRoute
   NavigatorDotuserActivationRoute: typeof NavigatorDotuserActivationRoute
   NavigatorDotwakeLockRoute: typeof NavigatorDotwakeLockRoute
+  SensorsRoute: typeof SensorsRoute
   UseLocationRoute: typeof UseLocationRoute
   UseRouterRoute: typeof UseRouterRoute
   UseRouterStateRoute: typeof UseRouterStateRoute
@@ -758,6 +771,13 @@ declare module '@tanstack/react-router' {
       path: '/useLocation()'
       fullPath: '/useLocation()'
       preLoaderRoute: typeof UseLocationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sensors': {
+      id: '/sensors'
+      path: '/sensors'
+      fullPath: '/sensors'
+      preLoaderRoute: typeof SensorsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/navigator.wakeLock': {
@@ -1062,6 +1082,7 @@ const rootRouteChildren: RootRouteChildren = {
   NavigatorDotstorageDotestimateRoute: NavigatorDotstorageDotestimateRoute,
   NavigatorDotuserActivationRoute: NavigatorDotuserActivationRoute,
   NavigatorDotwakeLockRoute: NavigatorDotwakeLockRoute,
+  SensorsRoute: SensorsRoute,
   UseLocationRoute: UseLocationRoute,
   UseRouterRoute: UseRouterRoute,
   UseRouterStateRoute: UseRouterStateRoute,
