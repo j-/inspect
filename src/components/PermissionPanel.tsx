@@ -3,6 +3,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { useMemo, useState, type FC } from 'react';
 import { ObjectViewerPanel } from './ObjectViewerPanel';
+import { queryPermission } from '#/permissions';
 import { reactive } from '#/resource';
 import { ObjectViewString } from '#/viewer/ObjectViewString.tsx';
 
@@ -22,9 +23,7 @@ export const PermissionPanel: FC<PermissionPanelProps> = ({ id, name }) => {
 
   const resource = useMemo(() => reactive(async () => {
     try {
-      const status = await navigator.permissions.query({
-        name: name as PermissionName,
-      });
+      const status = await queryPermission(name);
       setState(status.state);
       return status;
     } catch (error) {
