@@ -18,10 +18,11 @@ export interface Resource<T = unknown> {
    * Optional: register event-based triggers using the *resolved value* itself
    * as the event target. Called after each successful evaluation with the
    * resolved value. Must return a cleanup function.
+   * Call refresh to render the same value again when evaluation has side effects.
    * Use this when the event source is the object being inspected
    * (e.g. a BatteryManager, MediaStream, etc.) rather than an external target.
    */
-  createValueSubscription?: (value: unknown, trigger: () => void) => () => void;
+  createValueSubscription?: (value: unknown, trigger: () => void, refresh: () => void) => () => void;
   /** Label for the action button when status is 'idle'. Defaults to 'Evaluate'. */
   label?: string;
 }

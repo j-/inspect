@@ -81,7 +81,10 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
       if (resource.createValueSubscription) {
         // Create a stable wrapper so removeEventListener can match the same ref.
         const trigger = () => doEvaluateRef.current?.(false);
-        valueCleanupRef.current = resource.createValueSubscription(value, trigger);
+        const refresh = () => {
+          if (evaluation === evaluationRef.current) setState((current) => ({ ...current }));
+        };
+        valueCleanupRef.current = resource.createValueSubscription(value, trigger, refresh);
       }
 
       setState({ status: 'success', value, fromPromise, evaluatedAt: Date.now() });
@@ -133,7 +136,6 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
   const viewer = isSuccess || (isError && promiseStatus) ? (
     <Viewer
       id={id}
-      key={viewerKey}
       object={isSuccess ? state.value : state.error}
       name={isSuccess ? name : 'error'}
       defaultIsExpanded={defaultIsExpanded}
@@ -220,6 +222,7 @@ const ObjectViewerPanelInner: FC<ObjectViewerPanelProps> = ({
       {(isSuccess || promiseStatus) && (
         <Box sx={{ lineHeight: '1.2em', fontFamily: 'monospace' }}>
           <ErrorBoundary
+            key={viewerKey}
             fallbackRender={({ error }) => (
               <Box color="error.main">
                 <strong>Error:</strong> {(error as Error).message}

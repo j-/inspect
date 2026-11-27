@@ -5,17 +5,16 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
 import { ThemeProvider } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { useEffect, useRef, useState, type FC, type ReactNode } from 'react';
 import { ObjectViewerPanel } from '#/components/ObjectViewerPanel';
+import { RequestOptionField } from '#/components/RequestOptionField';
 import { eager } from '#/resource';
 import { codeTheme } from '#/theme';
 import { ObjectSymbol } from '#/viewer/ObjectSymbol';
 import { ObjectViewBoolean } from '#/viewer/ObjectViewBoolean';
 import { ObjectViewString } from '#/viewer/ObjectViewString';
-import { ObjectViewUndefined } from '#/viewer/ObjectViewUndefined';
 
 const RouteComponent: FC = () => {
   const { pathname } = useLocation();
@@ -314,34 +313,16 @@ const LockOptionSelect: FC<LockOptionSelectProps> = ({
   }[name];
 
   return (
-    <ThemeProvider theme={codeTheme}>
-      <TextField
-        id={`${id}/${name}`}
-        select
-        size="small"
-        label={<code>{name}</code>}
-        value={value}
-        disabled={disabled}
-        onChange={(event) => onChange(event.target.value)}
-        sx={(theme) => ({
-          fontFamily: 'monospace',
-          fontSize: theme.typography.body1.fontSize,
-          width: `calc(${longestOption.length}ch + 48px)`,
-          flexShrink: 0,
-          '& .MuiSelect-select': { py: 0.5 },
-          ...(value === 'undefined' && {
-            '& .MuiSelect-select .MuiTypography-root': { color: 'text.secondary' },
-            '& .MuiInputLabel-root:not(.Mui-focused)': { color: 'text.secondary' },
-            '& .MuiOutlinedInput-root:not(:hover):not(.Mui-focused) .MuiOutlinedInput-notchedOutline': {
-              borderColor: 'divider',
-            },
-          }),
-        })}
-      >
-        <MenuItem value="undefined"><ObjectViewUndefined /></MenuItem>
-        {children}
-      </TextField>
-    </ThemeProvider>
+    <RequestOptionField
+      id={`${id}/${name}`}
+      label={name}
+      value={value}
+      disabled={disabled}
+      longestValue={longestOption}
+      onChange={onChange}
+    >
+      {children}
+    </RequestOptionField>
   );
 };
 

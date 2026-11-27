@@ -16,6 +16,7 @@ import {
   orderedKeys,
   renderFullPath,
 } from './utils';
+import { getPictureInPictureWindowKeys } from '#/pictureInPicture';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 const isComplex = (value: unknown, types: Function[]) => (
@@ -49,8 +50,10 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
   const { rootName, thisPath, filterKeys, getComment } = useViewerContext();
   const [isCollapsed, setIsCollapsed] = useIsCollapsed();
   const canCollapse = useCanCollapse();
+  const pictureInPictureKeys = getPictureInPictureWindowKeys(parent);
+  const visibleKeys = pictureInPictureKeys ? keys.filter(({ key }) => pictureInPictureKeys.has(key)) : keys;
 
-  if (keys.length === 0) {
+  if (visibleKeys.length === 0) {
     return (
       <ObjectSymbol>
         {'{}'}
@@ -76,7 +79,7 @@ export const ObjectViewObject: FC<ObjectViewObjectProps> = ({
 
       {isCollapsed ? null : (
         <Box component="ul" p={0} m={0} ml="2ch">
-          {keys.map((descriptor, i, arr) => {
+          {visibleKeys.map((descriptor, i, arr) => {
             const { key, kind } = descriptor;
             const keyName = String(key);
             const CustomView = customViews.get(keyName);

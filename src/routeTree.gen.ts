@@ -17,6 +17,7 @@ import { Route as WindowDotqueryLocalFontsRouteImport } from './routes/window[.]
 import { Route as WindowDotperformanceRouteImport } from './routes/window[.]performance'
 import { Route as WindowDotgetScreenDetailsRouteImport } from './routes/window[.]getScreenDetails()'
 import { Route as WindowDotgetComputedStyleRouteImport } from './routes/window[.]getComputedStyle()'
+import { Route as WindowDotdocumentPictureInPictureRouteImport } from './routes/window[.]documentPictureInPicture'
 import { Route as WindowRouteImport } from './routes/window'
 import { Route as UseRouterStateRouteImport } from './routes/useRouterState()'
 import { Route as UseRouterRouteImport } from './routes/useRouter()'
@@ -56,6 +57,7 @@ import { Route as TemporalRouteImport } from './routes/Temporal'
 import { Route as NotificationDotrequestPermissionRouteImport } from './routes/Notification[.]requestPermission()'
 import { Route as MathDotrandomRouteImport } from './routes/Math[.]random()'
 import { Route as ImageRouteImport } from './routes/Image()'
+import { Route as HTMLVideoElementDotrequestPictureInPictureRouteImport } from './routes/HTMLVideoElement[.]requestPictureInPicture()'
 import { Route as DataTransferRouteImport } from './routes/DataTransfer()'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -101,6 +103,12 @@ const WindowDotgetComputedStyleRoute =
   WindowDotgetComputedStyleRouteImport.update({
     id: '/window.getComputedStyle()',
     path: '/window.getComputedStyle()',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const WindowDotdocumentPictureInPictureRoute =
+  WindowDotdocumentPictureInPictureRouteImport.update({
+    id: '/window.documentPictureInPicture',
+    path: '/window.documentPictureInPicture',
     getParentRoute: () => rootRouteImport,
   } as any)
 const WindowRoute = WindowRouteImport.update({
@@ -314,6 +322,12 @@ const ImageRoute = ImageRouteImport.update({
   path: '/Image()',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HTMLVideoElementDotrequestPictureInPictureRoute =
+  HTMLVideoElementDotrequestPictureInPictureRouteImport.update({
+    id: '/HTMLVideoElement.requestPictureInPicture()',
+    path: '/HTMLVideoElement.requestPictureInPicture()',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const DataTransferRoute = DataTransferRouteImport.update({
   id: '/DataTransfer()',
   path: '/DataTransfer()',
@@ -328,6 +342,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/DataTransfer()': typeof DataTransferRoute
+  '/HTMLVideoElement.requestPictureInPicture()': typeof HTMLVideoElementDotrequestPictureInPictureRoute
   '/Image()': typeof ImageRoute
   '/Math.random()': typeof MathDotrandomRoute
   '/Notification.requestPermission()': typeof NotificationDotrequestPermissionRoute
@@ -367,6 +382,7 @@ export interface FileRoutesByFullPath {
   '/useRouter()': typeof UseRouterRoute
   '/useRouterState()': typeof UseRouterStateRoute
   '/window': typeof WindowRoute
+  '/window.documentPictureInPicture': typeof WindowDotdocumentPictureInPictureRoute
   '/window.getComputedStyle()': typeof WindowDotgetComputedStyleRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
   '/window.performance': typeof WindowDotperformanceRoute
@@ -379,6 +395,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/DataTransfer()': typeof DataTransferRoute
+  '/HTMLVideoElement.requestPictureInPicture()': typeof HTMLVideoElementDotrequestPictureInPictureRoute
   '/Image()': typeof ImageRoute
   '/Math.random()': typeof MathDotrandomRoute
   '/Notification.requestPermission()': typeof NotificationDotrequestPermissionRoute
@@ -418,6 +435,7 @@ export interface FileRoutesByTo {
   '/useRouter()': typeof UseRouterRoute
   '/useRouterState()': typeof UseRouterStateRoute
   '/window': typeof WindowRoute
+  '/window.documentPictureInPicture': typeof WindowDotdocumentPictureInPictureRoute
   '/window.getComputedStyle()': typeof WindowDotgetComputedStyleRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
   '/window.performance': typeof WindowDotperformanceRoute
@@ -431,6 +449,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/DataTransfer()': typeof DataTransferRoute
+  '/HTMLVideoElement.requestPictureInPicture()': typeof HTMLVideoElementDotrequestPictureInPictureRoute
   '/Image()': typeof ImageRoute
   '/Math.random()': typeof MathDotrandomRoute
   '/Notification.requestPermission()': typeof NotificationDotrequestPermissionRoute
@@ -470,6 +489,7 @@ export interface FileRoutesById {
   '/useRouter()': typeof UseRouterRoute
   '/useRouterState()': typeof UseRouterStateRoute
   '/window': typeof WindowRoute
+  '/window.documentPictureInPicture': typeof WindowDotdocumentPictureInPictureRoute
   '/window.getComputedStyle()': typeof WindowDotgetComputedStyleRoute
   '/window.getScreenDetails()': typeof WindowDotgetScreenDetailsRoute
   '/window.performance': typeof WindowDotperformanceRoute
@@ -484,6 +504,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/DataTransfer()'
+    | '/HTMLVideoElement.requestPictureInPicture()'
     | '/Image()'
     | '/Math.random()'
     | '/Notification.requestPermission()'
@@ -523,6 +544,7 @@ export interface FileRouteTypes {
     | '/useRouter()'
     | '/useRouterState()'
     | '/window'
+    | '/window.documentPictureInPicture'
     | '/window.getComputedStyle()'
     | '/window.getScreenDetails()'
     | '/window.performance'
@@ -535,6 +557,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/DataTransfer()'
+    | '/HTMLVideoElement.requestPictureInPicture()'
     | '/Image()'
     | '/Math.random()'
     | '/Notification.requestPermission()'
@@ -574,6 +597,7 @@ export interface FileRouteTypes {
     | '/useRouter()'
     | '/useRouterState()'
     | '/window'
+    | '/window.documentPictureInPicture'
     | '/window.getComputedStyle()'
     | '/window.getScreenDetails()'
     | '/window.performance'
@@ -586,6 +610,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/DataTransfer()'
+    | '/HTMLVideoElement.requestPictureInPicture()'
     | '/Image()'
     | '/Math.random()'
     | '/Notification.requestPermission()'
@@ -625,6 +650,7 @@ export interface FileRouteTypes {
     | '/useRouter()'
     | '/useRouterState()'
     | '/window'
+    | '/window.documentPictureInPicture'
     | '/window.getComputedStyle()'
     | '/window.getScreenDetails()'
     | '/window.performance'
@@ -638,6 +664,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DataTransferRoute: typeof DataTransferRoute
+  HTMLVideoElementDotrequestPictureInPictureRoute: typeof HTMLVideoElementDotrequestPictureInPictureRoute
   ImageRoute: typeof ImageRoute
   MathDotrandomRoute: typeof MathDotrandomRoute
   NotificationDotrequestPermissionRoute: typeof NotificationDotrequestPermissionRoute
@@ -677,6 +704,7 @@ export interface RootRouteChildren {
   UseRouterRoute: typeof UseRouterRoute
   UseRouterStateRoute: typeof UseRouterStateRoute
   WindowRoute: typeof WindowRoute
+  WindowDotdocumentPictureInPictureRoute: typeof WindowDotdocumentPictureInPictureRoute
   WindowDotgetComputedStyleRoute: typeof WindowDotgetComputedStyleRoute
   WindowDotgetScreenDetailsRoute: typeof WindowDotgetScreenDetailsRoute
   WindowDotperformanceRoute: typeof WindowDotperformanceRoute
@@ -743,6 +771,13 @@ declare module '@tanstack/react-router' {
       path: '/window.getComputedStyle()'
       fullPath: '/window.getComputedStyle()'
       preLoaderRoute: typeof WindowDotgetComputedStyleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/window.documentPictureInPicture': {
+      id: '/window.documentPictureInPicture'
+      path: '/window.documentPictureInPicture'
+      fullPath: '/window.documentPictureInPicture'
+      preLoaderRoute: typeof WindowDotdocumentPictureInPictureRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/window': {
@@ -1018,6 +1053,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ImageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/HTMLVideoElement.requestPictureInPicture()': {
+      id: '/HTMLVideoElement.requestPictureInPicture()'
+      path: '/HTMLVideoElement.requestPictureInPicture()'
+      fullPath: '/HTMLVideoElement.requestPictureInPicture()'
+      preLoaderRoute: typeof HTMLVideoElementDotrequestPictureInPictureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/DataTransfer()': {
       id: '/DataTransfer()'
       path: '/DataTransfer()'
@@ -1038,6 +1080,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DataTransferRoute: DataTransferRoute,
+  HTMLVideoElementDotrequestPictureInPictureRoute:
+    HTMLVideoElementDotrequestPictureInPictureRoute,
   ImageRoute: ImageRoute,
   MathDotrandomRoute: MathDotrandomRoute,
   NotificationDotrequestPermissionRoute: NotificationDotrequestPermissionRoute,
@@ -1087,6 +1131,8 @@ const rootRouteChildren: RootRouteChildren = {
   UseRouterRoute: UseRouterRoute,
   UseRouterStateRoute: UseRouterStateRoute,
   WindowRoute: WindowRoute,
+  WindowDotdocumentPictureInPictureRoute:
+    WindowDotdocumentPictureInPictureRoute,
   WindowDotgetComputedStyleRoute: WindowDotgetComputedStyleRoute,
   WindowDotgetScreenDetailsRoute: WindowDotgetScreenDetailsRoute,
   WindowDotperformanceRoute: WindowDotperformanceRoute,
