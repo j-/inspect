@@ -1,0 +1,1 @@
+import{j as e}from"./main-lufb0Hv2.js";import{u as r}from"./useLocation-Aj4MNAco.js";import{O as t}from"./ObjectViewerPanel-_CMyugQ7.js";import{e as a}from"./resource-BY3fC2wy.js";function p(){const{pathname:o}=r();return e.jsx(t,{id:o,heading:"navigator",name:"navigator",resource:a(()=>navigator)})}export{p as component};
